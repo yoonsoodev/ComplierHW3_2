@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Symbol.c - Symbol table management
  */
 
@@ -98,27 +98,26 @@ int SymbolTable()
 	for (int i = 0; i<yyleng; i++) {
 		ST[nextfree++] = yytext[i];
 	}
-	ST[nextfree++] = '\0';
+	ST[nextfree++] = '\0'; // identifier의 가장 마지막에는 \0이 들어옴 -> Identifier 출력 시 start index부터 \까지 출력하도록 하면 됨
 
 	ComputeHS(nextid, nextfree);
 	LookupHS(nextid, hashcode);
+
 	if (!found) {
-		printf("%6d          TIDENT     %7d\t", cLine, nextid);
-		for (int i = nextid; i< nextfree-1; i++)
-			printf("%c", ST[i]);
-		printf("\t(entered)\n");
-		
 		ADDHT(hashcode);
 		nextid = nextfree;
 	}
 	else {
-		printf("%6d          TIDENT     %7d\t", cLine, sameid);
-		for (int i = nextid; i < nextfree - 1; i++)
-			printf("%c", ST[i]);
-		printf("\t(already existed)\n");
-		
-		nextfree = nextid;
+		nextfree = nextid; // 이미 있는 경우에는 symboltable에 저장 안함
+		// 변수 재정의 되었다고 출력하는 에러 생성 시 여기서 만지면 될듯
 	}
-	
 	return 1;
 }
+
+/*
+ Identifier 속성
+• 문자와 숫자로 구성하는 문자열, 단, 문자 는 a ..z, A, ..Z, _ 만 가능함
+• 숫자로 시작할 수 없음
+• 대 소문자 구분 없음
+• 12자 이내
+*/

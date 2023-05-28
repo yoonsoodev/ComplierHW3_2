@@ -28,7 +28,7 @@ dcl_specifiers 		: dcl_specifier					{semantic(9);}
 dcl_specifier 		: type_qualifier					{semantic(11);}
 			| type_specifier				{semantic(12);};
 type_qualifier 		: tconst					{semantic(13);};
-type_specifier 		: tint						{semantic(14);}
+type_specifier 		: tint						{semantic(14);}  /*함수 타입 지정*/
 		 	| tvoid						{semantic(15);};
 function_name 	: tident						{semantic(16);};
 formal_param 		: '(' opt_formal_param ')' 			{semantic(17);};

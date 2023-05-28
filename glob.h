@@ -24,6 +24,8 @@ int cLine;
 //int i, j, cErrors; //?
 
 int found;
+int isFunction; // 함수 인 지 아닌 지 판단 -> parser.y 에서 변경
+int isArray; // array 변수인 지 아닌 지 판단 -> parser.y 에서 변경
 
 enum errorTypes { noerror, illid_digit, illid_long, illid_illch, illid_illegal, overst };
 typedef enum errorTypes ERRORtypes;
