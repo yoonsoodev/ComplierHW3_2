@@ -40,5 +40,8 @@
     <None Include="scanner.l">
       <Filter>리소스 파일</Filter>
     </None>
+    <None Include="parser.y">
+      <Filter>리소스 파일</Filter>
+    </None>
   </ItemGroup>
 </Project>
