@@ -75,31 +75,52 @@ void LookupHS(int nid,int hscode)
  */
 void ADDHT(int hscode)
 {
+	// initialize 하는 부분임
+	// 일단 symboltable에 저장해놓고 parser에 돌림 -> 값 변경됨 
 	HTpointer ptr;
 
 	ptr = (HTpointer)malloc(sizeof(ptr));
-	ptr->index = nextid; //ST의 start인덱스 넣어줌
-	ptr->next = HT[hscode];
-	HT[hscode] = ptr;
+	// 맨 처음 들어온 identifier
+	if (HT[hscode] == NULL)
+	{
+		ptr->type = 0;
+		ptr->next = NULL;
+		HT[hscode] = ptr;
+		ptr->index = nextid;
+		ptr->func_idx = -1;
+		ptr->isConst = 0;
+		current_id = ptr;
+	}
+	// 이미 identifier가 추가되어 있는 경우
+	else {
+		ptr->type = 0;
+		ptr->index = nextid;
+		ptr->next = HT[hscode]; // 이미 추가된 identifier와 이어줌
+		HT[hscode] = ptr;
+		current_id = ptr;
+		ptr->isConst = 0;
+		ptr->func_idx = -1;
+	}
 }
 
 /*
  * SymbolTable() - If read the identifier, symbol table management 
- * Scanner에서 TIDENT 인식 -> Parser.y에서 isFunction/isArray 판단 및 parameter 파악해서 해당 값 변경해서 넘겨줌 -> Symboltable에서 해당 값들 저장
+ * Scanner에서 TIDENT 인식 -> Parser.y에서 값 변경해서 넘겨줌 -> Symboltable에서 해당 값들 저장
  */
 int SymbolTable()
 {
 	err = noerror;
+
+	//READ identifier
+	for (int i = 0; i < yyleng; i++) {
+		ST[nextfree++] = yytext[i];
+	}
+	ST[nextfree++] = '\0'; // identifier의 가장 마지막에는 \0이 들어옴 -> Identifier 출력 시 start index부터 \0까지 출력하도록 하면 됨
+
 	if((nextfree == STsize) || ((nextfree+yyleng) > STsize)) {
 		err = overst;
 		PrintError(err);
 	}
-
-	//READ identifier
-	for (int i = 0; i<yyleng; i++) {
-		ST[nextfree++] = yytext[i];
-	}
-	ST[nextfree++] = '\0'; // identifier의 가장 마지막에는 \0이 들어옴 -> Identifier 출력 시 start index부터 \0까지 출력하도록 하면 됨
 
 	ComputeHS(nextid, nextfree);
 	LookupHS(nextid, hashcode);

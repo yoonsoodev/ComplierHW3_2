@@ -9,11 +9,13 @@
 typedef struct HTentry *HTpointer;
 typedef struct HTentry {
 	int index;
-	int isFunction;
-	int isArray;
-	char parameters[HTsize];
+	int type; // 해당 변수가 무슨 타입인 지 알려줌
+	int func_idx;
+	int isConst;
 	HTpointer next;
 } HTentry;
+
+HTpointer current_id; // 현재 처리되고 있는 identifier를 나타냄
 
 HTpointer HT[HTsize];
 char ST[STsize];
