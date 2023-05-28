@@ -78,13 +78,14 @@ void ADDHT(int hscode)
 	HTpointer ptr;
 
 	ptr = (HTpointer)malloc(sizeof(ptr));
-	ptr->index = nextid;
+	ptr->index = nextid; //ST의 start인덱스 넣어줌
 	ptr->next = HT[hscode];
 	HT[hscode] = ptr;
 }
 
 /*
  * SymbolTable() - If read the identifier, symbol table management 
+ * Scanner에서 TIDENT 인식 -> Parser.y에서 isFunction/isArray 판단 및 parameter 파악해서 해당 값 변경해서 넘겨줌 -> Symboltable에서 해당 값들 저장
  */
 int SymbolTable()
 {
@@ -98,7 +99,7 @@ int SymbolTable()
 	for (int i = 0; i<yyleng; i++) {
 		ST[nextfree++] = yytext[i];
 	}
-	ST[nextfree++] = '\0'; // identifier의 가장 마지막에는 \0이 들어옴 -> Identifier 출력 시 start index부터 \까지 출력하도록 하면 됨
+	ST[nextfree++] = '\0'; // identifier의 가장 마지막에는 \0이 들어옴 -> Identifier 출력 시 start index부터 \0까지 출력하도록 하면 됨
 
 	ComputeHS(nextid, nextfree);
 	LookupHS(nextid, hashcode);

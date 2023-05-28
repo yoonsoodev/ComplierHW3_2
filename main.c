@@ -28,12 +28,19 @@ void main()
 	printf("===========================[[HASH TABLE]]==================================\n");
 	printf("*****************************Variables*************************************\n");
 	printf("HashCode		Line Number			Name		Type\n"); // 해당 변수 이름 및 종류 출력
-	printf("*****************************Functions*************************************\n");
+	printf("\n*****************************Functions*************************************\n");
 	printf("HashCode		Line Number			Name		ReturnType		Parameters\n"); // 해당 함수 이름 / 반환 타입 / 매개변수 
 	printf("===========================================================================\n");
 
 }
 
+void printHTVariables() {
+
+}
+
+void printHTFunctions() {
+
+}
 /*
  * printtoken() - token 출력
 

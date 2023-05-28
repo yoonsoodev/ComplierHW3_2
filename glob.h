@@ -9,6 +9,9 @@
 typedef struct HTentry *HTpointer;
 typedef struct HTentry {
 	int index;
+	int isFunction;
+	int isArray;
+	char parameters[HTsize];
 	HTpointer next;
 } HTentry;
 

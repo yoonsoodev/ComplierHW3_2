@@ -35,6 +35,9 @@
     <ClCompile Include="symtable.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="parser_tab.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="scanner.l">
