@@ -8,7 +8,7 @@
 #include "glob.h"
 
 void PrintError(ERRORtypes err);
-extern char *yytext;
+extern char* yytext;
 extern int yyleng;
 
 char print_ST[STsize];	//ST for printing the results
@@ -16,10 +16,10 @@ int p_nextfree = 0;		//nextfree of print_ST
 int str_length;			//count length of string to print the results nicely
 
 /*
- * computeHS() - Compute the hash code of identifier by summing the ordinal values of 
+ * computeHS() - Compute the hash code of identifier by summing the ordinal values of
  *             its charactors an then taking the sum modulo the size of HT
  */
-void ComputeHS(int nid,int nfree)
+void ComputeHS(int nid, int nfree)
 {
 	int code, i;
 	code = 0;
@@ -38,7 +38,7 @@ void ComputeHS(int nid,int nfree)
  *              of the identifier. If fine a match, set the found flag as true. Otherwise flase.
  *              If fine a match, save the starting index of ST in same id
  */
-void LookupHS(int nid,int hscode)
+void LookupHS(int nid, int hscode)
 {
 	HTpointer here;
 	int i, j;
@@ -76,26 +76,35 @@ void LookupHS(int nid,int hscode)
 void ADDHT(int hscode)
 {
 	HTpointer ptr;
-
 	ptr = (HTpointer)malloc(sizeof(ptr));
+
 	ptr->index = nextid;
+	ptr->id = 0;
+	ptr->idtype = 0;
+	ptr->linenum = cLine;
+	ptr->returntype = 0;
 	ptr->next = HT[hscode];
 	HT[hscode] = ptr;
 }
 
+void ADDAttribute(ID id, Types idtype, Types returntype) {
+	ptr->id = 0;
+	ptr->idtype = 0;
+	ptr->returntype = 0;
+}
 /*
- * SymbolTable() - If read the identifier, symbol table management 
+ * SymbolTable() - If read the identifier, symbol table management
  */
 int SymbolTable()
 {
 	err = noerror;
-	if((nextfree == STsize) || ((nextfree+yyleng) > STsize)) {
+	if ((nextfree == STsize) || ((nextfree + yyleng) > STsize)) {
 		err = overst;
 		PrintError(err);
 	}
 
 	//READ identifier
-	for (int i = 0; i<yyleng; i++) {
+	for (int i = 0; i < yyleng; i++) {
 		ST[nextfree++] = yytext[i];
 	}
 	ST[nextfree++] = '\0';
@@ -103,22 +112,12 @@ int SymbolTable()
 	ComputeHS(nextid, nextfree);
 	LookupHS(nextid, hashcode);
 	if (!found) {
-		printf("%6d          TIDENT     %7d\t", cLine, nextid);
-		for (int i = nextid; i< nextfree-1; i++)
-			printf("%c", ST[i]);
-		printf("\t(entered)\n");
-		
 		ADDHT(hashcode);
 		nextid = nextfree;
 	}
 	else {
-		printf("%6d          TIDENT     %7d\t", cLine, sameid);
-		for (int i = nextid; i < nextfree - 1; i++)
-			printf("%c", ST[i]);
-		printf("\t(already existed)\n");
-		
 		nextfree = nextid;
 	}
-	
+
 	return 1;
 }
