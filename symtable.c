@@ -62,12 +62,14 @@ void LookupHS(int nid,int hscode)
 					j++;
 				}
 			}
+			if (found && !init) { // 만약 두번째 접근에서 똑같은 변수 찾은 경우
+				current_id = here; //만약 string table에서 동일 값 찾을 시 current_id는 찾은 노드로 할당 (attribute변경 위함)
+				return;
+			}
 			here = here->next;
 		}
 	}
-	if (found && !init) {
-		current_id = here; //만약 string table에서 동일 값 찾을 시 current_id는 찾은 노드로 할당 (attribute변경 위함)
-	}
+	
 }
 
 /*
