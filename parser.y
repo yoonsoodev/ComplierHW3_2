@@ -82,7 +82,7 @@ init_declarator		: declarator
 			| declarator TEQUAL TNUMBER				{yyerrok; identifier_type=0; PrintError("Declaring error",linenum);}
 			;
 declarator		: TIDENT						{semantic(5);}            
-			| tident TLBRACKET opt_number TRBRACKET			{semantic(6);}
+			| TIDENT TLBRACKET opt_number TRBRACKET			{semantic(6);}
 			| TIDENT TLBRACKET opt_number error			{yyerrok; identifier_type=0; PrintError("Not closed large bracket",linenum);}
 			;
 opt_number		: TNUMBER               
@@ -168,7 +168,7 @@ actual_param 		: actual_param_list					;
 actual_param_list 	: assignment_exp				
 		   	| actual_param_list TCOMMA assignment_exp 	
 			;
-primary_exp 		: TIDNET						{semantic(5);}
+primary_exp 		: TIDENT						{semantic(5);}
 	     		| TNUMBER					
 	     		| TLPAREN expression TRPAREN
 			| TLPAREN expression error				{yyerrok; PrintError("Not closed small bracket", linenum);};
@@ -182,6 +182,6 @@ void semantic(int n){
 		case 4 : identifier = 1; break;
 		case 5 : identifier = 2; break;
 		case 6 : identifier = 3; break;
-		case 7 : identifier = 4 break;
+		case 7 : identifier = 4; break;
 	}
 }
