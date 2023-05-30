@@ -92,7 +92,7 @@ void ADDHT(int hscode)
 		ptr->index = nextid;
 		ptr->func_idx = -1;
 		ptr->isConst = 0;
-		ptr->linenum = 0;
+		ptr->linenum = cLine;
 		current_id = ptr;
 	}
 	// 이미 identifier가 추가되어 있는 경우
@@ -104,7 +104,7 @@ void ADDHT(int hscode)
 		current_id = ptr;
 		ptr->isConst = 0;
 		ptr->func_idx = -1;
-		ptr->linenum = 0;
+		ptr->linenum = cLine;
 	}
 }
 
