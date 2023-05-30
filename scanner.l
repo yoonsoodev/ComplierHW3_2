@@ -16,16 +16,16 @@ int SymbolTable();
 "const"				return(TCONST);
 [cC][oO][nN][sS][tT]		{ err = illid_illegal; PrintError(err); return(TERROR); }
 "else" 				return(TELSE);
-[eE][lL][sS][eE]		{ err = illid_illegal; PrintError(err); return(TERROR); }
+[eE][lL][sS][eE]			{ err = illid_illegal; PrintError(err); return(TERROR); }
 "if" 				return(TIF);
-[iI][fF]			{ err = illid_illegal; PrintError(err); return(TERROR); }
+[iI][fF]				{ err = illid_illegal; PrintError(err); return(TERROR); }
 "int"				return(TINT);
 [iI][nN][tT]			{ err = illid_illegal; PrintError(err); return(TERROR); }
-"return"			return(TRETURN);
-[rR][eE][tT][uU][rR][nN]	{ err = illid_illegal; PrintError(err); return(TERROR); }
+"return"				return(TRETURN);
+[rR][eE][tT][uU][rR][nN]		{ err = illid_illegal; PrintError(err); return(TERROR); }
 "void" 				return(TVOID);
-[vV][oO][iI][dD]		{ err = illid_illegal; PrintError(err); return(TERROR); }
-"while" 			return(TWHILE);
+[vV][oO][iI][dD]			{ err = illid_illegal; PrintError(err); return(TERROR); }
+"while" 				return(TWHILE);
 [wW][hH][iI][lL][eE]		{ err = illid_illegal; PrintError(err); return(TERROR); }
 
 "+" 				return(TPLUS);
@@ -70,13 +70,13 @@ int SymbolTable();
 					if(yyleng > MAX_LEN)
 						{ err = illid_long; PrintError(err); return(TERROR);}
 					else
-						{ SymbolTable(); return(TIDENT);}
+						{ init=1; SymbolTable(); return(TIDENT);}
 				}
 
 
 
 "//".*				return(TCOMMENT);
-"/*"([^*]|\*+[^*/])*\**"*/"	{
+"/*"([^*]|\*+[^*/])*\**"*/"		{
 					for(int i=0;i<yyleng;i++)
 						if(yytext[i]=='\n') cLine++;
 					return(TCOMMENT);

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Symbol.c - Symbol table management
  */
 
@@ -40,23 +40,23 @@ void ComputeHS(int nid,int nfree)
  */
 void LookupHS(int nid,int hscode)
 {
-	HTpointer here;
+	HTpointer here; // found라면 일치하는 노드 가지고 있음
 	int i, j;
 
 	found = FALSE;
 	if (HT[hscode] != NULL) {
 		here = HT[hscode];
 		while (here != NULL && found == FALSE) {
-			found = TRUE;
+			found = TRUE; // 일단 true로 변경해놓고 loop 돌림 -> loop에서 false값 나오게 함
 			i = here->index;
 			j = nid;
 			sameid = i;
 
-			while (ST[i] != '\0' && ST[j] != '\0' && found == TRUE) {
+			while (ST[i] != '\0' && ST[j] != '\0' && found == TRUE) { // identifier 이름 같은 지 탐색
 				int left = ST[i] >= 'A' && ST[i] <= 'Z' ? ST[i] - 'A' + 'a' : ST[i];
 				int right = ST[j] >= 'A' && ST[j] <= 'Z' ? ST[j] - 'A' + 'a' : ST[j];
 				if (left != right)
-					found = FALSE;
+					found = FALSE; // 한글자라도 다르면 false처리
 				else {
 					i++;
 					j++;
@@ -64,6 +64,9 @@ void LookupHS(int nid,int hscode)
 			}
 			here = here->next;
 		}
+	}
+	if (found) {
+		current_id = here; //만약 string table에서 동일 값 찾을 시 current_id는 찾은 노드로 할당 (attribute변경 위함)
 	}
 }
 
@@ -75,50 +78,81 @@ void LookupHS(int nid,int hscode)
  */
 void ADDHT(int hscode)
 {
+	// initialize 하는 부분임
+	// 일단 symboltable에 저장해놓고 parser에 돌림 -> 값 변경됨 
 	HTpointer ptr;
 
 	ptr = (HTpointer)malloc(sizeof(ptr));
-	ptr->index = nextid;
-	ptr->next = HT[hscode];
-	HT[hscode] = ptr;
+	// 맨 처음 들어온 identifier
+	if (HT[hscode] == NULL)
+	{
+		ptr->next = NULL;
+		HT[hscode] = ptr;
+		ptr->index = nextid;
+		ptr->func_idx = -1;
+		ptr->isConst = 0;
+		ptr->linenum = cLine;
+		current_id = ptr;
+	}
+	// 이미 identifier가 추가되어 있는 경우
+	else {
+		ptr->index = nextid;
+		ptr->next = HT[hscode]; // 이미 추가된 identifier와 이어줌
+		HT[hscode] = ptr;
+		current_id = ptr;
+		ptr->isConst = 0;
+		ptr->func_idx = -1;
+		ptr->linenum = cLine;
+	}
 }
+
+
 
 /*
  * SymbolTable() - If read the identifier, symbol table management 
+ * Scanner에서 TIDENT 인식 -> Parser.y에서 값 변경해서 넘겨줌 (LookupHS -> current_id 값 변경) -> Symboltable에서 해당 값들 저장
  */
 int SymbolTable()
 {
 	err = noerror;
-	if((nextfree == STsize) || ((nextfree+yyleng) > STsize)) {
+
+	if ((nextfree == STsize) || ((nextfree + yyleng) > STsize)) {
 		err = overst;
 		PrintError(err);
 	}
 
-	//READ identifier
-	for (int i = 0; i<yyleng; i++) {
-		ST[nextfree++] = yytext[i];
+	if (!init) { // 가장 처음 Symboltable에 넣는 경우
+		//READ identifier
+		for (int i = 0; i < yyleng; i++) {
+			ST[nextfree++] = yytext[i];
+		}
 	}
-	ST[nextfree++] = '\0';
+	else { // 해당 노드 attribute 변경할 경우
+		for (int i = 0; i < strlen(identName); i++) {
+			ST[nextfree++] = identName[i]; // parser에서 넘겨받은 identifier 이름으로 symboltable 변경
+		}
+	}
+	
+	ST[nextfree++] = '\0'; // identifier의 가장 마지막에는 \0이 들어옴 -> Identifier 출력 시 start index부터 \0까지 출력하도록 하면 됨
 
 	ComputeHS(nextid, nextfree);
 	LookupHS(nextid, hashcode);
+
 	if (!found) {
-		printf("%6d          TIDENT     %7d\t", cLine, nextid);
-		for (int i = nextid; i< nextfree-1; i++)
-			printf("%c", ST[i]);
-		printf("\t(entered)\n");
-		
 		ADDHT(hashcode);
 		nextid = nextfree;
 	}
 	else {
-		printf("%6d          TIDENT     %7d\t", cLine, sameid);
-		for (int i = nextid; i < nextfree - 1; i++)
-			printf("%c", ST[i]);
-		printf("\t(already existed)\n");
-		
-		nextfree = nextid;
+		nextfree = nextid; // 이미 있는 경우에는 symboltable에 저장 안함 
+		//LookupHS로 인해 current_id 주소값 알려져 있음 -> 이거 변경하면 됨
 	}
-	
 	return 1;
 }
+
+/*
+ Identifier 속성
+• 문자와 숫자로 구성하는 문자열, 단, 문자 는 a ..z, A, ..Z, _ 만 가능함
+• 숫자로 시작할 수 없음
+• 대 소문자 구분 없음
+• 12자 이내
+*/
