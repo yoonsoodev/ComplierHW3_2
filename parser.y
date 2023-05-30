@@ -1,4 +1,5 @@
 %{
+/* parser.y에서 symboltable값 변경하는 법 -> init= 1 지정 후 -> Symboltable() 호출 -> current_id 지정됨 -> current_id 값 변경함 */
 #include <stdio.h>
 #include <ctype.h>
 #include <malloc.h>
@@ -29,13 +30,13 @@ translation_unit	: external_dcl
 external_dcl		: function_def
 			| declaration
 			| TIDENT TSEMI
-			| TIDENT error						{yyerrok identifier_type=0 PrintError("Missing semicolon", linenum);}         
+			| TIDENT error						{yyerrok; identifier_type=0; PrintError("Missing semicolon", linenum);}         
 function_def		: function_header compound_st
 			| function_TSEMICOLON
 			| function_header error					{yyerrok: identifier_type=0; PrintError("Missing semicolon", linenum);}
 			| error compound_st					{yyerrok; PrintError("No function header", linenum);}
 			;
-function_header		: dcl_spec function_name formal_param			;
+function_header		: dcl_spec function_name formal_param;
 dcl_spec		: dcl_specifiers					;
 dcl_specifiers		: dcl_specifier
 			| dcl_specifiers dcl_specifier
@@ -57,7 +58,7 @@ opt_formal_param	: formal_param_list
 			;
 formal_param_list	: param_dcl						{semantic(7);}         
 			| formal_param_list TCOMMA param_dcl			{semantic(7);} 
-			| formal_param_list param_dcl				{yyerrok; identifier_type=-0; PrintError("Missing comma", linenum);}
+			| formal_param_list param_dcl				{yyerrok; identifier_type=0; PrintError("Missing comma", linenum);}
 			;
 param_dcl		: dcl_spec declarator					;
 compound_st		: TLBRACE compound TRBRACE
@@ -81,7 +82,7 @@ init_declarator		: declarator
 			| declarator TIS TNUMBER
 			| declarator TEQUAL TNUMBER				{yyerrok; identifier_type=0; PrintError("Declaring error",linenum);}
 			;
-declarator		: TIDENT						{semantic(5);}            
+declarator	: TIDENT						{semantic(5);}            
 			| TIDENT TLBRACKET opt_number TRBRACKET			{semantic(6);}
 			| TIDENT TLBRACKET opt_number error			{yyerrok; identifier_type=0; PrintError("Not closed large bracket",linenum);}
 			;
@@ -169,19 +170,33 @@ actual_param_list 	: assignment_exp
 		   	| actual_param_list TCOMMA assignment_exp 	
 			;
 primary_exp 		: TIDENT						{semantic(5);}
-	     		| TNUMBER					
-	     		| TLPAREN expression TRPAREN
+	     	| TNUMBER					
+	    	| TLPAREN expression TRPAREN
 			| TLPAREN expression error				{yyerrok; PrintError("Not closed small bracket", linenum);};
 %%
 
 void semantic(int n){
 	switch(n){
-		case 1 : identifier_type = 1; break;
-		case 2 : identifier_type = 2; break;
-		case 3 : identifier_type = 3; break;
-		case 4 : identifier = 1; break;
-		case 5 : identifier = 2; break;
-		case 6 : identifier = 3; break;
-		case 7 : identifier = 4; break;
+		case 1 : 
+			identifier_type = 1; 
+			break;
+		case 2 : 
+			identifier_type = 2; 
+			break;
+		case 3 : 
+			identifier_type = 3; 
+			break;
+		case 4 : 
+			identifier = 1; 
+			break;
+		case 5 : 
+			identifier = 2; 
+			break;
+		case 6 : 
+			identifier = 3; //array 변수
+			break;
+		case 7 :  // 매개변수
+			identifier = 4; 
+			break;
 	}
 }

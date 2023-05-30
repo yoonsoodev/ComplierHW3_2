@@ -23,28 +23,66 @@ void main()
 	printf("\n\nNumber of errors: %d\n\n", num_err);
 	printf("===========================================================================\n");
 
+	printSymtable();
+	
+}
 
-	// HashTable 출력
+void printSymtable() { 	// HashTable 출력
+	//function index가 -1이 아닐때 function 출력
+	HTpointer here;
 	printf("===========================[[HASH TABLE]]==================================\n");
-	printf("*****************************Variables*************************************\n");
+	for (int i = 0; i<HTsize; i++) {
+		if (HT[i] != NULL) //HT의 값이 null이 아닐 때
+		{
+			here = HT[i];
+			while (here != NULL) {
+				printf("HashCode: %d				", i);
+				if (here->func_idx == -1) { // int 변수 처리
+					for (int j = here->index; ST[j] != '\0'; j++) { // identifier 이름 출력
+						printf(ST[j]);
+					}
+					printf(":	");
+					if (here->isConst) { // 일반 변수
+						printf("Integer Scalar Variable / Linenumber $d", here->linenum);
+					}
+					else { // array 변수
+						printf("Integer Array Variable / Linenumber $d", here->linenum);
+					}
+				}
+				else { // function 변수 처리 -> 일단 parameter 출력 X
+					printf("Function	");
+					for (int k = here->index; ST[k] != '\0'; k++) { // identifier 이름 출력
+						printf(ST[k]);
+					}
+					printf(":	");
+					switch (here->func_idx) {
+					case 1: // int
+						printf("Return Type: int / Linenumber $d", here->linenum);
+						break;
+					case 2: // float
+						printf("Return Type: float / Linenumber $d", here->linenum);
+						break;
+					case 3: // void
+						printf("Return Type: void / Linenumber $d", here->linenum);
+						break;
+					}
+				}
+				here = here->next;
+			}
+		}
+
+	}
+
+}
+
+/*
+* 
+* 	printf("*****************************Variables*************************************\n");
 	printf("HashCode		Line Number			Name		Type\n"); // 해당 변수 이름 및 종류 출력
 	printf("\n*****************************Functions*************************************\n");
 	printf("HashCode		Line Number			Name		ReturnType		Parameters\n"); // 해당 함수 이름 / 반환 타입 / 매개변수 
 	printf("===========================================================================\n");
 
-}
-
-void printHTVariables() {
-	//
-	for (int i = 0; HT[i]->next != NULL; i++) {
-		if(HT[i]->)
-	}
-}
-
-void printHTFunctions() {
-
-}
-/*
  * printtoken() - token 출력
 
 void printtoken(enum tokentypes tn){

@@ -10,8 +10,9 @@ typedef struct HTentry* HTpointer;
 typedef struct HTentry {
 	int index;
 	int type; // 해당 변수가 무슨 타입인 지 알려줌
-	int func_idx;
-	int isConst;
+	int func_idx; // -1: initialize / 0: int / 1: float / 2: void
+	int isConst; // 1: Const 변수 /0: Array 변수
+	int linenum;
 	HTpointer next;
 } HTentry;
 
@@ -31,6 +32,8 @@ int cLine;
 int found;
 int isFunction; // 함수 인 지 아닌 지 판단 -> parser.y 에서 변경
 int isArray; // array 변수인 지 아닌 지 판단 -> parser.y 에서 변경
+int init; // symboltable에 처음 들어갔는 지 아니면 parser에 의해 값변경 위한 것인 지 판단 1: 처음 들어감 / 0: parser에 의해 값 변경
+char* identName;
 
 enum errorTypes { noerror, illid_digit, illid_long, illid_illch, illid_illegal, overst, missing_semi, missing_sbracket, missing_mbracket, missing_lbracket, missing_comma, missing_funcheader, declaring_err };
 typedef enum errorTypes ERRORtypes;
