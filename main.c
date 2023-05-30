@@ -42,11 +42,17 @@ void printSymtable() { 	// HashTable 출력
 						printf(ST[j]);
 					}
 					printf(":	");
-					if (here->isConst) { // 일반 변수
+					switch (here-> var_idx)
+					{
+					case 0: // 일반 변수
 						printf("Integer Scalar Variable / Linenumber $d", here->linenum);
-					}
-					else { // array 변수
+						break;
+					case 1: // array 변수
 						printf("Integer Array Variable / Linenumber $d", here->linenum);
+						break;
+					case 2: // parameter 변수
+						printf("Integer Parameter Variable / Linenumber $d", here->linenum);
+						break;
 					}
 				}
 				else { // function 변수 처리 -> 일단 parameter 출력 X
