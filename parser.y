@@ -1,5 +1,5 @@
 %{
-/* parser.y¿¡¼­ symboltable°ª º¯°æÇÏ´Â ¹ý -> init= 1 ÁöÁ¤ ÈÄ -> Symboltable() È£Ãâ -> current_id ÁöÁ¤µÊ -> current_id °ª º¯°æÇÔ */
+/* parser.yì—ì„œ symboltableê°’ ë³€ê²½í•˜ëŠ” ë²• -> init= 1 ì§€ì • í›„ -> Symboltable() í˜¸ì¶œ -> current_id ì§€ì •ë¨ -> current_id ê°’ ë³€ê²½í•¨ */
 #include <stdio.h>
 #include <ctype.h>
 #include <malloc.h>
@@ -12,11 +12,10 @@ void semantic(int);
 
 %token TIDENT TFLOAT TNUMBER
 %token TCONST TELSE TIF TINT TRETURN TVOID TWHILE
+%token TPLUS TMINUS TSTAR TSLASH TMOD 
 %token TASSIGN TADDASSIGN TSUBASSIGN TMULASSIGN TDIVASSIGN TMODASSIGN
-%token TOR TAND TEQUAL TNOTEQU TGREATE TLESSE TLESS TGREAT
-%token TINC TDEC
-%token TPLUS TMINUS TSTAR TSLASH TMOD TIS TNOT TCOMMA TSEMI
-%token TLPAREN TRPAREN TLBRACE TRBRACE TLBRACKET TRBRACKET
+%token TNOT TOR TAND TEQUAL TNOTEQU TGREATE TLESSE TLESS TGREAT TINC TDEC
+%token TLPAREN TRPAREN TCOMMA TLBRACE TRBRACE TLBRACKET TRBRACKET TSEMI
 %nonassoc TIF_ERROR TIF_CONDITION_ERROR
 %nonassoc TELSE_ERROR TELSE_CONDITION_ERROR
 %nonassoc UIF
@@ -79,9 +78,10 @@ init_dcl_list		: init_declarator
 			| init_dcl_list init_declarator				{yyerrok; identifier_type=0; PrintError("Missing comma",linenum);}
 			;
 init_declarator		: declarator
-			| declarator TIS TNUMBER
+			| declarator TASSIGN TNUMBER
 			| declarator TEQUAL TNUMBER				{yyerrok; identifier_type=0; PrintError("Declaring error",linenum);}
 			;
+
 declarator	: TIDENT						{semantic(5);}            
 			| TIDENT TLBRACKET opt_number TRBRACKET			{semantic(6);}
 			| TIDENT TLBRACKET opt_number error			{yyerrok; identifier_type=0; PrintError("Not closed large bracket",linenum);}
@@ -193,9 +193,9 @@ void semantic(int n){
 			identifier = 2; 
 			break;
 		case 6 : 
-			identifier = 3; //array º¯¼ö
+			identifier = 3; //array ë³€ìˆ˜
 			break;
-		case 7 :  // ¸Å°³º¯¼ö
+		case 7 :  // ë§¤ê°œë³€ìˆ˜
 			identifier = 4; 
 			break;
 	}
