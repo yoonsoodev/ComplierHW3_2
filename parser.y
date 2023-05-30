@@ -22,58 +22,9 @@ void semantic(int);
 %nonassoc TELSE
 
 %%
-<<<<<<< HEAD
-mini_c 			: translation_unit				{semantic(1);};
-translation_unit 	: external_dcl					{semantic(2);}
-			| translation_unit external_dcl		{semantic(3);};
-external_dcl 		: function_def					{semantic(4);}
-		  	| declaration					{semantic(5);};
-function_def 		: function_header compound_st		{semantic(6);};
-function_header 	: dcl_spec function_name formal_param	{semantic(7);};
-dcl_spec 		: dcl_specifiers				{semantic(8);};
-dcl_specifiers 		: dcl_specifier					{semantic(9);}
-		 	| dcl_specifiers dcl_specifier			{semantic(10);};
-dcl_specifier 		: type_qualifier					{semantic(11);}
-			| type_specifier				{semantic(12);};
-type_qualifier 		: tconst					{semantic(13);};
-type_specifier 		: tint						{semantic(14);}  /*함수 타입 지정*/
-		 	| tvoid						{semantic(15);};
-function_name 	: tident						{semantic(16);};
-formal_param 		: '(' opt_formal_param ')' 			{semantic(17);};
-opt_formal_param 	: formal_param_list				{semantic(18);}
-		   	|						{semantic(19);};
-formal_param_list 	: param_dcl					{semantic(20);}
-		    	| formal_param_list ',' param_dcl 		{semantic(21);};
-param_dcl 		: dcl_spec declarator				{semantic(22);};
-compound_st 		: '{' opt_dcl_list opt_stat_list '}' 		{semantic(23);};
-opt_dcl_list 		: declaration_list				{semantic(24);}
-			|						{semantic(25);};
-declaration_list 	: declaration					{semantic(26);}
-			| declaration_list declaration 			{semantic(27);};
-declaration 		: dcl_spec init_dcl_list ';'			{semantic(28);};
-init_dcl_list 		: init_declarator				{semantic(29);}
-			| init_dcl_list ',' init_declarator 		{semantic(30);};
-init_declarator 	: declarator						{semantic(31);}
-		 	| declarator '=' tnumber			{semantic(32);};
-declarator 		: tident						{semantic(33);}
-	     		| tident '[' opt_number ']'			{semantic(34);};
-opt_number 		: tnumber					{semantic(35);}
-	     		|						{semantic(36);};
-opt_stat_list 		: statement_list				{semantic(37);}
-		 	|						{semantic(38);};
-statement_list 		: statement					{semantic(39);}
-                             | statement_list error 
-		 	| statement_list statement 			{semantic(40);};
-statement 		: compound_st				{semantic(41);}
-	   		| expression_st				{semantic(42);}
-	   		| if_st						{semantic(43);}
-	   		| while_st					{semantic(44);}
-	   		| return_st					{semantic(45);}
-=======
 mini_c			: translation_unit					;
 translation_unit	: external_dcl
 			| translation_unit external_dcl
->>>>>>> yeeun
 			;
 external_dcl		: function_def
 			| declaration
