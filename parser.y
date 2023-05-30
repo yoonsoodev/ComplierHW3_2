@@ -11,11 +11,10 @@ void semantic(int);
 
 %token TIDENT TFLOAT TNUMBER
 %token TCONST TELSE TIF TINT TRETURN TVOID TWHILE
+%token TPLUS TMINUS TSTAR TSLASH TMOD 
 %token TASSIGN TADDASSIGN TSUBASSIGN TMULASSIGN TDIVASSIGN TMODASSIGN
-%token TOR TAND TEQUAL TNOTEQU TGREATE TLESSE TLESS TGREAT
-%token TINC TDEC
-%token TPLUS TMINUS TSTAR TSLASH TMOD TIS TNOT TCOMMA TSEMI
-%token TLPAREN TRPAREN TLBRACE TRBRACE TLBRACKET TRBRACKET
+%token TNOT TOR TAND TEQUAL TNOTEQU TGREATE TLESSE TLESS TGREAT TINC TDEC
+%token TLPAREN TRPAREN TCOMMA TLBRACE TRBRACE TLBRACKET TRBRACKET TSEMI
 %nonassoc TIF_ERROR TIF_CONDITION_ERROR
 %nonassoc TELSE_ERROR TELSE_CONDITION_ERROR
 %nonassoc UIF
@@ -78,7 +77,7 @@ init_dcl_list		: init_declarator
 			| init_dcl_list init_declarator				{yyerrok; identifier_type=0; PrintError("Missing comma",linenum);}
 			;
 init_declarator		: declarator
-			| declarator TIS TNUMBER
+			| declarator TASSIGN TNUMBER
 			| declarator TEQUAL TNUMBER				{yyerrok; identifier_type=0; PrintError("Declaring error",linenum);}
 			;
 declarator		: TIDENT						{semantic(5);}            
