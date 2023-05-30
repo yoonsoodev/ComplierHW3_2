@@ -35,7 +35,10 @@ void main()
 }
 
 void printHTVariables() {
-
+	//
+	for (int i = 0; HT[i]->next != NULL; i++) {
+		if(HT[i]->)
+	}
 }
 
 void printHTFunctions() {
