@@ -65,7 +65,7 @@ void LookupHS(int nid,int hscode)
 			here = here->next;
 		}
 	}
-	if (found) {
+	if (found && !init) {
 		current_id = here; //만약 string table에서 동일 값 찾을 시 current_id는 찾은 노드로 할당 (attribute변경 위함)
 	}
 }
@@ -90,7 +90,7 @@ void ADDHT(int hscode)
 		HT[hscode] = ptr;
 		ptr->index = nextid;
 		ptr->func_idx = -1;
-		ptr->isConst = 0;
+		ptr->var_idx = -1;
 		ptr->linenum = cLine;
 		current_id = ptr;
 	}
@@ -100,7 +100,7 @@ void ADDHT(int hscode)
 		ptr->next = HT[hscode]; // 이미 추가된 identifier와 이어줌
 		HT[hscode] = ptr;
 		current_id = ptr;
-		ptr->isConst = 0;
+		ptr->var_idx = -1;
 		ptr->func_idx = -1;
 		ptr->linenum = cLine;
 	}
@@ -148,11 +148,3 @@ int SymbolTable()
 	}
 	return 1;
 }
-
-/*
- Identifier 속성
-• 문자와 숫자로 구성하는 문자열, 단, 문자 는 a ..z, A, ..Z, _ 만 가능함
-• 숫자로 시작할 수 없음
-• 대 소문자 구분 없음
-• 12자 이내
-*/
