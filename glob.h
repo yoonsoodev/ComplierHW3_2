@@ -9,13 +9,13 @@
 typedef struct HTentry* HTpointer;
 typedef struct HTentry {
 	int index;
-	ID id;
-	Types idtype;
-	int linenum;
-	Types returntype;
+	int type; // 해당 변수가 무슨 타입인 지 알려줌
+	int func_idx;
+	int isConst;
 	HTpointer next;
 } HTentry;
 
+HTpointer current_id; // 현재 처리되고 있는 identifier를 나타냄
 
 HTpointer HT[HTsize];
 char ST[STsize];
@@ -29,6 +29,8 @@ int cLine;
 //int i, j, cErrors; //?
 
 int found;
+int isFunction; // 함수 인 지 아닌 지 판단 -> parser.y 에서 변경
+int isArray; // array 변수인 지 아닌 지 판단 -> parser.y 에서 변경
 
 enum errorTypes { noerror, illid_digit, illid_long, illid_illch, illid_illegal, overst, missing_semi, missing_sbracket, missing_mbracket, missing_lbracket, missing_comma, missing_funcheader, declaring_err };
 typedef enum errorTypes ERRORtypes;

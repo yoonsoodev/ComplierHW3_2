@@ -15,28 +15,38 @@ void main()
     enum tokentypes tn;
 	cLine = 1;
 
-	//print header
-	printf("=======================================================\n");
-	printf(" Line number   Token type    ST-index    token\n");
-	printf("=======================================================\n");
-		
-	//scan tokens using the flex lexical analyzer 
-    while((tn = yylex()) != TEOF) 
-	{
-		printtoken(tn);
-	}
+	// Parsing 결과 출력
+	printf("=========================[[PARSING RESULTS]]===============================\n");
+	printf("***************************Parsing Begins**********************************\n");
+	yyparse();
+	printf("****************************Parsing Ends***********************************\n");
+	printf("\n\nNumber of errors: %d\n\n", num_err);
+	printf("===========================================================================\n");
 
-	if (num_err == 0)
-		printf("\n\n*************** No errors detected\n");
-	else
-		printf("\n\n*************** Number of errors: %d\n\n", num_err);
 
-	printf("=======================================================\n");
+	// HashTable 출력
+	printf("===========================[[HASH TABLE]]==================================\n");
+	printf("*****************************Variables*************************************\n");
+	printf("HashCode		Line Number			Name		Type\n"); // 해당 변수 이름 및 종류 출력
+	printf("\n*****************************Functions*************************************\n");
+	printf("HashCode		Line Number			Name		ReturnType		Parameters\n"); // 해당 함수 이름 / 반환 타입 / 매개변수 
+	printf("===========================================================================\n");
+
 }
 
+void printHTVariables() {
+	//
+	for (int i = 0; HT[i]->next != NULL; i++) {
+		if(HT[i]->)
+	}
+}
+
+void printHTFunctions() {
+
+}
 /*
  * printtoken() - token 출력
- */
+
 void printtoken(enum tokentypes tn){
 	switch (tn) {
 	        case TCONST : printf("%6d          TCONST  %22s\n", cLine, yytext); break;
@@ -85,3 +95,4 @@ void printtoken(enum tokentypes tn){
 	        case TCARR :  break; 
 		}
 }
+*/

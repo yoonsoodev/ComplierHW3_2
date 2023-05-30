@@ -149,10 +149,12 @@
   <ItemGroup>
     <ClCompile Include="lex.yy.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="parser_tab.c" />
     <ClCompile Include="reporterror.c" />
     <ClCompile Include="symtable.c" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="parser.y" />
     <None Include="scanner.l" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
