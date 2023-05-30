@@ -2,19 +2,27 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <malloc.h>
+#include "tn.h"
+#include "glob.h"
 
 /*yacc source for Mini C*/
 void semantic(int);
 %}
 
-%token tident tnumber tconst telse tif teif tint treturn tvoid twhile
-%token taddAssign tsubAssign tmulAssign tdivAssign tmodAssign
-%token tor tand tequal tnotequ tgreate tlesse tinc tdec
-
-%nonassoc LOWER_THAN_ELSE
-%nonassoc telse
+%token TIDENT TFLOAT TNUMBER
+%token TCONST TELSE TIF TINT TRETURN TVOID TWHILE
+%token TASSIGN TADDASSIGN TSUBASSIGN TMULASSIGN TDIVASSIGN TMODASSIGN
+%token TOR TAND TEQUAL TNOTEQU TGREATE TLESSE TLESS TGREAT
+%token TINC TDEC
+%token TPLUS TMINUS TSTAR TSLASH TMOD TIS TNOT TCOMMA TSEMI
+%token TLPAREN TRPAREN TLBRACE TRBRACE TLBRACKET TRBRACKET
+%nonassoc TIF_ERROR TIF_CONDITION_ERROR
+%nonassoc TELSE_ERROR TELSE_CONDITION_ERROR
+%nonassoc UIF
+%nonassoc TELSE
 
 %%
+<<<<<<< HEAD
 mini_c 			: translation_unit				{semantic(1);};
 translation_unit 	: external_dcl					{semantic(2);}
 			| translation_unit external_dcl		{semantic(3);};
@@ -61,63 +69,168 @@ statement 		: compound_st				{semantic(41);}
 	   		| if_st						{semantic(43);}
 	   		| while_st					{semantic(44);}
 	   		| return_st					{semantic(45);}
+=======
+mini_c			: translation_unit					;
+translation_unit	: external_dcl
+			| translation_unit external_dcl
+>>>>>>> yeeun
 			;
-expression_st 	: opt_expression ';'				{semantic(46);};
-opt_expression 	: expression					{semantic(47);}
-		 	|						{semantic(48);};
-if_st 			: tif '(' expression ')' statement %prec LOWER_THAN_ELSE 		{semantic(49);}
-			| tif '(' expression ')' statement telse statement 	{semantic(50);};
-while_st 		: twhile '(' expression ')' statement 		{semantic(51);};
-return_st 		: treturn opt_expression ';'			{semantic(52);};
-expression 		: assignment_exp				{semantic(53);};
-assignment_exp 	: logical_or_exp				{semantic(54);}
-			| unary_exp '=' assignment_exp 		{semantic(55);}
-			| unary_exp taddAssign assignment_exp 	{semantic(56);}
-			| unary_exp tsubAssign assignment_exp 	{semantic(57);}
-			| unary_exp tmulAssign assignment_exp 	{semantic(58);}
-			| unary_exp tdivAssign assignment_exp 	{semantic(59);}
-			| unary_exp tmodAssign assignment_exp 	{semantic(60);}
+external_dcl		: function_def
+			| declaration
+			| TIDENT TSEMI
+			| TIDENT error						{yyerrok identifier_type=0 PrintError("Missing semicolon", linenum);}         
+function_def		: function_header compound_st
+			| function_TSEMICOLON
+			| function_header error					{yyerrok: identifier_type=0; PrintError("Missing semicolon", linenum);}
+			| error compound_st					{yyerrok; PrintError("No function header", linenum);}
 			;
-logical_or_exp 	: logical_and_exp				{semantic(61);}
-			| logical_or_exp tor logical_and_exp 	{semantic(62);};
-logical_and_exp 	: equality_exp					{semantic(63);}
-		 	| logical_and_exp tand equality_exp 	{semantic(64);};
-equality_exp 		: relational_exp				{semantic(65);}
-			| equality_exp tequal relational_exp 	{semantic(66);}
-			| equality_exp tnotequ relational_exp 	{semantic(67);};
-relational_exp 	: additive_exp 				{semantic(68);}
-			| relational_exp '>' additive_exp 		{semantic(69);}
-			| relational_exp '<' additive_exp 		{semantic(70);}
-			| relational_exp tgreate additive_exp 	{semantic(71);}
-			| relational_exp tlesse additive_exp 	{semantic(72);};
-additive_exp 		: multiplicative_exp				{semantic(73);}
-			| additive_exp '+' multiplicative_exp 	{semantic(74);}
-			| additive_exp '-' multiplicative_exp 	{semantic(75);};
-multiplicative_exp 	: unary_exp					{semantic(76);}
-		    	| multiplicative_exp '*' unary_exp 		{semantic(77);}
-		    	| multiplicative_exp '/' unary_exp 		{semantic(78);}
-		    	| multiplicative_exp '%' unary_exp 		{semantic(79);};
-unary_exp 		: postfix_exp					{semantic(80);}
-	   		| '-' unary_exp				{semantic(81);}
-	   		| '!' unary_exp				{semantic(82);}
-	   		| tinc unary_exp				{semantic(83);}
-	   		| tdec unary_exp				{semantic(84);};
-postfix_exp 		: primary_exp					{semantic(85);}
-	      		| postfix_exp '[' expression ']' 		{semantic(86);}
-	      		| postfix_exp '(' opt_actual_param ')' 	{semantic(87);}
-	      		| postfix_exp tinc				{semantic(88);}
-	      		| postfix_exp tdec				{semantic(89);};
-opt_actual_param 	: actual_param				{semantic(90);}
-		  	|						{semantic(91);};
-actual_param 		: actual_param_list				{semantic(92);};
-actual_param_list 	: assignment_exp				{semantic(93);}
-		   	| actual_param_list ',' assignment_exp 	{semantic(94);};
-primary_exp 		: tident						{semantic(95);}
-	     		| tnumber					{semantic(96);}
-	     		| '(' expression ')'				{semantic(97);};
+function_header		: dcl_spec function_name formal_param			;
+dcl_spec		: dcl_specifiers					;
+dcl_specifiers		: dcl_specifier
+			| dcl_specifiers dcl_specifier
+			;
+dcl_specifier		: type_qualifier
+			| type_specifier
+			;
+type_qualifier		: TCONST						;
+type_specifier		: TINT							{semantic(1);}
+			| TFLOAT						{semantic(2);}
+			| TVOID							{semantic(3);}
+			;
+function_name		: TIDENT						{semantic(4);}               
+formal_param		: TLPAREN opt_formal_param TRPAREN
+			| TLPAREN opt_formal_param error			{yyerrok: PrintError("Not closed small bracket", linenum);}
+			;
+opt_formal_param	: formal_param_list      
+			|
+			;
+formal_param_list	: param_dcl						{semantic(7);}         
+			| formal_param_list TCOMMA param_dcl			{semantic(7);} 
+			| formal_param_list param_dcl				{yyerrok; identifier_type=-0; PrintError("Missing comma", linenum);}
+			;
+param_dcl		: dcl_spec declarator					;
+compound_st		: TLBRACE compound TRBRACE
+			| TLBRACE compound error    				{yyerrok; PrintError("Not closed medium bracket", linenum);}   
+			;
+compound		: opt_dcl_list opt_stat_list				;
+opt_dcl_list		: declaration_list
+			|
+			; 
+declaration_list	: declaration
+			| declaration_list declaration
+			;
+declaration		: dcl_spec init_dcl_list TSEMI
+			| dcl_spec init_dcl_list error				{yyerrok; identifier_type=0; PrintError("Missing semicolon",linenum);}
+			;
+init_dcl_list		: init_declarator            
+			| init_dcl_list TCOMMA init_declarator    
+			| init_dcl_list init_declarator				{yyerrok; identifier_type=0; PrintError("Missing comma",linenum);}
+			;
+init_declarator		: declarator
+			| declarator TIS TNUMBER
+			| declarator TEQUAL TNUMBER				{yyerrok; identifier_type=0; PrintError("Declaring error",linenum);}
+			;
+declarator		: TIDENT						{semantic(5);}            
+			| tident TLBRACKET opt_number TRBRACKET			{semantic(6);}
+			| TIDENT TLBRACKET opt_number error			{yyerrok; identifier_type=0; PrintError("Not closed large bracket",linenum);}
+			;
+opt_number		: TNUMBER               
+			|
+			;
+opt_stat_list		: statement_list            
+			|
+			;                  
+statement_list		: statement  
+			| statement_list statement
+			| statement_list declaration
+			;
+statement		: compound_st            
+			| expression_st            
+			| if_st         
+			| while_st               
+			| return_st            
+			;
+
+
+expression_st 		: opt_expression TSEMI					;
+opt_expression 		: expression						;
+if_st 			: TIF TLPAREN expression TRPAREN statement %prec LOWER_THAN_ELSE
+			| TIF TLPAREN expression TRPAREN statement TELSE statement
+			| TIF TLPAREN expression error				{yyerrok; PrintError("Not closed small bracket", linenum);}
+			;
+while_st 		: TWHILE TLPAREN expression TRPAREN statement
+			| TWHILE TLPAREN expression error			{yyerrok; PrintError("Not closed small bracket", linenum);}
+return_st 		: TRETURN opt_expression TSEMI				;
+expression 		: assignment_exp					;
+assignment_exp 		: logical_or_exp				
+			| unary_exp TASSIGN assignment_exp
+			| unary_exp TADDASSIGN assignment_exp
+			| unary_exp TSUBASSIGN assignment_exp
+			| unary_exp TMULASSIGN assignment_exp
+			| unary_exp TDIVASSIGN assignment_exp
+			| unary_exp TMODASSIGN assignment_exp
+			;
+
+
+logical_or_exp 		: logical_and_exp				
+			| logical_or_exp TOR logical_and_exp 	
+			;
+logical_and_exp 	: equality_exp					
+		 	| logical_and_exp TAND equality_exp
+			;
+equality_exp 		: relational_exp
+			| equality_exp TEQUAL relational_exp
+			| equality_exp TNOTEQU relational_exp
+			;
+relational_exp 		: additive_exp
+			| relational_exp TGREAT additive_exp
+			| relational_exp TLESS additive_exp
+			| relational_exp TGREATE additive_exp
+			| relational_exp TLESSE additive_exp
+			;
+additive_exp 		: multiplicative_exp
+			| additive_exp TPLUS multiplicative_exp
+			| additive_exp TMINUS multiplicative_exp
+			;
+multiplicative_exp 	: unary_exp
+		    	| multiplicative_exp TSTAR unary_exp
+		    	| multiplicative_exp TSLASH unary_exp
+		    	| multiplicative_exp TMOD unary_exp
+			;
+unary_exp 		: postfix_exp
+	   		| TSUB unary_exp
+	   		| TNOT unary_exp
+	   		| TINC unary_exp
+	   		| TDEC unary_exp
+			;
+postfix_exp 		: primary_exp
+	      		| postfix_exp TLBRACKET expression TRBRACKET
+	      		| postfix_exp TLBRACKET expression error		{yyerrok; PrintError("Not closed large bracket", linenum);}
+	      		| postfix_exp TLPAREN opt_actual_param TRPAREN
+	      		| postfix_exp TLPAREN opt_actual_param error		{yyerrok; PrintError("Not closed small bracket", linenum);}
+	      		| postfix_exp TINC
+	      		| postfix_exp TDEC					;
+opt_actual_param 	: actual_param
+		  	|						
+			;
+actual_param 		: actual_param_list					;
+actual_param_list 	: assignment_exp				
+		   	| actual_param_list TCOMMA assignment_exp 	
+			;
+primary_exp 		: TIDNET						{semantic(5);}
+	     		| TNUMBER					
+	     		| TLPAREN expression TRPAREN
+			| TLPAREN expression error				{yyerrok; PrintError("Not closed small bracket", linenum);};
 %%
 
-void semantic(int n)
-{	
-	printf("reduced rule number = %d\n",n);
+void semantic(int n){
+	switch(n){
+		case 1 : identifier_type = 1; break;
+		case 2 : identifier_type = 2; break;
+		case 3 : identifier_type = 3; break;
+		case 4 : identifier = 1; break;
+		case 5 : identifier = 2; break;
+		case 6 : identifier = 3; break;
+		case 7 : identifier = 4 break;
+	}
 }
