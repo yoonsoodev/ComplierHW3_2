@@ -86,7 +86,6 @@ void ADDHT(int hscode)
 	// 맨 처음 들어온 identifier
 	if (HT[hscode] == NULL)
 	{
-		ptr->type = 0;
 		ptr->next = NULL;
 		HT[hscode] = ptr;
 		ptr->index = nextid;
@@ -97,7 +96,6 @@ void ADDHT(int hscode)
 	}
 	// 이미 identifier가 추가되어 있는 경우
 	else {
-		ptr->type = 0;
 		ptr->index = nextid;
 		ptr->next = HT[hscode]; // 이미 추가된 identifier와 이어줌
 		HT[hscode] = ptr;

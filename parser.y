@@ -23,7 +23,7 @@ void semantic(int);
 %nonassoc TELSE
 
 %%
-mini_c			: translation_unit					;
+mini_c			: translation_unit;
 translation_unit	: external_dcl
 			| translation_unit external_dcl
 			;
