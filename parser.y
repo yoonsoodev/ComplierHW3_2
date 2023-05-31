@@ -5,6 +5,12 @@
 #include "tn.h"
 #include "glob.h"
 
+extern int init = 1; //전역변수 init 초기화
+extern char* identName; //identifier를 가르키는 문자열 포인터
+
+void PrintError(ERRORtypes err);
+int SymbolTable;
+
 /*yacc source for Mini C*/
 void semantic(int);
 %}
@@ -28,10 +34,10 @@ translation_unit	: external_dcl
 external_dcl		: function_def
 			| declaration
 			| TIDENT TSEMI
-			| TIDENT error						{yyerrok; identifier_type=0; PrintError(missing_semi);}         
+			| TIDENT error						{yyerrok; PrintError(missing_semi);}         
 function_def		: function_header compound_st
 			| function_TSEMICOLON
-			| function_header error					{yyerrok: identifier_type=0; PrintError(missing_semi);}
+			| function_header error					{yyerrok; PrintError(missing_semi);}
 			| error compound_st					{yyerrok; PrintError(missing_funcheader);}
 
 			;
@@ -43,7 +49,7 @@ dcl_specifiers		: dcl_specifier
 dcl_specifier		: type_qualifier
 			| type_specifier
 			;
-type_qualifier		: TCONST						;
+type_qualifier		: TCONST						{semantic(8);};
 type_specifier		: TINT							{semantic(1);}
 			| TFLOAT						{semantic(2);}
 			| TVOID							{semantic(3);}
@@ -57,7 +63,7 @@ opt_formal_param	: formal_param_list
 			;
 formal_param_list	: param_dcl						{semantic(7);}         
 			| formal_param_list TCOMMA param_dcl			{semantic(7);} 
-			| formal_param_list param_dcl				{yyerrok; identifier_type=0; PrintError(missing_comma);}
+			| formal_param_list param_dcl				{yyerrok; PrintError(missing_comma);}
 			;
 param_dcl		: dcl_spec declarator					;
 compound_st		: TLBRACE compound TRBRACE
@@ -71,19 +77,19 @@ declaration_list	: declaration
 			| declaration_list declaration
 			;
 declaration		: dcl_spec init_dcl_list TSEMI
-			| dcl_spec init_dcl_list error				{yyerrok; identifier_type=0; PrintError(missing_semi);}
+			| dcl_spec init_dcl_list error				{yyerrok; PrintError(missing_semi);}
 			;
 init_dcl_list		: init_declarator            
 			| init_dcl_list TCOMMA init_declarator    
-			| init_dcl_list init_declarator				{yyerrok; identifier_type=0; PrintError(missing_comma);}
+			| init_dcl_list init_declarator				{yyerrok; PrintError(missing_comma);}
 			;
 init_declarator		: declarator
 			| declarator TASSIGN TNUMBER
-			| declarator TEQUAL TNUMBER				{yyerrok; identifier_type=0; PrintError(declaring_err);}
+			| declarator TEQUAL TNUMBER				{yyerrok; PrintError(declaring_err);}
 			;
 declarator		: TIDENT						{semantic(5);}            
 			| TIDENT TLBRACKET opt_number TRBRACKET			{semantic(6);}
-			| TIDENT TLBRACKET opt_number error			{yyerrok; identifier_type=0; PrintError(missing_lbracket);}
+			| TIDENT TLBRACKET opt_number error			{yyerrok; PrintError(missing_lbracket);}
 			;
 opt_number		: TNUMBER               
 			|
@@ -169,19 +175,41 @@ actual_param_list 	: assignment_exp
 		   	| actual_param_list TCOMMA assignment_exp 	
 			;
 primary_exp 		: TIDENT						{semantic(5);}
-	     	| TNUMBER					
-	    	| TLPAREN expression TRPAREN
+	     		| TNUMBER					
+	    		| TLPAREN expression TRPAREN
 			| TLPAREN expression error				{yyerrok; PrintError(missing_sbracket);};
 %%
 
 void semantic(int n){
+	// 현재 처리 중인 토큰의 문자열 값을 identName에 복사
+	identName = (char*) malloc(strlen(yytext) + 1);
+	strcpy(identName, yytext);
+	
+	SymbolTable();
+	
 	switch(n){
-		case 1 : identifier_type = 1; break;
-		case 2 : identifier_type = 2; break;
-		case 3 : identifier_type = 3; break;
-		case 4 : identifier = 1; break;
-		case 5 : identifier = 2; break;
-		case 6 : identifier = 3; break;
-		case 7 : identifier = 4; break;
+		case 1 : 
+			current_id ->func_idx = 0;
+			break;
+		case 2 : 
+			current_id ->func_idx = 1;
+			break;
+		case 3 : 
+			current_id ->func_idx = 2;
+			break;
+		case 4 : //함수(이름)인 경우
+			break;
+		case 5 : //scalar 변수
+			icurrent_id->var_idx = 3; 
+			break;
+		case 6 : //array 변수
+			current_id->var_idx = 1; 
+			break;
+		case 7 :  // 매개변수
+			current_id->var_idx = 2; 
+			break;
+		case 8 :  // Const 변수
+			current_id->var_idx = 0; 
+			break;
 	}
 }
