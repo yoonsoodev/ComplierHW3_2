@@ -201,7 +201,7 @@ void semantic(int n){
 		case 4 : //함수(이름)인 경우
 			break;
 		case 5 : //scalar 변수
-			icurrent_id->var_idx = 2; 
+			current_id->var_idx = 2; 
 			break;
 		case 6 : //array 변수
 			current_id->var_idx = 0; 
