@@ -10,7 +10,7 @@ typedef struct HTentry *HTpointer;
 typedef struct HTentry {
 	int index;
 	int func_idx; // -1: initialize / 0: int / 1: float / 2: void
-	int var_idx; // -1: initialize/ 0: Const 변수 /1: Array 변수 /2: parameter 변수
+	int var_idx; // -1: initialize/ 0: Const 변수 /1: Array 변수 /2: parameter 변수 / 3: scalar
 	int linenum;
 	HTpointer next;
 } HTentry;
