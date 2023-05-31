@@ -206,16 +206,16 @@ void semantic(int n){
 		case 4 : //함수(이름)인 경우
 			break;
 		case 5 : //scalar 변수
-			current_id->var_idx = 3; 
-			break;
-		case 6 : //array 변수
-			current_id->var_idx = 1; 
-			break;
-		case 7 :  // 매개변수
 			current_id->var_idx = 2; 
 			break;
-		case 8 :  // Const 변수
+		case 6 : //array 변수
 			current_id->var_idx = 0; 
+			break;
+		case 7 :  // 매개변수
+			current_id->var_idx = 1; 
+			break;
+		case 8 :  // Const 변수
+			current_id->isConst = 1; 
 			break;
 	}
 }
