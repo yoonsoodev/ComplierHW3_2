@@ -10,28 +10,11 @@ extern yylex();
 extern char *yytext;
 void printtoken(tn);
 
-void main()
-{
-    enum tokentypes tn;
-	cLine = 1;
-
-	// Parsing 결과 출력
-	printf("=========================[[PARSING RESULTS]]===============================\n");
-	printf("***************************Parsing Begins**********************************\n");
-	yyparse();
-	printf("****************************Parsing Ends***********************************\n");
-	printf("\n\nNumber of errors: %d\n\n", num_err);
-	printf("===========================================================================\n");
-
-	printSymtable();
-	
-}
-
 void printSymtable() { 	// HashTable 출력
 	//function index가 -1이 아닐때 function 출력
 	HTpointer here;
 	printf("===========================[[HASH TABLE]]==================================\n");
-	for (int i = 0; i<HTsize; i++) {
+	for (int i = 0; i < HTsize; i++) {
 		if (HT[i] != NULL) //HT의 값이 null이 아닐 때
 		{
 			here = HT[i];
@@ -45,7 +28,7 @@ void printSymtable() { 	// HashTable 출력
 					if (here->isConst) { // Const 변수 여부 출력
 						printf("Const / ");
 					}
-					switch (here-> var_idx)
+					switch (here->var_idx)
 					{
 					case 0: // 일반 변수
 						printf("Integer Scalar Variable / Linenumber %d", here->linenum);
@@ -83,6 +66,25 @@ void printSymtable() { 	// HashTable 출력
 	}
 
 }
+
+void main()
+{
+    enum tokentypes tn;
+	cLine = 1;
+
+	// Parsing 결과 출력
+	printf("=========================[[PARSING RESULTS]]===============================\n");
+	printf("***************************Parsing Begins**********************************\n");
+	yyparse();
+	printf("****************************Parsing Ends***********************************\n");
+	printf("\n\nNumber of errors: %d\n\n", num_err);
+	printf("===========================================================================\n");
+
+	printSymtable();
+	
+}
+
+
 
 /*
 * 
