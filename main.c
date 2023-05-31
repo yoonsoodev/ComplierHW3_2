@@ -45,13 +45,13 @@ void printSymtable() { 	// HashTable 출력
 					switch (here-> var_idx)
 					{
 					case 0: // 일반 변수
-						printf("Integer Scalar Variable / Linenumber $d", here->linenum);
+						printf("Integer Scalar Variable / Linenumber %d", here->linenum);
 						break;
 					case 1: // array 변수
-						printf("Integer Array Variable / Linenumber $d", here->linenum);
+						printf("Integer Array Variable / Linenumber %d", here->linenum);
 						break;
 					case 2: // parameter 변수
-						printf("Integer Parameter Variable / Linenumber $d", here->linenum);
+						printf("Integer Parameter Variable / Linenumber %d", here->linenum);
 						break;
 					}
 				}
@@ -63,13 +63,13 @@ void printSymtable() { 	// HashTable 출력
 					printf(":	");
 					switch (here->func_idx) {
 					case 1: // int
-						printf("Return Type: int / Linenumber $d", here->linenum);
+						printf("Return Type: int / Linenumber %d", here->linenum);
 						break;
 					case 2: // float
-						printf("Return Type: float / Linenumber $d", here->linenum);
+						printf("Return Type: float / Linenumber %d", here->linenum);
 						break;
 					case 3: // void
-						printf("Return Type: void / Linenumber $d", here->linenum);
+						printf("Return Type: void / Linenumber %d", here->linenum);
 						break;
 					}
 				}

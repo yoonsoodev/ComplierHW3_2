@@ -8,7 +8,7 @@
 #include "glob.h"
 
 void PrintError(ERRORtypes err);
-extern char *yytext;
+extern char* yytext;
 extern int yyleng;
 
 char print_ST[STsize];	//ST for printing the results
@@ -16,10 +16,10 @@ int p_nextfree = 0;		//nextfree of print_ST
 int str_length;			//count length of string to print the results nicely
 
 /*
- * computeHS() - Compute the hash code of identifier by summing the ordinal values of 
+ * computeHS() - Compute the hash code of identifier by summing the ordinal values of
  *             its charactors an then taking the sum modulo the size of HT
  */
-void ComputeHS(int nid,int nfree)
+void ComputeHS(int nid, int nfree)
 {
 	int code, i;
 	code = 0;
@@ -38,7 +38,7 @@ void ComputeHS(int nid,int nfree)
  *              of the identifier. If fine a match, set the found flag as true. Otherwise flase.
  *              If fine a match, save the starting index of ST in same id
  */
-void LookupHS(int nid,int hscode)
+void LookupHS(int nid, int hscode)
 {
 	HTpointer here; // found라면 일치하는 노드 가지고 있음
 	int i, j;
@@ -83,7 +83,6 @@ void ADDHT(int hscode)
 	// initialize 하는 부분임
 	// 일단 symboltable에 저장해놓고 parser에 돌림 -> 값 변경됨 
 	HTpointer ptr;
-
 	ptr = (HTpointer)malloc(sizeof(ptr));
 	// 맨 처음 들어온 identifier
 	if (HT[hscode] == NULL)
