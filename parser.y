@@ -13,7 +13,6 @@ extern int init = 1; //전역변수 init 초기화
 extern char* identName; //identifier를 가르키는 문자열 포인터
 
 void PrintError(ERRORtypes err);
-int SymbolTable();
 
 
 /*yacc source for Mini C*/
@@ -60,7 +59,7 @@ type_specifier		: TINT							{semantic(1);}
 			| TFLOAT						{semantic(2);}
 			| TVOID							{semantic(3);}
 			;
-function_name		: TIDENT						{semantic(4);};               
+function_name		: TIDENT						{identName = $1; semantic(4);};               
 formal_param		: TLPAREN opt_formal_param TRPAREN
 			| TLPAREN opt_formal_param error			{yyerrok; PrintError(missing_sbracket);}
 			;
@@ -93,8 +92,8 @@ init_declarator		: declarator
 			| declarator TASSIGN TNUMBER
 			| declarator TEQUAL TNUMBER				{yyerrok; PrintError(declaring_err);}
 			;
-declarator		: TIDENT						{semantic(5);}            
-			| TIDENT TLBRACKET opt_number TRBRACKET			{semantic(6);}
+declarator		: TIDENT						{identName = $1; semantic(5);}            
+			| TIDENT TLBRACKET opt_number TRBRACKET			{identName = $1; semantic(6);}
 			| TIDENT TLBRACKET opt_number error			{yyerrok; PrintError(missing_lbracket);}
 			;
 opt_number		: TNUMBER               
@@ -180,7 +179,7 @@ actual_param 		: actual_param_list					;
 actual_param_list 	: assignment_exp				
 		   	| actual_param_list TCOMMA assignment_exp 	
 			;
-primary_exp 		: TIDENT						{semantic(5);}
+primary_exp 		: TIDENT						{identName = $1; semantic(5);}
 	     		| TNUMBER					
 	    		| TLPAREN expression TRPAREN
 			| TLPAREN expression error				{yyerrok; PrintError(missing_sbracket);};
@@ -188,9 +187,7 @@ primary_exp 		: TIDENT						{semantic(5);}
 
 void semantic(int n){
 	// 현재 처리 중인 토큰의 문자열 값을 identName에 복사
-	identName = (char*) malloc(strlen(yytext) + 1);
-	strcpy(identName, yytext);
-	
+		
 	SymbolTable();
 	
 	switch(n){

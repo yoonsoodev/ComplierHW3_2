@@ -41,15 +41,15 @@
 #define	TLBRACKET	295
 #define	TRBRACKET	296
 #define	TSEMI	297
-#define	TIF_ERROR	298
-#define	TIF_CONDITION_ERROR	299
-#define	TELSE_ERROR	300
-#define	TELSE_CONDITION_ERROR	301
-#define	UIF	302
-#define	LOWER_THAN_ELSE	303
-#define	TERROR	304
-#define	TCOMMENT	305
-#define	TCARR	306
+#define	TERROR	298
+#define	TCARR	299
+#define	TCOMMENT	300
+#define	TIF_ERROR	301
+#define	TIF_CONDITION_ERROR	302
+#define	TELSE_ERROR	303
+#define	TELSE_CONDITION_ERROR	304
+#define	UIF	305
+#define	LOWER_THAN_ELSE	306
 
 
 extern YYSTYPE yylval;

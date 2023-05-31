@@ -70,7 +70,6 @@ extern int init = 1; //전역변수 init 초기화
 extern char* identName; //identifier를 가르키는 문자열 포인터
 
 void PrintError(ERRORtypes err);
-int SymbolTable();
 
 
 /*yacc source for Mini C*/
@@ -204,18 +203,18 @@ static const short yyrhs[] = {    53,
 
 #if YYDEBUG != 0
 static const short yyrline[] = { 0,
-    37,    38,    39,    41,    42,    43,    44,    45,    46,    47,
-    48,    50,    51,    52,    53,    55,    56,    58,    59,    60,
-    61,    63,    64,    65,    67,    68,    70,    71,    72,    74,
-    75,    76,    78,    79,    80,    82,    83,    85,    86,    88,
-    89,    90,    92,    93,    94,    96,    97,    98,   100,   101,
-   103,   104,   106,   107,   108,   110,   111,   112,   113,   114,
-   118,   119,   120,   121,   122,   124,   125,   126,   127,   128,
-   129,   130,   131,   132,   133,   134,   138,   139,   141,   142,
-   144,   145,   146,   148,   149,   150,   151,   152,   154,   155,
-   156,   158,   159,   160,   161,   163,   164,   165,   166,   167,
-   169,   170,   171,   172,   173,   174,   175,   176,   177,   179,
-   180,   181,   183,   184,   185,   186
+    36,    37,    38,    40,    41,    42,    43,    44,    45,    46,
+    47,    49,    50,    51,    52,    54,    55,    57,    58,    59,
+    60,    62,    63,    64,    66,    67,    69,    70,    71,    73,
+    74,    75,    77,    78,    79,    81,    82,    84,    85,    87,
+    88,    89,    91,    92,    93,    95,    96,    97,    99,   100,
+   102,   103,   105,   106,   107,   109,   110,   111,   112,   113,
+   117,   118,   119,   120,   121,   123,   124,   125,   126,   127,
+   128,   129,   130,   131,   132,   133,   137,   138,   140,   141,
+   143,   144,   145,   147,   148,   149,   150,   151,   153,   154,
+   155,   157,   158,   159,   160,   162,   163,   164,   165,   166,
+   168,   169,   170,   171,   172,   173,   174,   175,   176,   178,
+   179,   180,   182,   183,   184,   185
 };
 
 static const char * const yytname[] = {   "$","error","$undefined.","TIDENT",
@@ -866,103 +865,103 @@ yyreduce:
   switch (yyn) {
 
 case 7:
-#line 44 "parser.y"
+#line 43 "parser.y"
 {yyerrok; PrintError(missing_semi);;
     break;}
 case 10:
-#line 47 "parser.y"
+#line 46 "parser.y"
 {yyerrok; PrintError(missing_semi);;
     break;}
 case 11:
-#line 48 "parser.y"
+#line 47 "parser.y"
 {yyerrok; PrintError(missing_funcheader);;
     break;}
 case 18:
-#line 58 "parser.y"
+#line 57 "parser.y"
 {semantic(8);;
     break;}
 case 19:
-#line 59 "parser.y"
+#line 58 "parser.y"
 {semantic(1);;
     break;}
 case 20:
-#line 60 "parser.y"
+#line 59 "parser.y"
 {semantic(2);;
     break;}
 case 21:
-#line 61 "parser.y"
+#line 60 "parser.y"
 {semantic(3);;
     break;}
 case 22:
-#line 63 "parser.y"
-{semantic(4);;
+#line 62 "parser.y"
+{identName = yyvsp[0]; semantic(4);;
     break;}
 case 24:
-#line 65 "parser.y"
+#line 64 "parser.y"
 {yyerrok; PrintError(missing_sbracket);;
     break;}
 case 27:
-#line 70 "parser.y"
+#line 69 "parser.y"
 {semantic(7);;
     break;}
 case 28:
-#line 71 "parser.y"
+#line 70 "parser.y"
 {semantic(7);;
     break;}
 case 29:
-#line 72 "parser.y"
+#line 71 "parser.y"
 {yyerrok; PrintError(missing_comma);;
     break;}
 case 32:
-#line 76 "parser.y"
+#line 75 "parser.y"
 {yyerrok; PrintError(missing_mbracket);;
     break;}
 case 39:
-#line 86 "parser.y"
+#line 85 "parser.y"
 {yyerrok; PrintError(missing_semi);;
     break;}
 case 42:
-#line 90 "parser.y"
+#line 89 "parser.y"
 {yyerrok; PrintError(missing_comma);;
     break;}
 case 45:
-#line 94 "parser.y"
+#line 93 "parser.y"
 {yyerrok; PrintError(declaring_err);;
     break;}
 case 46:
-#line 96 "parser.y"
-{semantic(5);;
+#line 95 "parser.y"
+{identName = yyvsp[0]; semantic(5);;
     break;}
 case 47:
-#line 97 "parser.y"
-{semantic(6);;
+#line 96 "parser.y"
+{identName = yyvsp[-3]; semantic(6);;
     break;}
 case 48:
-#line 98 "parser.y"
+#line 97 "parser.y"
 {yyerrok; PrintError(missing_lbracket);;
     break;}
 case 65:
-#line 122 "parser.y"
+#line 121 "parser.y"
 {yyerrok; PrintError(missing_sbracket);;
     break;}
 case 67:
-#line 125 "parser.y"
+#line 124 "parser.y"
 {yyerrok; PrintError(missing_sbracket);;
     break;}
 case 103:
-#line 171 "parser.y"
+#line 170 "parser.y"
 {yyerrok; PrintError(missing_lbracket);;
     break;}
 case 105:
-#line 173 "parser.y"
+#line 172 "parser.y"
 {yyerrok; PrintError(missing_sbracket);;
     break;}
 case 113:
-#line 183 "parser.y"
-{semantic(5);;
+#line 182 "parser.y"
+{identName = yyvsp[0]; semantic(5);;
     break;}
 case 116:
-#line 186 "parser.y"
+#line 185 "parser.y"
 {yyerrok; PrintError(missing_sbracket);;
     break;}
 }
@@ -1163,14 +1162,12 @@ yyerrhandle:
   yystate = yyn;
   goto yynewstate;
 }
-#line 187 "parser.y"
+#line 186 "parser.y"
 
 
 void semantic(int n){
 	// 현재 처리 중인 토큰의 문자열 값을 identName에 복사
-	identName = (char*) malloc(strlen(yytext) + 1);
-	strcpy(identName, yytext);
-	
+		
 	SymbolTable();
 	
 	switch(n){
