@@ -92,6 +92,7 @@ void ADDHT(int hscode)
 		ptr->index = nextid;
 		ptr->func_idx = -1;
 		ptr->var_idx = -1;
+		ptr->isConst = 0;
 		ptr->linenum = cLine;
 		current_id = ptr;
 	}
@@ -102,6 +103,7 @@ void ADDHT(int hscode)
 		HT[hscode] = ptr;
 		current_id = ptr;
 		ptr->var_idx = -1;
+		ptr->isConst = 0;
 		ptr->func_idx = -1;
 		ptr->linenum = cLine;
 	}

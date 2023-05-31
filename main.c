@@ -42,6 +42,9 @@ void printSymtable() { 	// HashTable 출력
 						printf(ST[j]);
 					}
 					printf(":	");
+					if (here->isConst) { // Const 변수 여부 출력
+						printf("Const / ");
+					}
 					switch (here-> var_idx)
 					{
 					case 0: // 일반 변수
