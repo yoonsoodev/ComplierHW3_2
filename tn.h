@@ -47,6 +47,9 @@
 #define	TELSE_CONDITION_ERROR	301
 #define	UIF	302
 #define	LOWER_THAN_ELSE	303
+#define	TERROR	304
+#define	TCOMMENT	305
+#define	TCARR	306
 
 
 extern YYSTYPE yylval;

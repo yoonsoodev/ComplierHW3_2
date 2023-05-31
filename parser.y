@@ -9,7 +9,7 @@ extern int init = 1; //전역변수 init 초기화
 extern char* identName; //identifier를 가르키는 문자열 포인터
 
 void PrintError(ERRORtypes err);
-int SymbolTable;
+int SymbolTable();
 
 /*yacc source for Mini C*/
 void semantic(int);
@@ -57,7 +57,7 @@ type_specifier		: TINT							{semantic(1);}
 			;
 function_name		: TIDENT						{semantic(4);}               
 formal_param		: TLPAREN opt_formal_param TRPAREN
-			| TLPAREN opt_formal_param error			{yyerrok: PrintError(missing_sbracket);}
+			| TLPAREN opt_formal_param error			{yyerrok; PrintError(missing_sbracket);}
 			;
 opt_formal_param	: formal_param_list      
 			|
