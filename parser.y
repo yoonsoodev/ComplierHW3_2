@@ -25,6 +25,7 @@ void semantic(int);
 %nonassoc TELSE_ERROR TELSE_CONDITION_ERROR
 %nonassoc UIF
 %nonassoc TELSE
+%nonassoc LOWER_THAN_ELSE
 
 %%
 mini_c			: translation_unit;
@@ -36,7 +37,7 @@ external_dcl		: function_def
 			| TIDENT TSEMI
 			| TIDENT error						{yyerrok; PrintError(missing_semi);}         
 function_def		: function_header compound_st
-			| function_TSEMICOLON
+			| function_header TSEMI
 			| function_header error					{yyerrok; PrintError(missing_semi);}
 			| error compound_st					{yyerrok; PrintError(missing_funcheader);}
 
@@ -155,7 +156,7 @@ multiplicative_exp 	: unary_exp
 		    	| multiplicative_exp TMOD unary_exp
 			;
 unary_exp 		: postfix_exp
-	   		| TSUB unary_exp
+	   		| TMINUS unary_exp
 	   		| TNOT unary_exp
 	   		| TINC unary_exp
 	   		| TDEC unary_exp

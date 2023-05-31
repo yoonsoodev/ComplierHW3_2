@@ -932,7 +932,7 @@ YY_RULE_SETUP
 					if(yyleng > MAX_LEN)
 						{ err = illid_long; PrintError(err); return(TERROR);}
 					else
-						{ SymbolTable(); return(TIDENT);}
+						{ init=1; SymbolTable(); return(TIDENT);}
 				}
 	YY_BREAK
 case 47:
