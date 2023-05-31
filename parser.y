@@ -1,4 +1,5 @@
 %{
+/* parser.y에서 symboltable값 변경하는 법 -> init= 1 지정 후 -> Symboltable() 호출 -> current_id 지정됨 -> current_id 값 변경함 */
 #include <stdio.h>
 #include <ctype.h>
 #include <malloc.h>
@@ -9,7 +10,7 @@ extern int init = 1; //전역변수 init 초기화
 extern char* identName; //identifier를 가르키는 문자열 포인터
 
 void PrintError(ERRORtypes err);
-int SymbolTable();
+int SymbolTable;
 
 /*yacc source for Mini C*/
 void semantic(int);
@@ -21,11 +22,11 @@ void semantic(int);
 %token TASSIGN TADDASSIGN TSUBASSIGN TMULASSIGN TDIVASSIGN TMODASSIGN
 %token TNOT TOR TAND TEQUAL TNOTEQU TGREATE TLESSE TLESS TGREAT TINC TDEC
 %token TLPAREN TRPAREN TCOMMA TLBRACE TRBRACE TLBRACKET TRBRACKET TSEMI
+%token TERROR TCARR TCOMMENT
 %nonassoc TIF_ERROR TIF_CONDITION_ERROR
 %nonassoc TELSE_ERROR TELSE_CONDITION_ERROR
 %nonassoc UIF
 %nonassoc TELSE
-%nonassoc LOWER_THAN_ELSE
 
 %%
 mini_c			: translation_unit;
@@ -37,12 +38,11 @@ external_dcl		: function_def
 			| TIDENT TSEMI
 			| TIDENT error						{yyerrok; PrintError(missing_semi);}         
 function_def		: function_header compound_st
-			| function_header TSEMI
+			| function_TSEMICOLON
 			| function_header error					{yyerrok; PrintError(missing_semi);}
 			| error compound_st					{yyerrok; PrintError(missing_funcheader);}
-
 			;
-function_header		: dcl_spec function_name formal_param			;
+function_header		: dcl_spec function_name formal_param;
 dcl_spec		: dcl_specifiers					;
 dcl_specifiers		: dcl_specifier
 			| dcl_specifiers dcl_specifier
@@ -55,9 +55,9 @@ type_specifier		: TINT							{semantic(1);}
 			| TFLOAT						{semantic(2);}
 			| TVOID							{semantic(3);}
 			;
-function_name		: TIDENT						{semantic(4);}               
+function_name		: TIDENT						{semantic(4);};               
 formal_param		: TLPAREN opt_formal_param TRPAREN
-			| TLPAREN opt_formal_param error			{yyerrok; PrintError(missing_sbracket);}
+			| TLPAREN opt_formal_param error			{yyerrok: PrintError(missing_sbracket);}
 			;
 opt_formal_param	: formal_param_list      
 			|
@@ -156,7 +156,7 @@ multiplicative_exp 	: unary_exp
 		    	| multiplicative_exp TMOD unary_exp
 			;
 unary_exp 		: postfix_exp
-	   		| TMINUS unary_exp
+	   		| TSUB unary_exp
 	   		| TNOT unary_exp
 	   		| TINC unary_exp
 	   		| TDEC unary_exp
@@ -201,16 +201,16 @@ void semantic(int n){
 		case 4 : //함수(이름)인 경우
 			break;
 		case 5 : //scalar 변수
-			current_id->var_idx = 2; 
+			icurrent_id->var_idx = 3; 
 			break;
 		case 6 : //array 변수
-			current_id->var_idx = 0; 
-			break;
-		case 7 :  // 매개변수
 			current_id->var_idx = 1; 
 			break;
+		case 7 :  // 매개변수
+			current_id->var_idx = 2; 
+			break;
 		case 8 :  // Const 변수
-			current_id->isConst = 1;
+			current_id->var_idx = 0; 
 			break;
 	}
 }
