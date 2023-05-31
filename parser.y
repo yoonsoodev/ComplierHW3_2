@@ -13,7 +13,7 @@ extern int init = 1; //전역변수 init 초기화
 extern char* identName; //identifier를 가르키는 문자열 포인터
 
 void PrintError(ERRORtypes err);
-int SymbolTable;
+int SymbolTable();
 
 
 /*yacc source for Mini C*/
