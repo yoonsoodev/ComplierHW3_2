@@ -9,6 +9,24 @@
 extern yylex();
 extern char *yytext;
 void printtoken(tn);
+void printSymtable();
+
+void main()
+{
+	enum tokentypes tn;
+	cLine = 1;
+
+	// Parsing 결과 출력
+	printf("=========================[[PARSING RESULTS]]===============================\n");
+	printf("***************************Parsing Begins**********************************\n");
+	yyparse();
+	printf("****************************Parsing Ends***********************************\n");
+	printf("\n\nNumber of errors: %d\n\n", num_err);
+	printf("===========================================================================\n");
+
+	printSymtable();
+
+}
 
 void printSymtable() { 	// HashTable 출력
 	//function index가 -1이 아닐때 function 출력
@@ -64,25 +82,9 @@ void printSymtable() { 	// HashTable 출력
 		}
 
 	}
-
 }
 
-void main()
-{
-    enum tokentypes tn;
-	cLine = 1;
 
-	// Parsing 결과 출력
-	printf("=========================[[PARSING RESULTS]]===============================\n");
-	printf("***************************Parsing Begins**********************************\n");
-	yyparse();
-	printf("****************************Parsing Ends***********************************\n");
-	printf("\n\nNumber of errors: %d\n\n", num_err);
-	printf("===========================================================================\n");
-
-	printSymtable();
-	
-}
 
 
 

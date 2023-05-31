@@ -59,7 +59,7 @@
 /* parser.y에서 symboltable값 변경하는 법 -> init= 1 지정 후 -> Symboltable() 호출 -> current_id 지정됨 -> current_id 값 변경함 */
 #include <stdio.h>
 #include <ctype.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include "tn.h"
 #include "glob.h"
 
