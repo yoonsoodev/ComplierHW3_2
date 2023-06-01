@@ -44,19 +44,16 @@
 #define	TLBRACKET	295
 #define	TRBRACKET	296
 #define	TSEMI	297
-#define	TERROR	298
-#define	TCARR	299
-#define	TCOMMENT	300
-#define	TIF_ERROR	301
-#define	TIF_CONDITION_ERROR	302
-#define	TELSE_ERROR	303
-#define	TELSE_CONDITION_ERROR	304
-#define	UIF	305
-#define	LOWER_THAN_ELSE	306
+#define	TIF_ERROR	298
+#define	TIF_CONDITION_ERROR	299
+#define	TELSE_ERROR	300
+#define	TELSE_CONDITION_ERROR	301
+#define	UIF	302
+#define	LOWER_THAN_ELSE	303
 
 #line 1 "parser.y"
 
-/* parser.y¿¡¼­ symboltable°ª º¯°æÇÏ´Â ¹ý -> init= 1 ÁöÁ¤ ÈÄ -> Symboltable() È£Ãâ -> current_id ÁöÁ¤µÊ -> current_id °ª º¯°æÇÔ */
+/* parser.y?ì„œ symboltableê°?ë³€ê²½í•˜??ë²?-> init= 1 ì§€????-> Symboltable() ?¸ì¶œ -> current_id ì§€?•ë¨ -> current_id ê°?ë³€ê²½í•¨ */
 #include <stdio.h>
 #include <ctype.h>
 #include <malloc.h>
@@ -73,6 +70,18 @@ void PrintError(ERRORtypes err);
 
 char* combine(char* data1, char* data2);
 char* combine(char* data1, char* data2, char* data3);
+
+typedef struct Statement;
+typedef struct Expression;
+typedef struct IfStatement;
+typedef struct WhileStatement;
+struct Statement* createIfStatement(struct Expression* condition, struct Statement* ifBody, struct Statement* elseBody);
+struct Statement* createWhileStatement(struct Expression* condition, struct Statement* body);
+struct Expression* createBinaryExpression(struct Expression* left, char* operator,struct Expression* right);
+struct Expression* createArrayAccessExpressionAlternative(struct Expression* arrayExpression, struct Expression* indexExpression);
+struct Expression* createFunctionCallExpression(struct Expression* functionExpression, struct Expression* arguments);
+struct Expression* createUnaryExpression(struct Expression* expression, char* operator);
+
 
 /*yacc source for Mini C*/
 void semantic(int);
@@ -108,9 +117,9 @@ typedef
 
 #define	YYFINAL		176
 #define	YYFLAG		-32768
-#define	YYNTBASE	52
+#define	YYNTBASE	49
 
-#define YYTRANSLATE(x) ((unsigned)(x) <= 306 ? yytranslate[x] : 98)
+#define YYTRANSLATE(x) ((unsigned)(x) <= 303 ? yytranslate[x] : 95)
 
 static const char yytranslate[] = {     0,
      2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -143,7 +152,7 @@ static const char yytranslate[] = {     0,
     16,    17,    18,    19,    20,    21,    22,    23,    24,    25,
     26,    27,    28,    29,    30,    31,    32,    33,    34,    35,
     36,    37,    38,    39,    40,    41,    42,    43,    44,    45,
-    46,    47,    48,    49,    50,    51
+    46,    47,    48
 };
 
 #if YYDEBUG != 0
@@ -162,61 +171,61 @@ static const short yyprhs[] = {     0,
    337,   339,   343,   345,   347,   351
 };
 
-static const short yyrhs[] = {    53,
-     0,    54,     0,    53,    54,     0,    55,     0,    71,     0,
-     3,    42,     0,     3,     1,     0,    56,    67,     0,    56,
-    42,     0,    56,     1,     0,     1,    67,     0,    57,    62,
-    63,     0,    58,     0,    59,     0,    58,    59,     0,    60,
-     0,    61,     0,     6,     0,     9,     0,     4,     0,    11,
-     0,     3,     0,    35,    64,    36,     0,    35,    64,     1,
-     0,    65,     0,     0,    66,     0,    65,    37,    66,     0,
-    65,    66,     0,    57,    74,     0,    38,    68,    39,     0,
-    38,    68,     1,     0,    69,    76,     0,    70,     0,     0,
-    71,     0,    70,    71,     0,    57,    72,    42,     0,    57,
-    72,     1,     0,    73,     0,    72,    37,    73,     0,    72,
-    73,     0,    74,     0,    74,    18,     5,     0,    74,    27,
-     5,     0,     3,     0,     3,    40,    75,    41,     0,     3,
-    40,    75,     1,     0,     5,     0,     0,    77,     0,     0,
-    78,     0,    77,    78,     0,    77,    71,     0,    67,     0,
-    79,     0,    81,     0,    82,     0,    83,     0,    80,    42,
-     0,    84,     0,     8,    35,    84,    36,    78,     0,     8,
-    35,    84,    36,    78,     7,    78,     0,     8,    35,    84,
-     1,     0,    12,    35,    84,    36,    78,     0,    12,    35,
-    84,     1,     0,    10,    80,    42,     0,    85,     0,    86,
-     0,    92,    18,    85,     0,    92,    19,    85,     0,    92,
-    20,    85,     0,    92,    21,    85,     0,    92,    22,    85,
-     0,    92,    23,    85,     0,    87,     0,    86,    25,    87,
-     0,    88,     0,    87,    26,    88,     0,    89,     0,    88,
-    27,    89,     0,    88,    28,    89,     0,    90,     0,    89,
-    32,    90,     0,    89,    31,    90,     0,    89,    29,    90,
-     0,    89,    30,    90,     0,    91,     0,    90,    13,    91,
-     0,    90,    14,    91,     0,    92,     0,    91,    15,    92,
-     0,    91,    16,    92,     0,    91,    17,    92,     0,    93,
-     0,    14,    92,     0,    24,    92,     0,    33,    92,     0,
-    34,    92,     0,    97,     0,    93,    40,    84,    41,     0,
-    93,    40,    84,     1,     0,    93,    35,    94,    36,     0,
-    93,    35,    94,     1,     0,    93,    33,     0,    93,    34,
-     0,    95,     0,     0,    96,     0,    85,     0,    96,    37,
-    85,     0,     3,     0,     5,     0,    35,    84,    36,     0,
-    35,    84,     1,     0
+static const short yyrhs[] = {    50,
+     0,    51,     0,    50,    51,     0,    52,     0,    68,     0,
+     3,    42,     0,     3,     1,     0,    53,    64,     0,    53,
+    42,     0,    53,     1,     0,     1,    64,     0,    54,    59,
+    60,     0,    55,     0,    56,     0,    55,    56,     0,    57,
+     0,    58,     0,     6,     0,     9,     0,     4,     0,    11,
+     0,     3,     0,    35,    61,    36,     0,    35,    61,     1,
+     0,    62,     0,     0,    63,     0,    62,    37,    63,     0,
+    62,    63,     0,    54,    71,     0,    38,    65,    39,     0,
+    38,    65,     1,     0,    66,    73,     0,    67,     0,     0,
+    68,     0,    67,    68,     0,    54,    69,    42,     0,    54,
+    69,     1,     0,    70,     0,    69,    37,    70,     0,    69,
+    70,     0,    71,     0,    71,    18,     5,     0,    71,    27,
+     5,     0,     3,     0,     3,    40,    72,    41,     0,     3,
+    40,    72,     1,     0,     5,     0,     0,    74,     0,     0,
+    75,     0,    74,    75,     0,    74,    68,     0,    64,     0,
+    76,     0,    78,     0,    79,     0,    80,     0,    77,    42,
+     0,    81,     0,     8,    35,    81,    36,    75,     0,     8,
+    35,    81,    36,    75,     7,    75,     0,     8,    35,    81,
+     1,     0,    12,    35,    81,    36,    75,     0,    12,    35,
+    81,     1,     0,    10,    77,    42,     0,    82,     0,    83,
+     0,    89,    18,    82,     0,    89,    19,    82,     0,    89,
+    20,    82,     0,    89,    21,    82,     0,    89,    22,    82,
+     0,    89,    23,    82,     0,    84,     0,    83,    25,    84,
+     0,    85,     0,    84,    26,    85,     0,    86,     0,    85,
+    27,    86,     0,    85,    28,    86,     0,    87,     0,    86,
+    32,    87,     0,    86,    31,    87,     0,    86,    29,    87,
+     0,    86,    30,    87,     0,    88,     0,    87,    13,    88,
+     0,    87,    14,    88,     0,    89,     0,    88,    15,    89,
+     0,    88,    16,    89,     0,    88,    17,    89,     0,    90,
+     0,    14,    89,     0,    24,    89,     0,    33,    89,     0,
+    34,    89,     0,    94,     0,    90,    40,    81,    41,     0,
+    90,    40,    81,     1,     0,    90,    35,    91,    36,     0,
+    90,    35,    91,     1,     0,    90,    33,     0,    90,    34,
+     0,    92,     0,     0,    93,     0,    82,     0,    93,    37,
+    82,     0,     3,     0,     5,     0,    35,    81,    36,     0,
+    35,    81,     1,     0
 };
 
 #endif
 
 #if YYDEBUG != 0
 static const short yyrline[] = { 0,
-    38,    39,    40,    42,    43,    44,    45,    46,    47,    48,
-    49,    51,    52,    53,    54,    56,    57,    59,    60,    61,
-    62,    64,    65,    66,    68,    69,    71,    72,    73,    75,
-    76,    77,    79,    80,    81,    83,    84,    86,    87,    89,
-    90,    91,    93,    94,    95,    97,    98,    99,   101,   102,
-   104,   105,   107,   108,   109,   111,   112,   113,   114,   115,
-   119,   120,   121,   122,   123,   125,   126,   127,   128,   129,
-   130,   131,   132,   133,   134,   135,   139,   140,   142,   143,
-   145,   146,   147,   149,   150,   151,   152,   153,   155,   156,
-   157,   159,   160,   161,   162,   164,   165,   166,   167,   168,
-   170,   171,   172,   173,   174,   175,   176,   177,   178,   180,
-   181,   182,   184,   185,   186,   187
+    49,    50,    51,    53,    54,    55,    56,    57,    58,    59,
+    60,    62,    63,    64,    65,    67,    68,    70,    71,    72,
+    73,    75,    76,    77,    79,    80,    82,    83,    84,    86,
+    87,    88,    90,    91,    92,    94,    95,    97,    98,   100,
+   101,   102,   104,   105,   106,   109,   110,   111,   113,   114,
+   116,   117,   119,   120,   121,   123,   124,   125,   126,   127,
+   130,   131,   133,   134,   135,   137,   138,   139,   140,   141,
+   142,   143,   144,   145,   146,   147,   151,   152,   154,   155,
+   157,   158,   159,   161,   162,   163,   164,   165,   167,   168,
+   169,   171,   172,   173,   174,   176,   177,   178,   179,   180,
+   182,   183,   184,   185,   186,   187,   188,   189,   190,   192,
+   193,   194,   196,   197,   198,   199
 };
 
 static const char * const yytname[] = {   "$","error","$undefined.","TIDENT",
@@ -224,34 +233,33 @@ static const char * const yytname[] = {   "$","error","$undefined.","TIDENT",
 "TPLUS","TMINUS","TSTAR","TSLASH","TMOD","TASSIGN","TADDASSIGN","TSUBASSIGN",
 "TMULASSIGN","TDIVASSIGN","TMODASSIGN","TNOT","TOR","TAND","TEQUAL","TNOTEQU",
 "TGREATE","TLESSE","TLESS","TGREAT","TINC","TDEC","TLPAREN","TRPAREN","TCOMMA",
-"TLBRACE","TRBRACE","TLBRACKET","TRBRACKET","TSEMI","TERROR","TCARR","TCOMMENT",
-"TIF_ERROR","TIF_CONDITION_ERROR","TELSE_ERROR","TELSE_CONDITION_ERROR","UIF",
-"LOWER_THAN_ELSE","mini_c","translation_unit","external_dcl","function_def",
-"function_header","dcl_spec","dcl_specifiers","dcl_specifier","type_qualifier",
-"type_specifier","function_name","formal_param","opt_formal_param","formal_param_list",
-"param_dcl","compound_st","compound","opt_dcl_list","declaration_list","declaration",
-"init_dcl_list","init_declarator","declarator","opt_number","opt_stat_list",
-"statement_list","statement","expression_st","opt_expression","if_st","while_st",
-"return_st","expression","assignment_exp","logical_or_exp","logical_and_exp",
-"equality_exp","relational_exp","additive_exp","multiplicative_exp","unary_exp",
-"postfix_exp","opt_actual_param","actual_param","actual_param_list","primary_exp",
-""
+"TLBRACE","TRBRACE","TLBRACKET","TRBRACKET","TSEMI","TIF_ERROR","TIF_CONDITION_ERROR",
+"TELSE_ERROR","TELSE_CONDITION_ERROR","UIF","LOWER_THAN_ELSE","mini_c","translation_unit",
+"external_dcl","function_def","function_header","dcl_spec","dcl_specifiers",
+"dcl_specifier","type_qualifier","type_specifier","function_name","formal_param",
+"opt_formal_param","formal_param_list","param_dcl","compound_st","compound",
+"opt_dcl_list","declaration_list","declaration","init_dcl_list","init_declarator",
+"declarator","opt_number","opt_stat_list","statement_list","statement","expression_st",
+"opt_expression","if_st","while_st","return_st","expression","assignment_exp",
+"logical_or_exp","logical_and_exp","equality_exp","relational_exp","additive_exp",
+"multiplicative_exp","unary_exp","postfix_exp","opt_actual_param","actual_param",
+"actual_param_list","primary_exp",""
 };
 #endif
 
 static const short yyr1[] = {     0,
-    52,    53,    53,    54,    54,    54,    54,    55,    55,    55,
-    55,    56,    57,    58,    58,    59,    59,    60,    61,    61,
-    61,    62,    63,    63,    64,    64,    65,    65,    65,    66,
-    67,    67,    68,    69,    69,    70,    70,    71,    71,    72,
-    72,    72,    73,    73,    73,    74,    74,    74,    75,    75,
-    76,    76,    77,    77,    77,    78,    78,    78,    78,    78,
-    79,    80,    81,    81,    81,    82,    82,    83,    84,    85,
-    85,    85,    85,    85,    85,    85,    86,    86,    87,    87,
-    88,    88,    88,    89,    89,    89,    89,    89,    90,    90,
-    90,    91,    91,    91,    91,    92,    92,    92,    92,    92,
-    93,    93,    93,    93,    93,    93,    93,    94,    94,    95,
-    96,    96,    97,    97,    97,    97
+    49,    50,    50,    51,    51,    51,    51,    52,    52,    52,
+    52,    53,    54,    55,    55,    56,    56,    57,    58,    58,
+    58,    59,    60,    60,    61,    61,    62,    62,    62,    63,
+    64,    64,    65,    66,    66,    67,    67,    68,    68,    69,
+    69,    69,    70,    70,    70,    71,    71,    71,    72,    72,
+    73,    73,    74,    74,    74,    75,    75,    75,    75,    75,
+    76,    77,    78,    78,    78,    79,    79,    80,    81,    82,
+    82,    82,    82,    82,    82,    82,    83,    83,    84,    84,
+    85,    85,    85,    86,    86,    86,    86,    86,    87,    87,
+    87,    88,    88,    88,    88,    89,    89,    89,    89,    89,
+    90,    90,    90,    90,    90,    90,    90,    91,    91,    92,
+    93,    93,    94,    94,    94,    94
 };
 
 static const short yyr2[] = {     0,
@@ -867,379 +875,443 @@ yyreduce:
   switch (yyn) {
 
 case 1:
-#line 38 "parser.y"
+#line 49 "parser.y"
 {yyval = yyvsp[0];;
     break;}
 case 2:
-#line 39 "parser.y"
+#line 50 "parser.y"
 {yyval = yyvsp[0];;
     break;}
 case 3:
-#line 40 "parser.y"
+#line 51 "parser.y"
 {yyval = combine(yyvsp[-1], yyvsp[0]);;
     break;}
 case 4:
-#line 42 "parser.y"
-{yyval = yyvsp[0];;
-    break;}
-case 5:
-#line 43 "parser.y"
-{yyval = yyvsp[0];;
-    break;}
-case 6:
-#line 44 "parser.y"
-{yyval = yyvsp[-1];;
-    break;}
-case 7:
-#line 45 "parser.y"
-{yyerrok; PrintError(missing_semi);;
-    break;}
-case 8:
-#line 46 "parser.y"
-{yyval = combine(yyvsp[-1], yyvsp[0]);;
-    break;}
-case 9:
-#line 47 "parser.y"
-{yyval = yyvsp[-1];;
-    break;}
-case 10:
-#line 48 "parser.y"
-{yyerrok; PrintError(missing_semi);;
-    break;}
-case 11:
-#line 49 "parser.y"
-{yyerrok; PrintError(missing_funcheader);;
-    break;}
-case 12:
-#line 51 "parser.y"
-{yyval = combine(yyvsp[-2], yyvsp[-1], yyvsp[0]);;
-    break;}
-case 13:
-#line 52 "parser.y"
-{yyval = yyvsp[0];;
-    break;}
-case 14:
 #line 53 "parser.y"
 {yyval = yyvsp[0];;
     break;}
-case 15:
+case 5:
 #line 54 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 6:
+#line 55 "parser.y"
+{yyval = yyvsp[-1];;
+    break;}
+case 7:
+#line 56 "parser.y"
+{yyerrok; PrintError(missing_semi);;
+    break;}
+case 8:
+#line 57 "parser.y"
+{yyval = combine(yyvsp[-1], yyvsp[0]);;
+    break;}
+case 9:
+#line 58 "parser.y"
+{yyval = yyvsp[-1];;
+    break;}
+case 10:
+#line 59 "parser.y"
+{yyerrok; PrintError(missing_semi);;
+    break;}
+case 11:
+#line 60 "parser.y"
+{yyerrok; PrintError(missing_funcheader);;
+    break;}
+case 12:
+#line 62 "parser.y"
+{yyval = combine(yyvsp[-2], yyvsp[-1], yyvsp[0]);;
+    break;}
+case 13:
+#line 63 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 14:
+#line 64 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 15:
+#line 65 "parser.y"
 {yyval = combine(yyvsp[-1], yyvsp[0]);;
     break;}
 case 16:
-#line 56 "parser.y"
+#line 67 "parser.y"
 {yyval = yyvsp[0];;
     break;}
 case 17:
-#line 57 "parser.y"
-{yyval = yyvsp[0];;
-    break;}
-case 18:
-#line 59 "parser.y"
-{semantic(8);;
-    break;}
-case 19:
-#line 60 "parser.y"
-{semantic(1);;
-    break;}
-case 20:
-#line 61 "parser.y"
-{semantic(2);;
-    break;}
-case 21:
-#line 62 "parser.y"
-{semantic(3);;
-    break;}
-case 22:
-#line 64 "parser.y"
-{identName = yyvsp[0]; semantic(4);;
-    break;}
-case 23:
-#line 65 "parser.y"
-{yyval = yyvsp[-1];;
-    break;}
-case 24:
-#line 66 "parser.y"
-{yyerrok; PrintError(missing_sbracket);;
-    break;}
-case 25:
 #line 68 "parser.y"
 {yyval = yyvsp[0];;
     break;}
-case 27:
+case 19:
 #line 71 "parser.y"
-{semantic(7);;
+{semantic(1);;
     break;}
-case 28:
+case 20:
 #line 72 "parser.y"
-{semantic(7);;
+{semantic(2);;
     break;}
-case 29:
+case 21:
 #line 73 "parser.y"
-{yyerrok; PrintError(missing_comma);;
+{semantic(3);;
     break;}
-case 30:
+case 22:
 #line 75 "parser.y"
-{yyval = yyvsp[-1];;
+{identName = yyvsp[0]; semantic(4);;
     break;}
-case 31:
+case 23:
 #line 76 "parser.y"
 {yyval = yyvsp[-1];;
     break;}
-case 32:
+case 24:
 #line 77 "parser.y"
+{yyerrok; PrintError(missing_sbracket);;
+    break;}
+case 25:
+#line 79 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 27:
+#line 82 "parser.y"
+{semantic(7);;
+    break;}
+case 28:
+#line 83 "parser.y"
+{semantic(7);;
+    break;}
+case 29:
+#line 84 "parser.y"
+{yyerrok; PrintError(missing_comma);;
+    break;}
+case 30:
+#line 86 "parser.y"
+{yyval = yyvsp[-1];;
+    break;}
+case 31:
+#line 87 "parser.y"
+{yyval = yyvsp[-1];;
+    break;}
+case 32:
+#line 88 "parser.y"
 {yyerrok; PrintError(missing_mbracket);;
     break;}
 case 33:
-#line 79 "parser.y"
+#line 90 "parser.y"
 {yyval = combine(yyvsp[-1], yyvsp[0]);;
     break;}
 case 34:
-#line 80 "parser.y"
+#line 91 "parser.y"
 {yyval = yyvsp[0];;
     break;}
 case 36:
-#line 83 "parser.y"
+#line 94 "parser.y"
 {yyval = yyvsp[0];;
     break;}
 case 37:
-#line 84 "parser.y"
+#line 95 "parser.y"
 {yyval = combine(yyvsp[-1], yyvsp[0]);;
     break;}
 case 38:
-#line 86 "parser.y"
+#line 97 "parser.y"
 {yyval = combine(yyvsp[-2], yyvsp[-1]);;
     break;}
 case 39:
-#line 87 "parser.y"
+#line 98 "parser.y"
 {yyerrok; PrintError(missing_semi);;
     break;}
 case 40:
-#line 89 "parser.y"
+#line 100 "parser.y"
 {yyval = yyvsp[0];;
     break;}
 case 41:
-#line 90 "parser.y"
+#line 101 "parser.y"
 {yyval = combine(yyvsp[-2], yyvsp[0]);;
     break;}
 case 42:
-#line 91 "parser.y"
+#line 102 "parser.y"
 {yyerrok; PrintError(missing_comma);;
     break;}
 case 43:
-#line 93 "parser.y"
-{yyval = yyvsp[0];;
-    break;}
-case 44:
-#line 94 "parser.y"
-{yyval = yyvsp[-2];;
-    break;}
-case 45:
-#line 95 "parser.y"
-{yyerrok; PrintError(declaring_err);;
-    break;}
-case 46:
-#line 97 "parser.y"
-{identName = yyvsp[0]; semantic(5);;
-    break;}
-case 47:
-#line 98 "parser.y"
-{identName = yyvsp[-3]; semantic(6);;
-    break;}
-case 48:
-#line 99 "parser.y"
-{yyerrok; PrintError(missing_lbracket);;
-    break;}
-case 49:
-#line 101 "parser.y"
-{yyval = yyvsp[0];;
-    break;}
-case 51:
 #line 104 "parser.y"
 {yyval = yyvsp[0];;
     break;}
-case 53:
-#line 107 "parser.y"
-{yyval = yyvsp[0];;
+case 44:
+#line 105 "parser.y"
+{yyval = yyvsp[-2];;
     break;}
-case 54:
-#line 108 "parser.y"
-{yyval = combine(yyvsp[-1], yyvsp[0]);;
+case 45:
+#line 106 "parser.y"
+{yyerrok; PrintError(declaring_err);;
     break;}
-case 55:
+case 46:
 #line 109 "parser.y"
-{yyval = combine(yyvsp[-1], yyvsp[0]);;
+{semantic(5);;
     break;}
-case 56:
+case 47:
+#line 110 "parser.y"
+{semantic(6);;
+    break;}
+case 48:
 #line 111 "parser.y"
-{yyval = yyvsp[0];;
+{yyerrok;PrintError(missing_lbracket);;
     break;}
-case 57:
-#line 112 "parser.y"
-{yyval = yyvsp[0];;
-    break;}
-case 58:
+case 49:
 #line 113 "parser.y"
 {yyval = yyvsp[0];;
     break;}
+case 51:
+#line 116 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 53:
+#line 119 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 54:
+#line 120 "parser.y"
+{yyval = combine(yyvsp[-1], yyvsp[0]);;
+    break;}
+case 55:
+#line 121 "parser.y"
+{yyval = combine(yyvsp[-1], yyvsp[0]);;
+    break;}
+case 56:
+#line 123 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 57:
+#line 124 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 58:
+#line 125 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
 case 59:
-#line 114 "parser.y"
+#line 126 "parser.y"
 {yyval = yyvsp[0];;
     break;}
 case 60:
-#line 115 "parser.y"
+#line 127 "parser.y"
 {yyval = yyvsp[0];;
     break;}
 case 61:
-#line 119 "parser.y"
+#line 130 "parser.y"
 {yyval = yyvsp[-1];;
     break;}
 case 62:
-#line 120 "parser.y"
+#line 131 "parser.y"
 {yyval = yyvsp[0];;
     break;}
+case 63:
+#line 133 "parser.y"
+{ yyval = createIfStatement(yyvsp[-2], yyvsp[0], NULL); ;
+    break;}
+case 64:
+#line 134 "parser.y"
+{ yyval = createIfStatement(yyvsp[-4], yyvsp[-2], yyvsp[0]); ;
+    break;}
 case 65:
-#line 123 "parser.y"
+#line 135 "parser.y"
 {yyerrok; PrintError(missing_sbracket);;
     break;}
+case 66:
+#line 137 "parser.y"
+{ yyval = createWhileStatement(yyvsp[-2], yyvsp[0]); ;
+    break;}
 case 67:
-#line 126 "parser.y"
+#line 138 "parser.y"
 {yyerrok; PrintError(missing_sbracket);;
     break;}
 case 68:
-#line 127 "parser.y"
+#line 139 "parser.y"
 {yyval = yyvsp[-1];;
     break;}
 case 69:
-#line 128 "parser.y"
+#line 140 "parser.y"
 {yyval = yyvsp[0];;
     break;}
 case 70:
-#line 129 "parser.y"
+#line 141 "parser.y"
 {yyval = yyvsp[0];;
     break;}
 case 71:
-#line 130 "parser.y"
-{yyval = yyvsp[0];;
-    break;}
-case 72:
-#line 131 "parser.y"
-{yyval = yyvsp[-2] + yyvsp[0];;
-    break;}
-case 73:
-#line 132 "parser.y"
-{yyval = yyvsp[-2] - yyvsp[0];;
-    break;}
-case 74:
-#line 133 "parser.y"
-{yyval = yyvsp[-2] * yyvsp[0];;
-    break;}
-case 75:
-#line 134 "parser.y"
-{yyval = yyvsp[-2] / yyvsp[0];;
-    break;}
-case 76:
-#line 135 "parser.y"
-{yyval = yyvsp[-2] % yyvsp[0];;
-    break;}
-case 77:
-#line 139 "parser.y"
-{yyval = yyvsp[0];;
-    break;}
-case 78:
-#line 140 "parser.y"
-{yyval = combine(yyvsp[-2], yyvsp[0]);;
-    break;}
-case 79:
 #line 142 "parser.y"
 {yyval = yyvsp[0];;
     break;}
-case 80:
+case 72:
 #line 143 "parser.y"
+{yyval = yyvsp[-2] + yyvsp[0];;
+    break;}
+case 73:
+#line 144 "parser.y"
+{yyval = yyvsp[-2] - yyvsp[0];;
+    break;}
+case 74:
+#line 145 "parser.y"
+{yyval = yyvsp[-2] * yyvsp[0];;
+    break;}
+case 75:
+#line 146 "parser.y"
+{yyval = yyvsp[-2] / yyvsp[0];;
+    break;}
+case 76:
+#line 147 "parser.y"
+{yyval = yyvsp[-2] % yyvsp[0];;
+    break;}
+case 77:
+#line 151 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 78:
+#line 152 "parser.y"
+{yyval = combine(yyvsp[-2], yyvsp[0]);;
+    break;}
+case 79:
+#line 154 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 80:
+#line 155 "parser.y"
 {yyval = combine(yyvsp[-2], yyvsp[0]);;
     break;}
 case 81:
-#line 145 "parser.y"
+#line 157 "parser.y"
 {yyval = yyvsp[0];;
     break;}
 case 82:
-#line 146 "parser.y"
+#line 158 "parser.y"
 {yyval = combine(yyvsp[-2], yyvsp[0]);;
     break;}
 case 83:
-#line 147 "parser.y"
+#line 159 "parser.y"
 {yyval = combine(yyvsp[-2], yyvsp[0]);;
     break;}
 case 84:
-#line 149 "parser.y"
+#line 161 "parser.y"
 {yyval = yyvsp[0];;
     break;}
+case 85:
+#line 162 "parser.y"
+{ yyval = createBinaryExpression(yyvsp[-2], yyvsp[-1], yyvsp[0]); ;
+    break;}
+case 86:
+#line 163 "parser.y"
+{ yyval = createBinaryExpression(yyvsp[-2], yyvsp[-1], yyvsp[0]); ;
+    break;}
+case 87:
+#line 164 "parser.y"
+{ yyval = createBinaryExpression(yyvsp[-2], yyvsp[-1], yyvsp[0]); ;
+    break;}
+case 88:
+#line 165 "parser.y"
+{ yyval = createBinaryExpression(yyvsp[-2], yyvsp[-1], yyvsp[0]); ;
+    break;}
 case 89:
-#line 155 "parser.y"
+#line 167 "parser.y"
 {yyval = yyvsp[0];;
     break;}
 case 90:
-#line 156 "parser.y"
+#line 168 "parser.y"
 {yyval = yyvsp[-2] + yyvsp[0];;
     break;}
 case 91:
-#line 157 "parser.y"
+#line 169 "parser.y"
 {yyval = yyvsp[-2] - yyvsp[0];;
     break;}
 case 92:
-#line 159 "parser.y"
+#line 171 "parser.y"
 {yyval = yyvsp[0];;
     break;}
 case 93:
-#line 160 "parser.y"
+#line 172 "parser.y"
 {yyval = yyvsp[-2] * yyvsp[0];;
     break;}
 case 94:
-#line 161 "parser.y"
+#line 173 "parser.y"
 {yyval = yyvsp[-2] / yyvsp[0];;
     break;}
 case 95:
-#line 162 "parser.y"
+#line 174 "parser.y"
 {yyval = yyvsp[-2] % yyvsp[0];;
     break;}
 case 96:
-#line 164 "parser.y"
+#line 176 "parser.y"
 {yyval = yyvsp[0];;
+    break;}
+case 97:
+#line 177 "parser.y"
+{yyval = -yyvsp[0];;
+    break;}
+case 98:
+#line 178 "parser.y"
+{yyval = !yyvsp[0];;
+    break;}
+case 99:
+#line 179 "parser.y"
+{++yyvsp[0]; yyval = yyvsp[0];;
+    break;}
+case 100:
+#line 180 "parser.y"
+{--yyvsp[0]; yyval = yyvsp[0];;
     break;}
 case 101:
-#line 170 "parser.y"
+#line 182 "parser.y"
 {yyval = yyvsp[0];;
     break;}
+case 102:
+#line 183 "parser.y"
+{yyval = createArrayAccessExpressionAlternative(yyvsp[-3], yyvsp[-1]);;
+    break;}
 case 103:
-#line 172 "parser.y"
+#line 184 "parser.y"
 {yyerrok; PrintError(missing_lbracket);;
     break;}
+case 104:
+#line 185 "parser.y"
+{yyval = createFunctionCallExpression(yyvsp[-3], yyvsp[-1]);;
+    break;}
 case 105:
-#line 174 "parser.y"
+#line 186 "parser.y"
 {yyerrok; PrintError(missing_sbracket);;
     break;}
+case 106:
+#line 187 "parser.y"
+{yyval = createUnaryExpression(yyvsp[-1], INCREMENT);;
+    break;}
+case 107:
+#line 188 "parser.y"
+{yyval = createUnaryExpression(yyvsp[-1], INCREMENT);;
+    break;}
+case 108:
+#line 189 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
 case 110:
-#line 180 "parser.y"
+#line 192 "parser.y"
 {yyval = yyvsp[0];;
     break;}
 case 111:
-#line 181 "parser.y"
+#line 193 "parser.y"
 {yyval = yyvsp[0];;
     break;}
+case 112:
+#line 194 "parser.y"
+{yyval = combine(yyvsp[-2], yyvsp[0]);;
+    break;}
 case 113:
-#line 184 "parser.y"
+#line 196 "parser.y"
 {identName = yyvsp[0]; semantic(5);;
     break;}
 case 114:
-#line 185 "parser.y"
+#line 197 "parser.y"
 {yyval = yyvsp[0];;
     break;}
 case 115:
-#line 186 "parser.y"
+#line 198 "parser.y"
 {yyval = yyvsp[-1];;
     break;}
 case 116:
-#line 187 "parser.y"
+#line 199 "parser.y"
 {yyerrok; PrintError(missing_sbracket);;
     break;}
 }
@@ -1440,7 +1512,7 @@ yyerrhandle:
   yystate = yyn;
   goto yynewstate;
 }
-#line 188 "parser.y"
+#line 200 "parser.y"
 
 
 char* combine(char* data1, char* data2) {
@@ -1463,34 +1535,119 @@ char* combine(char* data1, char* data2, char* data3) {
 }
 
 
+typedef struct Statement {
+    int type;  // Type of the statement (e.g., IF_STATEMENT, WHILE_STATEMENT)
+    union {
+        struct IfStatement* ifStatement;
+        struct WhileStatement* whileStatement;
+        // Add more statement types as needed
+    } statement;
+} Statement;
+
+typedef struct Expression {
+    int type;  // Type of the expression (e.g., ASSIGNMENT_EXPRESSION, BINARY_EXPRESSION)
+    union {
+        struct AssignmentExpression* assignmentExpression;
+        struct BinaryExpression* binaryExpression;
+        // Add more expression types as needed
+    } expression;
+} Expression;
+
+
+// IfStatement ±¸Á¶Ã¼ Á¤ÀÇ
+typedef struct IfStatement {
+    struct Expression* condition;
+    struct Statement* ifBody;
+    struct Statement* elseBody;
+} IfStatement;
+
+// WhileStatement ±¸Á¶Ã¼ Á¤ÀÇ
+typedef struct WhileStatement {
+    struct Expression* condition;
+    struct Statement* body;
+} WhileStatement;
+
+// IfStatement ³ëµå¸¦ »ý¼ºÇÏ°í ÇÊµå¿¡ °ªÀ» ÇÒ´çÇÏ´Â ÇÔ¼ö
+struct Statement* createIfStatement(struct Expression* condition, struct Statement* ifBody, struct Statement* elseBody) {
+    struct IfStatement* ifStatement = malloc(sizeof(struct IfStatement));
+    ifStatement->condition = condition;
+    ifStatement->ifBody = ifBody;
+    ifStatement->elseBody = elseBody;
+    return (struct Statement*)ifStatement;
+}
+
+// WhileStatement ³ëµå¸¦ »ý¼ºÇÏ°í ÇÊµå¿¡ °ªÀ» ÇÒ´çÇÏ´Â ÇÔ¼ö
+struct Statement* createWhileStatement(struct Expression* condition, struct Statement* body) {
+    struct WhileStatement* whileStatement = malloc(sizeof(struct WhileStatement));
+    whileStatement->condition = condition;
+    whileStatement->body = body;
+    return (struct Statement*)whileStatement;
+}
+
+// ÀÌÁø Ç¥Çö½Ä(Binary Expression)À» »ý¼ºÇÏ°í ÇÊµå¿¡ °ªÀ» ÇÒ´çÇÏ´Â ÇÔ¼ö
+Expression* createBinaryExpression(Expression* left, char* operator, Expression* right) {
+    Expression* binaryExpression = malloc(sizeof(Expression));
+    // ÇÊ¿äÇÑ ÇÊµåµé¿¡ °ªÀ» ÇÒ´çÇÕ´Ï´Ù.
+    // ¿©±â¿¡¼­´Â ¿¹½Ã·Î "left", "operator", "right"¶ó´Â ÇÊµå¸¦ Ãß°¡ÇÏ¿´½À´Ï´Ù.
+    binaryExpression->left = left;
+    binaryExpression->operator = operator;
+    binaryExpression->right = right;
+    return binaryExpression;
+}
+
+// ¹è¿­ Á¢±Ù Ç¥Çö½Ä(Array Access Expression Alternative)À» »ý¼ºÇÏ°í ÇÊµå¿¡ °ªÀ» ÇÒ´çÇÏ´Â ÇÔ¼ö
+Expression* createArrayAccessExpressionAlternative(Expression* arrayExpression, Expression* indexExpression) {
+    Expression* arrayAccessExpression = malloc(sizeof(Expression));
+    // ÇÊ¿äÇÑ ÇÊµåµé¿¡ °ªÀ» ÇÒ´çÇÕ´Ï´Ù.
+    // ¿©±â¿¡¼­´Â ¿¹½Ã·Î "arrayExpression"°ú "indexExpression"ÀÌ¶ó´Â ÇÊµå¸¦ Ãß°¡ÇÏ¿´½À´Ï´Ù.
+    arrayAccessExpression->arrayExpression = arrayExpression;
+    arrayAccessExpression->indexExpression = indexExpression;
+    return arrayAccessExpression;
+}
+
+// ÇÔ¼ö È£Ãâ Ç¥Çö½Ä(Function Call Expression)À» »ý¼ºÇÏ°í ÇÊµå¿¡ °ªÀ» ÇÒ´çÇÏ´Â ÇÔ¼ö
+Expression* createFunctionCallExpression(Expression* functionExpression, Expression* arguments) {
+    Expression* functionCallExpression = malloc(sizeof(Expression));
+    // ÇÊ¿äÇÑ ÇÊµåµé¿¡ °ªÀ» ÇÒ´çÇÕ´Ï´Ù.
+    // ¿©±â¿¡¼­´Â ¿¹½Ã·Î "functionExpression"°ú "arguments"¶ó´Â ÇÊµå¸¦ Ãß°¡ÇÏ¿´½À´Ï´Ù.
+    functionCallExpression->functionExpression = functionExpression;
+    functionCallExpression->arguments = arguments;
+    return functionCallExpression;
+}
+
+// ´ÜÇ× Ç¥Çö½Ä(Unary Expression)À» »ý¼ºÇÏ°í ÇÊµå¿¡ °ªÀ» ÇÒ´çÇÏ´Â ÇÔ¼ö
+Expression* createUnaryExpression(Expression* expression, char* operator) {
+    Expression* unaryExpression = malloc(sizeof(Expression));
+    // ÇÊ¿äÇÑ ÇÊµåµé¿¡ °ªÀ» ÇÒ´çÇÕ´Ï´Ù.
+    // ¿©±â¿¡¼­´Â ¿¹½Ã·Î "expression"°ú "operator"¶ó´Â ÇÊµå¸¦ Ãß°¡ÇÏ¿´½À´Ï´Ù.
+    unaryExpression->expression = expression;
+    unaryExpression->operator = operator;
+    return unaryExpression;
+}
+
 void semantic(int n){
 	// ÇöÀç Ã³¸® ÁßÀÎ ÅäÅ«ÀÇ ¹®ÀÚ¿­ °ªÀ» identName¿¡ º¹»ç
 	init = 1;	
 	SymbolTable();
-	
 	switch(n){
 		case 1 : 
-			current_id ->func_idx = 0;
+			identifier_type = 1; 
 			break;
 		case 2 : 
-			current_id ->func_idx = 1;
+			identifier_type = 2; 
 			break;
 		case 3 : 
-			current_id ->func_idx = 2;
+			identifier_type = 3; 
 			break;
-		case 4 : //ÇÔ¼ö(ÀÌ¸§)ÀÎ °æ¿ì
+		case 4 : 
+			identifier = 1; 
 			break;
-		case 5 : //scalar º¯¼ö
-			current_id->var_idx = 2; 
+		case 5 : 
+			identifier = 2; 
 			break;
-		case 6 : //array º¯¼ö
-			current_id->var_idx = 0; 
-			break;
-		case 7 :  // ¸Å°³º¯¼ö
-			current_id->var_idx = 1; 
-			break;
-		case 8 :  // Const º¯¼ö
-			current_id->isConst = 1; 
+		case 6 : 
+			identifier = 3; //array ë³€??			break;
+		case 7 :  // ë§¤ê°œë³€??			identifier = 4; 
 			break;
 	}
 }
