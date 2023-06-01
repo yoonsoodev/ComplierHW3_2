@@ -59,18 +59,20 @@
 /* parser.y에서 symboltable값 변경하는 법 -> init= 1 지정 후 -> Symboltable() 호출 -> current_id 지정됨 -> current_id 값 변경함 */
 #include <stdio.h>
 #include <ctype.h>
-#include <stdlib.h>
+#include <malloc.h>
 #include "tn.h"
 #include "glob.h"
 
 extern char* yytext; // 'yytext' 선언
 
 extern HTpointer current_id;
-extern int init = 1; //전역변수 init 초기화
+extern int init; //전역변수 init 초기화
 extern char* identName; //identifier를 가르키는 문자열 포인터
 
 void PrintError(ERRORtypes err);
 
+char* combine(char* data1, char* data2);
+char* combine(char* data1, char* data2, char* data3);
 
 /*yacc source for Mini C*/
 void semantic(int);
@@ -203,18 +205,18 @@ static const short yyrhs[] = {    53,
 
 #if YYDEBUG != 0
 static const short yyrline[] = { 0,
-    36,    37,    38,    40,    41,    42,    43,    44,    45,    46,
-    47,    49,    50,    51,    52,    54,    55,    57,    58,    59,
-    60,    62,    63,    64,    66,    67,    69,    70,    71,    73,
-    74,    75,    77,    78,    79,    81,    82,    84,    85,    87,
-    88,    89,    91,    92,    93,    95,    96,    97,    99,   100,
-   102,   103,   105,   106,   107,   109,   110,   111,   112,   113,
-   117,   118,   119,   120,   121,   123,   124,   125,   126,   127,
-   128,   129,   130,   131,   132,   133,   137,   138,   140,   141,
-   143,   144,   145,   147,   148,   149,   150,   151,   153,   154,
-   155,   157,   158,   159,   160,   162,   163,   164,   165,   166,
-   168,   169,   170,   171,   172,   173,   174,   175,   176,   178,
-   179,   180,   182,   183,   184,   185
+    38,    39,    40,    42,    43,    44,    45,    46,    47,    48,
+    49,    51,    52,    53,    54,    56,    57,    59,    60,    61,
+    62,    64,    65,    66,    68,    69,    71,    72,    73,    75,
+    76,    77,    79,    80,    81,    83,    84,    86,    87,    89,
+    90,    91,    93,    94,    95,    97,    98,    99,   101,   102,
+   104,   105,   107,   108,   109,   111,   112,   113,   114,   115,
+   119,   120,   121,   122,   123,   125,   126,   127,   128,   129,
+   130,   131,   132,   133,   134,   135,   139,   140,   142,   143,
+   145,   146,   147,   149,   150,   151,   152,   153,   155,   156,
+   157,   159,   160,   161,   162,   164,   165,   166,   167,   168,
+   170,   171,   172,   173,   174,   175,   176,   177,   178,   180,
+   181,   182,   184,   185,   186,   187
 };
 
 static const char * const yytname[] = {   "$","error","$undefined.","TIDENT",
@@ -864,104 +866,380 @@ yyreduce:
 
   switch (yyn) {
 
-case 7:
+case 1:
+#line 38 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 2:
+#line 39 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 3:
+#line 40 "parser.y"
+{yyval = combine(yyvsp[-1], yyvsp[0]);;
+    break;}
+case 4:
+#line 42 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 5:
 #line 43 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 6:
+#line 44 "parser.y"
+{yyval = yyvsp[-1];;
+    break;}
+case 7:
+#line 45 "parser.y"
 {yyerrok; PrintError(missing_semi);;
     break;}
-case 10:
+case 8:
 #line 46 "parser.y"
+{yyval = combine(yyvsp[-1], yyvsp[0]);;
+    break;}
+case 9:
+#line 47 "parser.y"
+{yyval = yyvsp[-1];;
+    break;}
+case 10:
+#line 48 "parser.y"
 {yyerrok; PrintError(missing_semi);;
     break;}
 case 11:
-#line 47 "parser.y"
+#line 49 "parser.y"
 {yyerrok; PrintError(missing_funcheader);;
     break;}
-case 18:
+case 12:
+#line 51 "parser.y"
+{yyval = combine(yyvsp[-2], yyvsp[-1], yyvsp[0]);;
+    break;}
+case 13:
+#line 52 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 14:
+#line 53 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 15:
+#line 54 "parser.y"
+{yyval = combine(yyvsp[-1], yyvsp[0]);;
+    break;}
+case 16:
+#line 56 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 17:
 #line 57 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 18:
+#line 59 "parser.y"
 {semantic(8);;
     break;}
 case 19:
-#line 58 "parser.y"
+#line 60 "parser.y"
 {semantic(1);;
     break;}
 case 20:
-#line 59 "parser.y"
+#line 61 "parser.y"
 {semantic(2);;
     break;}
 case 21:
-#line 60 "parser.y"
+#line 62 "parser.y"
 {semantic(3);;
     break;}
 case 22:
-#line 62 "parser.y"
+#line 64 "parser.y"
 {identName = yyvsp[0]; semantic(4);;
     break;}
+case 23:
+#line 65 "parser.y"
+{yyval = yyvsp[-1];;
+    break;}
 case 24:
-#line 64 "parser.y"
+#line 66 "parser.y"
 {yyerrok; PrintError(missing_sbracket);;
     break;}
+case 25:
+#line 68 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
 case 27:
-#line 69 "parser.y"
+#line 71 "parser.y"
 {semantic(7);;
     break;}
 case 28:
-#line 70 "parser.y"
+#line 72 "parser.y"
 {semantic(7);;
     break;}
 case 29:
-#line 71 "parser.y"
+#line 73 "parser.y"
 {yyerrok; PrintError(missing_comma);;
+    break;}
+case 30:
+#line 75 "parser.y"
+{yyval = yyvsp[-1];;
+    break;}
+case 31:
+#line 76 "parser.y"
+{yyval = yyvsp[-1];;
     break;}
 case 32:
-#line 75 "parser.y"
+#line 77 "parser.y"
 {yyerrok; PrintError(missing_mbracket);;
     break;}
+case 33:
+#line 79 "parser.y"
+{yyval = combine(yyvsp[-1], yyvsp[0]);;
+    break;}
+case 34:
+#line 80 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 36:
+#line 83 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 37:
+#line 84 "parser.y"
+{yyval = combine(yyvsp[-1], yyvsp[0]);;
+    break;}
+case 38:
+#line 86 "parser.y"
+{yyval = combine(yyvsp[-2], yyvsp[-1]);;
+    break;}
 case 39:
-#line 85 "parser.y"
+#line 87 "parser.y"
 {yyerrok; PrintError(missing_semi);;
     break;}
-case 42:
+case 40:
 #line 89 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 41:
+#line 90 "parser.y"
+{yyval = combine(yyvsp[-2], yyvsp[0]);;
+    break;}
+case 42:
+#line 91 "parser.y"
 {yyerrok; PrintError(missing_comma);;
     break;}
-case 45:
+case 43:
 #line 93 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 44:
+#line 94 "parser.y"
+{yyval = yyvsp[-2];;
+    break;}
+case 45:
+#line 95 "parser.y"
 {yyerrok; PrintError(declaring_err);;
     break;}
 case 46:
-#line 95 "parser.y"
+#line 97 "parser.y"
 {identName = yyvsp[0]; semantic(5);;
     break;}
 case 47:
-#line 96 "parser.y"
+#line 98 "parser.y"
 {identName = yyvsp[-3]; semantic(6);;
     break;}
 case 48:
-#line 97 "parser.y"
+#line 99 "parser.y"
 {yyerrok; PrintError(missing_lbracket);;
     break;}
+case 49:
+#line 101 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 51:
+#line 104 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 53:
+#line 107 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 54:
+#line 108 "parser.y"
+{yyval = combine(yyvsp[-1], yyvsp[0]);;
+    break;}
+case 55:
+#line 109 "parser.y"
+{yyval = combine(yyvsp[-1], yyvsp[0]);;
+    break;}
+case 56:
+#line 111 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 57:
+#line 112 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 58:
+#line 113 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 59:
+#line 114 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 60:
+#line 115 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 61:
+#line 119 "parser.y"
+{yyval = yyvsp[-1];;
+    break;}
+case 62:
+#line 120 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
 case 65:
-#line 121 "parser.y"
+#line 123 "parser.y"
 {yyerrok; PrintError(missing_sbracket);;
     break;}
 case 67:
-#line 124 "parser.y"
+#line 126 "parser.y"
 {yyerrok; PrintError(missing_sbracket);;
     break;}
-case 103:
+case 68:
+#line 127 "parser.y"
+{yyval = yyvsp[-1];;
+    break;}
+case 69:
+#line 128 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 70:
+#line 129 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 71:
+#line 130 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 72:
+#line 131 "parser.y"
+{yyval = yyvsp[-2] + yyvsp[0];;
+    break;}
+case 73:
+#line 132 "parser.y"
+{yyval = yyvsp[-2] - yyvsp[0];;
+    break;}
+case 74:
+#line 133 "parser.y"
+{yyval = yyvsp[-2] * yyvsp[0];;
+    break;}
+case 75:
+#line 134 "parser.y"
+{yyval = yyvsp[-2] / yyvsp[0];;
+    break;}
+case 76:
+#line 135 "parser.y"
+{yyval = yyvsp[-2] % yyvsp[0];;
+    break;}
+case 77:
+#line 139 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 78:
+#line 140 "parser.y"
+{yyval = combine(yyvsp[-2], yyvsp[0]);;
+    break;}
+case 79:
+#line 142 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 80:
+#line 143 "parser.y"
+{yyval = combine(yyvsp[-2], yyvsp[0]);;
+    break;}
+case 81:
+#line 145 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 82:
+#line 146 "parser.y"
+{yyval = combine(yyvsp[-2], yyvsp[0]);;
+    break;}
+case 83:
+#line 147 "parser.y"
+{yyval = combine(yyvsp[-2], yyvsp[0]);;
+    break;}
+case 84:
+#line 149 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 89:
+#line 155 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 90:
+#line 156 "parser.y"
+{yyval = yyvsp[-2] + yyvsp[0];;
+    break;}
+case 91:
+#line 157 "parser.y"
+{yyval = yyvsp[-2] - yyvsp[0];;
+    break;}
+case 92:
+#line 159 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 93:
+#line 160 "parser.y"
+{yyval = yyvsp[-2] * yyvsp[0];;
+    break;}
+case 94:
+#line 161 "parser.y"
+{yyval = yyvsp[-2] / yyvsp[0];;
+    break;}
+case 95:
+#line 162 "parser.y"
+{yyval = yyvsp[-2] % yyvsp[0];;
+    break;}
+case 96:
+#line 164 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 101:
 #line 170 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 103:
+#line 172 "parser.y"
 {yyerrok; PrintError(missing_lbracket);;
     break;}
 case 105:
-#line 172 "parser.y"
+#line 174 "parser.y"
 {yyerrok; PrintError(missing_sbracket);;
     break;}
+case 110:
+#line 180 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 111:
+#line 181 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
 case 113:
-#line 182 "parser.y"
+#line 184 "parser.y"
 {identName = yyvsp[0]; semantic(5);;
     break;}
-case 116:
+case 114:
 #line 185 "parser.y"
+{yyval = yyvsp[0];;
+    break;}
+case 115:
+#line 186 "parser.y"
+{yyval = yyvsp[-1];;
+    break;}
+case 116:
+#line 187 "parser.y"
 {yyerrok; PrintError(missing_sbracket);;
     break;}
 }
@@ -1162,12 +1440,32 @@ yyerrhandle:
   yystate = yyn;
   goto yynewstate;
 }
-#line 186 "parser.y"
+#line 188 "parser.y"
+
+
+char* combine(char* data1, char* data2) {
+	// data1과 data2를 적절하게 결합한 결과를 반환
+	// 문자열을 결합하는 경우, 알맞은 메모리를 할당하여 결합 결과를 저장
+	char* result = malloc(strlen(data1) + strlen(data2) + 1); // 결과를 저장할 충분한 크기의 메모리 할당
+	strcpy(result, data1); // data1을 result에 복사
+	strcat(result, data2); // data2를 result에 이어붙임
+	return result;
+}
+
+char* combine(char* data1, char* data2, char* data3) {
+	// data1과 data2와 data3을 적절하게 결합한 결과를 반환
+	// 문자열을 결합하는 경우, 알맞은 메모리를 할당하여 결합 결과를 저장
+	char* result = malloc(strlen(data1) + strlen(data2) + strlen(data3) + 1); // 결과를 저장할 충분한 크기의 메모리 할당
+	strcpy(result, data1); // data1을 result에 복사
+	strcat(result, data2); // data2를 result에 이어붙임
+	strcat(result, data3); // data3를 result에 이어붙임
+	return result;
+}
 
 
 void semantic(int n){
 	// 현재 처리 중인 토큰의 문자열 값을 identName에 복사
-		
+	init = 1;	
 	SymbolTable();
 	
 	switch(n){
