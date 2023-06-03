@@ -70,7 +70,7 @@ int SymbolTable();
 					if(yyleng > MAX_LEN)
 						{ err = illid_long; PrintError(err); return(TERROR);}
 					else
-						{ init=1; SymbolTable(); return(TIDENT);}
+						{ SymbolTable(); return(TIDENT);}
 				}
 
 

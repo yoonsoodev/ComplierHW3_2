@@ -1,6 +1,9 @@
 /*
  * glob.h - global variable for the project
  */
+
+#pragma once
+
 #define STsize 1000
 #define HTsize 100
 #define FALSE 0
@@ -9,16 +12,20 @@
 typedef struct HTentry *HTpointer;
 typedef struct HTentry {
 	int index;
-	int func_idx; // -1: initialize / 0: int / 1: float / 2: void
-	int isConst; // 1: Const 변수 /0: Array 변수
+	
+	int HT_dataTypeFlag; // 0: int / 1 : float / 2 : void (If identifier is function name, 'data_type' means 'return type'.)
+	int HT_typeFlag; // 0 : function name / 1 : scalar variable / 2 : array variable / 3 : function parameter
+	int HT_isConst; // 0: not Const / 1: Const
 	int linenum;
 	HTpointer next;
 } HTentry;
 
-HTpointer current_id; // 현재 처리되고 있는 identifier를 나타냄
-
 HTpointer HT[HTsize];
 char ST[STsize];
+
+int dataTypeFlag; // 0: int / 1 : float / 2 : void (If identifier is function name, 'data_type' means 'return type'.)
+int typeFlag; // 0 : function name / 1 : scalar variable / 2 : array variable / 3 : function parameter
+int isConst; // 0: not Const / 1: Const
 
 int nextid; 
 int nextfree;
@@ -26,15 +33,10 @@ int hashcode;
 int sameid;
 int num_err;//number of errors
 int cLine;
-//int i, j, cErrors; //?
 
 int found;
-int isFunction; // 함수 인 지 아닌 지 판단 -> parser.y 에서 변경
-int isArray; // array 변수인 지 아닌 지 판단 -> parser.y 에서 변경
-int init; // symboltable에 처음 들어갔는 지 아니면 parser에 의해 값변경 위한 것인 지 판단 1: 처음 들어감 / 0: parser에 의해 값 변경
-char* identName;
 
-enum errorTypes { noerror, illid_digit, illid_long, illid_illch, illid_illegal, overst };
+enum errorTypes { noerror, illid_digit, illid_long, illid_illch, illid_illegal, overst, missing_semi, missing_sbracket, missing_mbracket, missing_lbracket, missing_comma, missing_funcheader, declaring_err };
 typedef enum errorTypes ERRORtypes;
 ERRORtypes err;
 
