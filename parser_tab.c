@@ -836,7 +836,7 @@ yyreduce:
 
 case 13:
 #line 57 "parser.y"
-{con = 0;;
+{con = 1;;
     break;}
 case 14:
 #line 60 "parser.y"

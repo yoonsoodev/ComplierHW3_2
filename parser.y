@@ -54,7 +54,7 @@ dcl_specifier 		: type_qualifier
 					| type_specifier				
 					;
 
-type_qualifier 		: TCONST		{con = 0;}			
+type_qualifier 		: TCONST		{con = 1;}			
 					;
 
 type_specifier 		: TINT						{type=INT;}

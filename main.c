@@ -20,31 +20,29 @@ void main()
 	
 
 	printHSTable();
+
 }
 
 
 void printHSTable(){
 	HTpointer here;
 	int i, j;
+
 	for (i = 0; i < HTsize; i++) {
 		if (HT[i] != NULL) {
 			here = HT[i];
 			while (here != NULL) {
-				// identifier name출력
-				for (j = here->index; ST[j] != '\0'; j++) {
-					printf(ST[j]);
-				}
 				if (here->isFunction) { // 함수인 경우
 					switch (here->spec)
 					{
 						case  INT:
-							printf("Return Type: Integer");
+							printf("Return Type: Integer ");
 							break;
 						case  VOID:
-							printf("Return Type: Void");
+							printf("Return Type: Void ");
 							break;
 						case  FLOAT:
-							printf("Return Type: Float");
+							printf("Return Type: Float ");
 							break;
 					}
 					printf("Function \n");
