@@ -8,7 +8,7 @@
 
 extern char *yytext;
 
-void PrintError(ERRORtypes err)
+void yyerror(ERRORtypes err)
 {
 	switch(err)
 	{

@@ -7,7 +7,7 @@
 #include <string.h>
 #include "glob.h"
 
-void PrintError(ERRORtypes err);
+extern void yyerror(ERRORtypes err);
 extern char *yytext;
 extern int yyleng;
 
@@ -106,7 +106,7 @@ int SymbolTable()
 	err = noerror;
 	if((nextfree == STsize) || ((nextfree+yyleng) > STsize)) {
 		err = overst;
-		PrintError(err);
+		yyerror(err);
 	}
 
 	//READ identifier

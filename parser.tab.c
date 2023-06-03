@@ -181,12 +181,11 @@
 #include "glob.h"
 #include "lex.yy.c"
 
-void PrintError(ERRORtypes err);
 void initGlobalVariable();
+void yyerror(ERRORtypes err);
 
 /*yacc source for Mini C*/
 void semantic(int);
-void yyerror(const char* s);
 
 
 /* Enabling traces.  */
@@ -220,7 +219,7 @@ typedef int YYSTYPE;
 
 
 /* Line 216 of yacc.c.  */
-#line 224 "parser.tab.c"
+#line 223 "parser.tab.c"
 
 #ifdef short
 # undef short
@@ -552,18 +551,18 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    31,    31,    32,    33,    35,    36,    37,    38,    39,
-      40,    41,    42,    44,    45,    46,    47,    49,    50,    52,
-      53,    54,    55,    57,    58,    59,    61,    62,    64,    65,
-      66,    68,    69,    70,    72,    73,    74,    76,    77,    79,
-      80,    82,    83,    84,    86,    87,    88,    90,    91,    92,
-      94,    95,    97,    98,   100,   101,   102,   104,   105,   106,
-     107,   108,   112,   113,   114,   115,   116,   118,   119,   120,
-     121,   122,   123,   124,   125,   126,   127,   128,   132,   133,
-     135,   136,   138,   139,   140,   142,   143,   144,   145,   146,
-     148,   149,   150,   152,   153,   154,   155,   157,   158,   159,
-     160,   161,   163,   164,   165,   166,   167,   168,   169,   170,
-     171,   173,   174,   175,   177,   178,   179,   180
+       0,    30,    30,    31,    32,    34,    35,    36,    37,    38,
+      39,    40,    41,    43,    44,    45,    46,    48,    49,    51,
+      52,    53,    54,    56,    57,    58,    60,    61,    63,    64,
+      65,    67,    68,    69,    71,    72,    73,    75,    76,    78,
+      79,    81,    82,    83,    85,    86,    87,    89,    90,    91,
+      93,    94,    96,    97,    99,   100,   101,   103,   104,   105,
+     106,   107,   111,   112,   113,   114,   115,   117,   118,   119,
+     120,   121,   122,   123,   124,   125,   126,   127,   131,   132,
+     134,   135,   137,   138,   139,   141,   142,   143,   144,   145,
+     147,   148,   149,   151,   152,   153,   154,   156,   157,   158,
+     159,   160,   162,   163,   164,   165,   166,   167,   168,   169,
+     170,   172,   173,   174,   176,   177,   178,   179
 };
 #endif
 
@@ -1600,133 +1599,133 @@ yyreduce:
   switch (yyn)
     {
         case 8:
-#line 38 "parser.y"
-    {yyerrok; PrintError(missing_semi);;}
+#line 37 "parser.y"
+    {yyerrok; yyerror(missing_semi);;}
     break;
 
   case 11:
-#line 41 "parser.y"
-    {yyerrok; PrintError(missing_semi);;}
+#line 40 "parser.y"
+    {yyerrok; yyerror(missing_semi);;}
     break;
 
   case 12:
-#line 42 "parser.y"
-    {yyerrok; PrintError(missing_funcheader);;}
+#line 41 "parser.y"
+    {yyerrok; yyerror(missing_funcheader);;}
     break;
 
   case 19:
-#line 52 "parser.y"
+#line 51 "parser.y"
     {semantic(1);;}
     break;
 
   case 20:
-#line 53 "parser.y"
+#line 52 "parser.y"
     {semantic(2);;}
     break;
 
   case 21:
-#line 54 "parser.y"
+#line 53 "parser.y"
     {semantic(3);;}
     break;
 
   case 22:
-#line 55 "parser.y"
+#line 54 "parser.y"
     {semantic(4);;}
     break;
 
   case 23:
-#line 57 "parser.y"
+#line 56 "parser.y"
     {semantic(5);;}
     break;
 
   case 25:
-#line 59 "parser.y"
-    {yyerrok; PrintError(missing_sbracket);;}
+#line 58 "parser.y"
+    {yyerrok; yyerror(missing_sbracket);;}
     break;
 
   case 28:
-#line 64 "parser.y"
+#line 63 "parser.y"
     {semantic(8);;}
     break;
 
   case 29:
-#line 65 "parser.y"
+#line 64 "parser.y"
     {semantic(8);;}
     break;
 
   case 30:
-#line 66 "parser.y"
-    {yyerrok; PrintError(missing_comma);;}
+#line 65 "parser.y"
+    {yyerrok; yyerror(missing_comma);;}
     break;
 
   case 33:
-#line 70 "parser.y"
-    {yyerrok; PrintError(missing_mbracket);;}
+#line 69 "parser.y"
+    {yyerrok; yyerror(missing_mbracket);;}
     break;
 
   case 40:
-#line 80 "parser.y"
-    {yyerrok; PrintError(missing_semi);;}
+#line 79 "parser.y"
+    {yyerrok; yyerror(missing_semi);;}
     break;
 
   case 43:
-#line 84 "parser.y"
-    {yyerrok; PrintError(missing_comma);;}
+#line 83 "parser.y"
+    {yyerrok; yyerror(missing_comma);;}
     break;
 
   case 46:
-#line 88 "parser.y"
-    {yyerrok; PrintError(declaring_err);;}
+#line 87 "parser.y"
+    {yyerrok; yyerror(declaring_err);;}
     break;
 
   case 47:
-#line 90 "parser.y"
+#line 89 "parser.y"
     {semantic(6);;}
     break;
 
   case 48:
-#line 91 "parser.y"
+#line 90 "parser.y"
     {semantic(7);;}
     break;
 
   case 49:
-#line 92 "parser.y"
-    {yyerrok; PrintError(missing_lbracket);;}
+#line 91 "parser.y"
+    {yyerrok; yyerror(missing_lbracket);;}
     break;
 
   case 66:
-#line 116 "parser.y"
-    {yyerrok; PrintError(missing_sbracket);;}
+#line 115 "parser.y"
+    {yyerrok; yyerror(missing_sbracket);;}
     break;
 
   case 68:
-#line 119 "parser.y"
-    {yyerrok; PrintError(missing_sbracket);;}
+#line 118 "parser.y"
+    {yyerrok; yyerror(missing_sbracket);;}
     break;
 
   case 104:
-#line 165 "parser.y"
-    {yyerrok; PrintError(missing_lbracket);;}
+#line 164 "parser.y"
+    {yyerrok; yyerror(missing_lbracket);;}
     break;
 
   case 106:
-#line 167 "parser.y"
-    {yyerrok; PrintError(missing_sbracket);;}
+#line 166 "parser.y"
+    {yyerrok; yyerror(missing_sbracket);;}
     break;
 
   case 114:
-#line 177 "parser.y"
+#line 176 "parser.y"
     {semantic(6);;}
     break;
 
   case 117:
-#line 180 "parser.y"
-    {yyerrok; PrintError(missing_sbracket);;}
+#line 179 "parser.y"
+    {yyerrok; yyerror(missing_sbracket);;}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1730 "parser.tab.c"
+#line 1729 "parser.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1940,7 +1939,7 @@ yyreturn:
 }
 
 
-#line 181 "parser.y"
+#line 182 "parser.y"
 
 
 void semantic(int n){
