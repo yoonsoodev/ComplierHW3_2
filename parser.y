@@ -2,15 +2,24 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <malloc.h>
+#include "glob.h"
 
 /*yacc source for Mini C*/
+int con = 0;
+int function =0;
+int param = 0;
+int array = 0;
+Types type = NONE;
+
+extern yyerror(char* );
+void changeHSTable();
 %}
 
 %token TIDENT TNUMBER TCONST TELSE TIF TEIF TINT TRETURN TVOID TWHILE
 %token TASSIGN TADDASSIGN TSUBASSIGN TMULASSIGN TDIVASSIGN TMODASSIGN 
 %token TNOT TOR TAND TEQUAL TNOTEQU TGREAT TGREATE TLESS TLESSE TINC TDEC 
 %token TERROR TPLUS TMINUS TSTAR TSLASH TMOD
-%token TLPAREN TRPAREN TCOMMA TLBRACE TRBRACE TLBRACKET TRBRACKET TSEMI
+%token TLPAREN TRPAREN TCOMMA TLBRACE TRBRACE TLBRACKET TRBRACKET TSEMI TLBRACE TRBRACE
 %token TCOMMENT THEX TOCT TCARR TEOF
 
 %nonassoc LOWER_THAN_ELSE
@@ -45,21 +54,21 @@ dcl_specifier 		: type_qualifier
 					| type_specifier				
 					;
 
-type_qualifier 		: TCONST					
+type_qualifier 		: TCONST		{con = 0;}			
 					;
 
-type_specifier 		: TINT						
-		 			| TVOID
+type_specifier 		: TINT						{type=INT;}
+		 			| TVOID						{type = VOID;}
 					;
 
-function_name 		: TIDENT
+function_name 		: TIDENT					{function = 1; changeHSTable();}
 					;
 
 formal_param 		: TLPAREN opt_formal_param TRPAREN
 					;
 
-opt_formal_param 	: formal_param_list				
-		   			|						
+opt_formal_param 	: formal_param_list				{param=1;}
+		   			|						{param=0;}
 					;
 
 formal_param_list 	: param_dcl					
@@ -69,7 +78,7 @@ formal_param_list 	: param_dcl
 param_dcl 			: dcl_spec declarator				
 					;
 
-compound_st 		: '{' opt_dcl_list opt_stat_list '}' 		
+compound_st 		: TLBRACE opt_dcl_list opt_stat_list TRBRACE 		
 					;
 
 opt_dcl_list 		: declaration_list				
@@ -91,8 +100,8 @@ init_declarator 	: declarator
 		 			| declarator TASSIGN TNUMBER			
 					;
 
-declarator 			: TIDENT						
-	     			| TIDENT TLBRACKET opt_number TRBRACKET			
+declarator 			: TIDENT						{changeHSTable();}
+	     			| TIDENT TLBRACKET opt_number TRBRACKET			{array=1; changeHSTable();}
 					;
 
 opt_number 			: TNUMBER					
@@ -196,8 +205,15 @@ actual_param_list 	: assignment_exp
 		   			| actual_param_list TCOMMA assignment_exp 	
 					;
 
-primary_exp 		: TIDENT						
+primary_exp 		: TIDENT					{changeHSTable();}	
 	     			| TNUMBER					
 	     			| TLPAREN expression TRPAREN				
 					;
 %%
+void changeHSTable(){
+	current_id->isConst= con;
+	current_id->isFunction= function;
+	current_id->isParam= param;
+	current_id->isArray= array;
+	current_id->spec= type;
+}

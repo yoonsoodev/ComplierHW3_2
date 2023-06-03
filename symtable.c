@@ -80,7 +80,13 @@ void ADDHT(int hscode)
 	ptr = (HTpointer)malloc(sizeof(ptr));
 	ptr->index = nextid;
 	ptr->next = HT[hscode];
+	ptr->isConst = 0;
+	ptr->isFunction = 0;
+	ptr->isParam = 0;
+	ptr->isArray = 0;
+	ptr->spec = NONE;
 	HT[hscode] = ptr;
+	current_id = ptr;
 }
 
 /*
@@ -103,20 +109,10 @@ int SymbolTable()
 	ComputeHS(nextid, nextfree);
 	LookupHS(nextid, hashcode);
 	if (!found) {
-		printf("%6d          TIDENT     %7d\t", cLine, nextid);
-		for (int i = nextid; i< nextfree-1; i++)
-			printf("%c", ST[i]);
-		printf("\t(entered)\n");
-		
 		ADDHT(hashcode);
 		nextid = nextfree;
 	}
-	else {
-		printf("%6d          TIDENT     %7d\t", cLine, sameid);
-		for (int i = nextid; i < nextfree - 1; i++)
-			printf("%c", ST[i]);
-		printf("\t(already existed)\n");
-		
+	else {		
 		nextfree = nextid;
 	}
 	

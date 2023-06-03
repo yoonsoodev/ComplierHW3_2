@@ -8,6 +8,12 @@
 
 extern char *yytext;
 
+yyerror(char* s)
+{
+
+}
+
+
 void PrintError(ERRORtypes err)
 {
 	switch(err)

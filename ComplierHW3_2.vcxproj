@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClCompile Include="lex.yy.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="parser_tab.c" />
     <ClCompile Include="reporterror.c" />
     <ClCompile Include="symtable.c" />
   </ItemGroup>

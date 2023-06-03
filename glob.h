@@ -5,15 +5,23 @@
 #define HTsize 100
 #define FALSE 0
 #define TRUE 1
+enum Types { INT, VOID, FLOAT, NONE};
+typedef enum Types Types;
 
 typedef struct HTentry *HTpointer;
 typedef struct HTentry {
 	int index;
+	int isConst;
+	int isFunction;
+	int isParam;
+	int isArray;
+	Types spec;
 	HTpointer next;
 } HTentry;
 
 HTpointer HT[HTsize];
 char ST[STsize];
+HTpointer current_id;
 
 int nextid; 
 int nextfree;
