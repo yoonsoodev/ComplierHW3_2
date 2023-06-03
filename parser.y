@@ -15,12 +15,13 @@ extern yyerror(char* );
 void changeHSTable();
 %}
 
+%token TEOF
 %token TIDENT TNUMBER TCONST TELSE TIF TEIF TINT TRETURN TVOID TWHILE
 %token TASSIGN TADDASSIGN TSUBASSIGN TMULASSIGN TDIVASSIGN TMODASSIGN 
 %token TNOT TOR TAND TEQUAL TNOTEQU TGREAT TGREATE TLESS TLESSE TINC TDEC 
 %token TERROR TPLUS TMINUS TSTAR TSLASH TMOD
 %token TLPAREN TRPAREN TCOMMA TLBRACE TRBRACE TLBRACKET TRBRACKET TSEMI TLBRACE TRBRACE
-%token TCOMMENT THEX TOCT TCARR TEOF
+%token TCOMMENT THEX TOCT 
 
 %nonassoc LOWER_THAN_ELSE
 %nonassoc TELSE 
@@ -205,7 +206,7 @@ actual_param_list 	: assignment_exp
 		   			| actual_param_list TCOMMA assignment_exp 	
 					;
 
-primary_exp 		: TIDENT					{changeHSTable();}	
+primary_exp 		: TIDENT					
 	     			| TNUMBER					
 	     			| TLPAREN expression TRPAREN				
 					;

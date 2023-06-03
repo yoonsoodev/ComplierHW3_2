@@ -15,8 +15,6 @@ typedef struct HTentry {
 	int isFunction;
 	int isParam;
 	int isArray;
-	char* name;
-	int length;
 	Types spec;
 	HTpointer next;
 } HTentry;

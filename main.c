@@ -20,7 +20,6 @@ void main()
 	
 
 	printHSTable();
-
 }
 
 
@@ -31,6 +30,12 @@ void printHSTable(){
 	for (i = 0; i < HTsize; i++) {
 		if (HT[i] != NULL) {
 			here = HT[i];
+			j = here->index;
+			printf("HashCode %d:			", i);
+			while (ST[j] != '\0') {
+				printf("%c", ST[j++]);
+			}
+			printf(", ");
 			while (here != NULL) {
 				if (here->isFunction) { // 함수인 경우
 					switch (here->spec)

@@ -85,8 +85,6 @@ void ADDHT(int hscode)
 	ptr->isParam = 0;
 	ptr->isArray = 0;
 	ptr->spec = NONE;
-	ptr->name = yytext;
-	ptr->length = yyleng;
 	HT[hscode] = ptr;
 	current_id = ptr;
 }

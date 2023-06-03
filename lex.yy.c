@@ -958,7 +958,7 @@ YY_RULE_SETUP
 case 50:
 YY_RULE_SETUP
 #line 87 "scanner.l"
-{ cLine++; return(TCARR);}
+{ cLine++;}
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
