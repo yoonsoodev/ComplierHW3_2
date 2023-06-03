@@ -84,7 +84,7 @@ int SymbolTable();
 				}
 
 [ \t]			 	;
-"\n" 				{ cLine++;}
+"\n" 				{ cLine++; return(TCARR);}
 
 [0-9]+[A-Za-z0-9_]+ 		{ err = illid_digit; PrintError(err); return(TERROR); }
 

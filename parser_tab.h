@@ -46,7 +46,8 @@
 #define	TCOMMENT	300
 #define	THEX	301
 #define	TOCT	302
-#define	LOWER_THAN_ELSE	303
+#define	TCARR	303
+#define	LOWER_THAN_ELSE	304
 
 
 extern YYSTYPE yylval;

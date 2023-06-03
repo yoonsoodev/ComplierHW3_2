@@ -35,7 +35,7 @@ void printHSTable(){
 			while (ST[j] != '\0') {
 				printf("%c", ST[j++]);
 			}
-			printf(", ");
+			printf("/ ");
 			while (here != NULL) {
 				if (here->isFunction) { // 함수인 경우
 					switch (here->spec)
