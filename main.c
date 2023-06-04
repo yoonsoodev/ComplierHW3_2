@@ -13,8 +13,6 @@ void printHSTable();
 void main()
 {
     cLine = 1;
-	current_id = (HTpointer)malloc(sizeof(current_id));
-	current_tmp = (HTpointer)malloc(sizeof(current_tmp));
 	printf("=========================[[Parsing Start]]========================\n");
 	yyparse();
 	printf("==========================[[Parsing Ends]]========================\n");
@@ -33,7 +31,7 @@ void printHSTable(){
 		if (HT[i] != NULL) {
 			here = HT[i];
 			j = here->index;
-			printf("HashCode %d:			", i);
+			printf("HashCode %d:	", i);
 			while (ST[j] != '\0') {
 				printf("%c", ST[j++]);
 			}
@@ -52,7 +50,7 @@ void printHSTable(){
 							printf("Return Type: Float ");
 							break;
 					}
-					printf("Function \n");
+					printf("Function ");
 				}
 				else { // 변수인 경우
 					if (here->isConst) {
@@ -75,8 +73,9 @@ void printHSTable(){
 					if (here->isArray) { // Array
 						printf("Array ");
 					}
-					printf("Variable \n");
+					printf("Variable ");
 				}
+				printf("/ Linenum: %d \n", here->linenum);
 				here = here->next;
 			}
 		}

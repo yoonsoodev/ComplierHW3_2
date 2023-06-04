@@ -23,7 +23,7 @@ void changeHSTable();
 %token TNOT TOR TAND TEQUAL TNOTEQU TGREAT TGREATE TLESS TLESSE TINC TDEC 
 %token TERROR TPLUS TMINUS TSTAR TSLASH TMOD
 %token TLPAREN TRPAREN TCOMMA TLBRACE TRBRACE TLBRACKET TRBRACKET TSEMI TLBRACE TRBRACE
-%token TCOMMENT THEX TOCT TCARR
+%token TCOMMENT THEX TOCT
 
 %nonassoc LOWER_THAN_ELSE
 %nonassoc TELSE 
@@ -64,7 +64,7 @@ type_specifier 		: TINT						{type=INT;}
 		 			| TVOID						{type = VOID;}
 					;
 
-function_name 		: TIDENT					{func = 1; changeHSTable(); current_tmp = current_id;}
+function_name 		: TIDENT					{func = 1; changeHSTable();}
 					;
 
 formal_param 		: TLPAREN opt_formal_param TRPAREN
@@ -92,7 +92,14 @@ declaration_list 	: declaration
 					| declaration_list declaration 			
 					;
 
-declaration 		: dcl_spec init_dcl_list TSEMI			
+declaration 		: dcl_spec init_dcl_list TSEMI	
+					{
+						con = 0;
+						func =0;
+						param = 0;
+						array = 0;
+						type = NONE;
+					}
 					;
 
 init_dcl_list 		: init_declarator				
@@ -103,8 +110,8 @@ init_declarator 	: declarator
 		 			| declarator TASSIGN TNUMBER			
 					;
 
-declarator 			: TIDENT						{changeHSTable(); current_tmp=current_id;}
-	     			| TIDENT TLBRACKET opt_number TRBRACKET			{array=1; changeHSTable(); current_tmp=current_id;}
+declarator 			: TIDENT						{changeHSTable(); }
+	     			| TIDENT TLBRACKET opt_number TRBRACKET			{array=1; changeHSTable(); }
 					;
 
 opt_number 			: TNUMBER					

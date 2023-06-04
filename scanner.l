@@ -21,6 +21,8 @@ int SymbolTable();
 [iI][fF]				{ err = illid_illegal; PrintError(err); return(TERROR); }
 "int"				return(TINT);
 [iI][nN][tT]			{ err = illid_illegal; PrintError(err); return(TERROR); }
+"float"
+[fF][lL][oO][aA][tT]			{ err = illid_illegal; PrintError(err); return(TERROR); }
 "return"				return(TRETURN);
 [rR][eE][tT][uU][rR][nN]		{ err = illid_illegal; PrintError(err); return(TERROR); }
 "void" 				return(TVOID);
@@ -84,7 +86,7 @@ int SymbolTable();
 				}
 
 [ \t]			 	;
-"\n" 				{ cLine++; return(TCARR);}
+"\n" 				{ cLine++;}
 
 [0-9]+[A-Za-z0-9_]+ 		{ err = illid_digit; PrintError(err); return(TERROR); }
 

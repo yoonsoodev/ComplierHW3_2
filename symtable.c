@@ -76,15 +76,20 @@ void LookupHS(int nid,int hscode)
 void ADDHT(int hscode)
 {
 	HTpointer ptr;
-
 	ptr = (HTpointer)malloc(sizeof(ptr));
 	ptr->index = nextid;
-	ptr->next = HT[hscode];
 	ptr->isConst = 0;
 	ptr->isFunction = 0;
 	ptr->isParam = 0;
 	ptr->isArray = 0;
 	ptr->spec = NONE;
+	ptr->linenum = cLine;
+	if (HT[hscode] == NULL) {
+		ptr->next = NULL;
+	}
+	else {
+		ptr->next = HT[hscode];
+	}	
 	HT[hscode] = ptr;
 	current_id = ptr;
 }
