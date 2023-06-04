@@ -166,7 +166,8 @@ if_st 				: TIF TLPAREN expression TRPAREN statement %prec LOWER_THAN_ELSE
 					| TIF error                                             {yyerrok; PrintError(missing_sbracket);}
 					;
 
-while_st 			: TWHILE TLPAREN expression TRPAREN statement
+while_st 			: TWHILE TLPAREN expression TRPAREN TLBRACE statement TRBRACE
+					| TWHILE TLPAREN expression TRPAREN TLBRACE statement error 			{yyerrok; PrintError(missing_mbracket);}
 					| TWHILE TLPAREN expression error						{yyerrok; PrintError(missing_sbracket);}
 					| TWHILE TLPAREN TRPAREN error							{yyerrok; PrintError(missing_condition);}
 					| TWHILE error                                        {yyerrok; PrintError(missing_sbracket);}
