@@ -13,11 +13,19 @@ void yyerror(ERRORtypes err_type);
 void semantic(int);
 %}
 
+<<<<<<< Updated upstream
 %token TIDENT TFLOAT TNUMBER
 %token TCONST TELSE TIF TINT TRETURN TVOID TWHILE
 %token TPLUS TMINUS TSTAR TSLASH TMOD 
 %token TASSIGN TADDASSIGN TSUBASSIGN TMULASSIGN TDIVASSIGN TMODASSIGN
 %token TNOT TOR TAND TEQUAL TNOTEQU TGREATE TLESSE TLESS TGREAT TINC TDEC
+=======
+%token TEOF
+%token TIDENT TNUMBER TREALNUMBER TCONST TELSE TIF TEIF TINT TRETURN TVOID TWHILE TFLOAT
+%token TASSIGN TADDASSIGN TSUBASSIGN TMULASSIGN TDIVASSIGN TMODASSIGN 
+%token TNOT TOR TAND TEQUAL TNOTEQU TGREAT TGREATE TLESS TLESSE TINC TDEC 
+%token TERROR TPLUS TMINUS TSTAR TSLASH TMOD
+>>>>>>> Stashed changes
 %token TLPAREN TRPAREN TCOMMA TLBRACE TRBRACE TLBRACKET TRBRACKET TSEMI
 %token TERROR TCARR TCOMMENT
 %nonassoc TIF_ERROR TIF_CONDITION_ERROR
@@ -27,6 +35,7 @@ void semantic(int);
 %nonassoc LOWER_THAN_ELSE
 
 %%
+<<<<<<< Updated upstream
 mini_c			: translation_unit;
 translation_unit	: external_dcl
 			| translation_unit external_dcl
@@ -118,6 +127,151 @@ while_st 		: TWHILE TLPAREN expression TRPAREN statement
 			| TWHILE TLPAREN expression error			{yyerrok; yyerror(missing_sbracket);}
 return_st 		: TRETURN opt_expression TSEMI				;
 expression 		: assignment_exp					;
+=======
+mini_c 				: translation_unit				
+					;
+
+translation_unit 	: external_dcl					
+					| translation_unit external_dcl	
+					;
+
+external_dcl 		: function_def					
+		  			| declaration
+					| TIDENT TSEMI
+					| TIDENT error											{yyerrok; PrintError(missing_semi);}
+					;
+
+function_def 		: function_header compound_st
+					| function_header error									{yyerrok; PrintError(missing_semi);}
+					| error compound_st										{yyerrok; PrintError(missing_funcheader);}
+					;
+
+function_header 	: dcl_spec function_name formal_param	
+					;
+
+dcl_spec 			: dcl_specifiers				
+					;
+
+dcl_specifiers 		: dcl_specifier					
+		 			| dcl_specifiers dcl_specifier	
+					;
+
+dcl_specifier 		: type_qualifier			
+					| type_specifier			
+					;
+
+type_qualifier 		: TCONST												{con = 1;}			
+					;
+
+type_specifier 		: TINT													{type = INT;}
+		 			| TVOID													{type = VOID;}
+					| TFLOAT												{type = FLOAT;}
+					;
+
+function_name 		: TIDENT												{func = 1; changeHSTable();}
+					;
+
+formal_param 		: TLPAREN opt_formal_param TRPAREN
+					| TLPAREN opt_formal_param error						{yyerrok; PrintError(missing_sbracket);}
+					;
+
+opt_formal_param 	: formal_param_list										{param=1;changeHSTable();}
+		   			|														
+					;
+
+formal_param_list 	: param_dcl					
+		    		| formal_param_list TCOMMA param_dcl 		
+					| formal_param_list param_dcl							{yyerrok; PrintError(missing_comma);}
+					;
+
+param_dcl 			: dcl_spec declarator ;
+
+compound_st 		: TLBRACE opt_dcl_list opt_stat_list TRBRACE 
+					| TLBRACE compound error    							{yyerrok; PrintError(missing_mbracket);}
+					;
+
+compound			: opt_dcl_list opt_stat_list ;
+opt_dcl_list 		: declaration_list				
+					|						
+					;
+
+declaration_list 	: declaration					
+					| declaration_list declaration 			
+					;
+
+declaration 		: dcl_spec init_dcl_list TSEMI	
+					{
+						con = 0;
+						func =0;
+						param = 0;
+						array = 0;
+						type = NONE;
+					}
+					| dcl_spec init_dcl_list error							{yyerrok; PrintError(missing_semi);}
+					;
+
+init_dcl_list 		: init_declarator				
+					| init_dcl_list TCOMMA init_declarator
+					| init_dcl_list init_declarator							{yyerrok; PrintError(missing_comma);}
+					;
+
+init_declarator 	: declarator						
+		 			| declarator TASSIGN TNUMBER
+					| declarator TASSIGN TREALNUMBER
+					| declarator TEQUAL TNUMBER								{yyerrok; PrintError(declaring_err);}
+					| declarator TEQUAL TREALNUMBER							{yyerrok; PrintError(declaring_err);}
+					;
+
+declarator 			: TIDENT												{changeHSTable(); }
+	     			| TIDENT TLBRACKET opt_number TRBRACKET					{array=1; changeHSTable(); }
+					| TIDENT TLBRACKET opt_number error						{yyerrok; PrintError(missing_lbracket);}
+					;
+
+opt_number 			: TNUMBER					
+	     			|						
+					;
+
+opt_stat_list 		: statement_list OPT_STAT_LIST
+		 			|
+					;
+
+statement_list 		: statement %prec LOWER_THAN_OPT_STAT_LIST					
+			        | statement_list error 
+					| statement_list statement 			
+					;
+
+statement 			: compound_st				
+	   				| expression_st				
+	   				| if_st						
+	   				| while_st					
+	   				| return_st					
+					;
+
+expression_st 		: opt_expression TSEMI;
+
+
+opt_expression 		: expression					
+		 			|						
+					;
+
+if_st 				: TIF TLPAREN expression TRPAREN statement %prec LOWER_THAN_ELSE 		
+					| TIF TLPAREN expression TRPAREN statement TELSE statement
+					| TIF TLPAREN expression error							{yyerrok; PrintError(missing_sbracket);}
+					| TIF TLPAREN TRPAREN error								{yyerrok; PrintError(missing_condition);}
+					| TIF error                                             {yyerrok; PrintError(missing_sbracket);}
+					;
+
+while_st 			: TWHILE TLPAREN expression TRPAREN statement
+					| TWHILE TLPAREN expression error						{yyerrok; PrintError(missing_sbracket);}
+					| TWHILE TLPAREN TRPAREN error							{yyerrok; PrintError(missing_condition);}
+					| TWHILE error											{yyerrok; PrintError(missing_sbracket);}
+					;
+
+return_st 			: TRETURN opt_expression TSEMI;
+
+expression 			: assignment_exp;
+
+>>>>>>> Stashed changes
 assignment_exp 		: logical_or_exp				
 			| unary_exp TASSIGN assignment_exp
 			| unary_exp TADDASSIGN assignment_exp
@@ -178,6 +332,7 @@ primary_exp 		: TIDENT						{semantic(6);}
 	    		| TLPAREN expression TRPAREN
 			| TLPAREN expression error				{yyerrok; yyerror(missing_sbracket);};
 
+<<<<<<< Updated upstream
 %%
 
 void semantic(int n){
@@ -208,3 +363,25 @@ void semantic(int n){
 			break;
 	}
 }
+=======
+primary_exp 		: TIDENT		
+					{ func=0; param =0; con=0; array=0; type=NONE; changeHSTable();}			
+	     			| TNUMBER
+					| TREALNUMBER
+	     			| TLPAREN expression TRPAREN
+					| TLPAREN expression error								{yyerrok; PrintError(missing_sbracket);}
+					;
+%%
+
+void changeHSTable(){
+	current_id->isConst= con;
+	current_id->isFunction= func;
+	current_id->isParam= param;
+	current_id->isArray= array;
+	current_id->spec= type;
+
+	if(func == 1){
+		func=0; param =0; con=0; array=0; type=NONE;
+	}
+}
+>>>>>>> Stashed changes

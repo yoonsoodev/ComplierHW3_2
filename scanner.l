@@ -20,9 +20,17 @@ int SymbolTable();
 "if" 				return(TIF);
 [iI][fF]			{ err_type = illid_illegal; yyerror(err_type); return(TERROR); }
 "int"				return(TINT);
+<<<<<<< Updated upstream
 [iI][nN][tT]			{ err_type = illid_illegal; yyerror(err_type); return(TERROR); }
 "return"			return(TRETURN);
 [rR][eE][tT][uU][rR][nN]	{ err_type = illid_illegal; yyerror(err_type); return(TERROR); }
+=======
+[iI][nN][tT]			{ err = illid_illegal; PrintError(err); return(TERROR); }
+"float"				return(TFLOAT);
+[fF][lL][oO][aA][tT]	{ err = illid_illegal; PrintError(err); return(TERROR); }
+"return"				return(TRETURN);
+[rR][eE][tT][uU][rR][nN]		{ err = illid_illegal; PrintError(err); return(TERROR); }
+>>>>>>> Stashed changes
 "void" 				return(TVOID);
 [vV][oO][iI][dD]		{ err_type = illid_illegal; yyerror(err_type); return(TERROR); }
 "while" 			return(TWHILE);
@@ -65,6 +73,7 @@ int SymbolTable();
 ";" 				return(TSEMI);
 
 [1-9][0-9]*|0([0-7]+|(x|X)[0-9A-Fa-f]*)?	return(TNUMBER);
+[0-9]+"."[0-9]+?([Ee][-+]?[0-9]+)? return(TREALNUMBER);
 
 [A-Za-z_][A-Za-z0-9_]* 		{ 
 					if(yyleng > MAX_LEN)
@@ -88,7 +97,12 @@ int SymbolTable();
 
 [0-9]+[A-Za-z0-9_]+ 		{ err_type = illid_digit; yyerror(err_type); return(TERROR); }
 
+<<<<<<< Updated upstream
 . 				{ err_type = illid_illch; yyerror(err_type); return(TERROR); }
+=======
+. 				{ err = illid_illch; PrintError(err); return(TERROR); }
+
+>>>>>>> Stashed changes
 %%
 
 int yywrap()

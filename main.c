@@ -18,7 +18,42 @@ void printSymtable() { 	// HashTable print
 		{
 			here = HT[i];
 			while (here != NULL) {
+<<<<<<< Updated upstream
 				printf("HashCode %d	:			", i);
+=======
+				j = here->index;
+				while (ST[j] != '\0') {
+					printf("%c", ST[j++]);
+				}
+				if (here->isFunction) { // 함수인 경우
+					switch (here->spec)
+					{
+						case  INT:
+							printf(" / Return Type: Integer ");
+							break;
+						case  VOID:
+							printf(" / Return Type: Void ");
+							break;
+						case  FLOAT:
+							printf(" / Return Type: Float ");
+							break;
+					}
+					printf("Function Name");
+				}
+				else { // 변수인 경우
+					if (here->isConst) {
+						printf(" / Const ");
+					}
+					switch (here->spec)
+					{
+					case  INT:
+						printf(" / Integer ");
+						break;
+					case  FLOAT:
+						printf(" / Float ");
+						break;
+					}
+>>>>>>> Stashed changes
 
 				// print identifier
 				for (int j = here->index; ST[j] != '\0'; j++) {

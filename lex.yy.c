@@ -351,6 +351,7 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	yyleng = (yy_size_t) (yy_cp - yy_bp); \
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
+<<<<<<< Updated upstream
 	(yy_c_buf_p) = yy_cp;
 #define YY_NUM_RULES 53
 #define YY_END_OF_BUFFER 54
@@ -376,6 +377,28 @@ static const flex_int16_t yy_accept[112] =
 
        11,   46,    2,   46,   14,    1,   46,   13,   10,    9,
         0
+=======
+	yy_c_buf_p = yy_cp;
+
+#define YY_NUM_RULES 56
+#define YY_END_OF_BUFFER 57
+static yyconst short int yy_accept[127] =
+    {   0,
+        0,    0,   57,   55,   52,   53,   28,   21,   55,   39,
+       40,   19,   17,   41,   18,   20,   47,   47,   46,   33,
+       22,   34,   49,   49,   49,   49,   49,   49,   49,   49,
+       44,   45,   49,   49,   49,   49,   49,   49,   49,   42,
+       55,   43,   32,   27,   29,   25,   37,   23,   38,   24,
+        0,   50,   26,   48,   47,   54,   54,   47,   47,   35,
+       31,   36,   49,   49,   49,   49,    6,   49,   49,   49,
+       49,   49,   49,   49,    5,   49,   49,   49,   49,   30,
+        0,    0,   50,   48,    0,   47,   49,   49,   49,    8,
+       49,   49,   49,   49,   49,   49,    7,   49,   49,   49,
+
+       51,    0,   48,   49,    4,   49,   49,   14,   49,   49,
+        3,   49,   49,   13,   49,    2,   10,   49,   16,    1,
+        9,   49,   15,   12,   11,    0
+>>>>>>> Stashed changes
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -384,6 +407,7 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    2,    4,    1,    1,    1,    5,    6,    1,    7,
+<<<<<<< Updated upstream
         8,    9,   10,   11,   12,    1,   13,   14,   15,   15,
        15,   15,   15,   15,   15,   16,   16,    1,   17,   18,
        19,   20,    1,    1,   21,   21,   22,   23,   24,   25,
@@ -394,6 +418,18 @@ static const YY_CHAR yy_ec[256] =
        43,   44,   26,   45,   46,   26,   26,   47,   26,   48,
        49,   26,   26,   50,   51,   52,   53,   54,   55,   56,
        26,   26,   57,   58,   59,    1,    1,    1,    1,    1,
+=======
+        8,    9,   10,   11,   12,   13,   14,   15,   16,   16,
+       16,   16,   16,   16,   16,   17,   17,    1,   18,   19,
+       20,   21,    1,    1,   22,   23,   24,   25,   26,   27,
+       28,   29,   30,   28,   28,   31,   28,   32,   33,   28,
+       28,   34,   35,   36,   37,   38,   39,   40,   28,   28,
+       41,    1,   42,    1,   28,    1,   43,   23,   44,   45,
+
+       46,   47,   28,   48,   49,   28,   28,   50,   28,   51,
+       52,   28,   28,   53,   54,   55,   56,   57,   58,   59,
+       28,   28,   60,   61,   62,    1,    1,    1,    1,    1,
+>>>>>>> Stashed changes
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -410,6 +446,7 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
+<<<<<<< Updated upstream
 static const YY_CHAR yy_meta[60] =
     {   0,
         1,    1,    2,    1,    1,    1,    1,    1,    1,    1,
@@ -489,12 +526,103 @@ static const flex_int16_t yy_nxt[273] =
     } ;
 
 static const flex_int16_t yy_chk[273] =
+=======
+static yyconst int yy_meta[63] =
+    {   0,
+        1,    1,    2,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    3,    1,    4,    4,    4,    1,    1,    1,
+        1,    4,    4,    4,    4,    4,    4,    4,    4,    4,
+        4,    4,    4,    4,    4,    4,    4,    4,    4,    4,
+        1,    1,    4,    4,    4,    4,    4,    4,    4,    4,
+        4,    4,    4,    4,    4,    4,    4,    4,    4,    1,
+        1,    1
+    } ;
+
+static yyconst short int yy_base[131] =
+    {   0,
+        0,    0,  240,  265,  265,  265,  219,  217,  230,  265,
+      265,  211,   53,  265,   52,   56,   62,   67,  265,  159,
+      152,   99,    0,   33,   36,   37,   42,   45,   48,   59,
+      265,  265,   57,   61,   63,   69,   69,   65,   70,  265,
+       51,  265,  265,  265,  265,  265,  265,  265,  265,  265,
+      101,    0,  265,   88,  109,  114,   95,  122,  137,  265,
+      265,  265,    0,   91,   97,  103,    0,  104,  105,  113,
+      126,  125,  123,  128,    0,  127,  128,  140,  141,  265,
+       97,  119,    0,  169,  181,    0,  138,  148,  156,    0,
+      144,  162,  170,  167,  162,  181,    0,  167,  180,  178,
+
+      265,  195,  201,  177,    0,  178,  185,    0,  180,  186,
+        0,  191,  195,    0,  204,    0,    0,  202,    0,    0,
+        0,  203,    0,    0,    0,  265,  252,   93,  256,  260
+    } ;
+
+static yyconst short int yy_def[131] =
+    {   0,
+      126,    1,  126,  126,  126,  126,  126,  126,  126,  126,
+      126,  126,  126,  126,  126,  126,  127,  127,  126,  126,
+      126,  126,  128,  128,  128,  128,  128,  128,  128,  128,
+      126,  126,  128,  128,  128,  128,  128,  128,  128,  126,
+      126,  126,  126,  126,  126,  126,  126,  126,  126,  126,
+      129,  130,  126,  126,  127,  127,  127,  127,  127,  126,
+      126,  126,  128,  128,  128,  128,  128,  128,  128,  128,
+      128,  128,  128,  128,  128,  128,  128,  128,  128,  126,
+      129,  129,  130,  126,  126,   58,  128,  128,  128,  128,
+      128,  128,  128,  128,  128,  128,  128,  128,  128,  128,
+
+      126,  126,  126,  128,  128,  128,  128,  128,  128,  128,
+      128,  128,  128,  128,  128,  128,  128,  128,  128,  128,
+      128,  128,  128,  128,  128,    0,  126,  126,  126,  126
+    } ;
+
+static yyconst short int yy_nxt[328] =
+    {   0,
+        4,    5,    6,    7,    8,    9,   10,   11,   12,   13,
+       14,   15,    4,   16,   17,   18,   18,   19,   20,   21,
+       22,   23,   23,   24,   23,   25,   26,   23,   23,   27,
+       23,   23,   23,   28,   23,   23,   23,   29,   30,   23,
+       31,   32,   23,   33,   23,   34,   35,   23,   36,   23,
+       23,   23,   37,   23,   23,   23,   38,   39,   23,   40,
+       41,   42,   47,   49,   51,   64,   65,   66,   67,   52,
+       69,   50,   48,   68,   54,   53,   55,   55,   56,   54,
+       70,   59,   59,   59,   64,   65,   66,   71,   67,   64,
+       69,   65,   68,   66,   69,   67,   63,   70,   71,   70,
+
+       68,   58,   84,   84,   84,   82,   71,  126,   72,   82,
+       73,   80,   74,   85,   77,   75,   78,   79,   62,   76,
+       58,   54,   87,   55,   55,   56,   54,   82,   56,   56,
+       56,   88,  101,   85,  126,   89,   86,   86,   86,   90,
+       91,   87,   92,   86,   86,   86,   86,   86,   86,   54,
+       88,   59,   59,   59,   89,   93,   87,   88,   90,   91,
+       89,   92,   90,   91,   86,   86,   86,   86,   86,   92,
+       93,   61,  104,  105,   93,   94,   95,  106,   60,   96,
+      107,   97,   98,   84,   84,   84,  108,  105,   99,  100,
+      102,  104,  102,  105,   85,  103,  103,  103,  106,  107,
+
+      109,  104,  106,  107,  108,  119,  108,  111,  109,  103,
+      103,  103,  116,  117,   85,  103,  103,  103,  118,  109,
+      110,  116,  113,  112,  114,  119,  117,  115,  118,  119,
+       46,  116,  117,  124,  124,   45,   44,  118,   43,  126,
+      120,  126,  126,  126,  126,  121,  126,  122,  126,  123,
+      126,  126,  124,  125,   57,   57,   81,   81,   81,   81,
+       83,  126,   83,   83,    3,  126,  126,  126,  126,  126,
+      126,  126,  126,  126,  126,  126,  126,  126,  126,  126,
+      126,  126,  126,  126,  126,  126,  126,  126,  126,  126,
+      126,  126,  126,  126,  126,  126,  126,  126,  126,  126,
+
+      126,  126,  126,  126,  126,  126,  126,  126,  126,  126,
+      126,  126,  126,  126,  126,  126,  126,  126,  126,  126,
+      126,  126,  126,  126,  126,  126,  126
+    } ;
+
+static yyconst short int yy_chk[328] =
+>>>>>>> Stashed changes
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+<<<<<<< Updated upstream
         1,    1,    1,    1,    1,    1,    1,    1,    1,   13,
        15,   16,   17,   17,   17,   16,   24,   15,   13,   25,
        26,   16,   18,   18,   18,   26,   27,  113,   28,   29,
@@ -520,6 +648,39 @@ static const flex_int16_t yy_chk[273] =
       111,  111,  111,  111,  111,  111,  111,  111,  111,  111,
       111,  111,  111,  111,  111,  111,  111,  111,  111,  111,
       111,  111
+=======
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,   13,   15,   16,   24,   25,   26,   27,   16,
+       28,   15,   13,   27,   17,   16,   17,   17,   17,   18,
+       29,   18,   18,   18,   24,   25,   26,   30,   27,   33,
+       28,   34,   27,   35,   37,   36,  128,   38,   39,   29,
+
+       36,   17,   54,   54,   54,   81,   30,   57,   33,   51,
+       34,   41,   35,   54,   37,   36,   38,   39,   22,   36,
+       17,   55,   64,   55,   55,   55,   56,   82,   56,   56,
+       56,   65,   82,   54,   58,   66,   58,   58,   58,   68,
+       69,   64,   70,   58,   58,   58,   58,   58,   58,   59,
+       65,   59,   59,   59,   66,   71,   72,   73,   68,   69,
+       74,   70,   76,   77,   58,   58,   58,   58,   58,   78,
+       79,   21,   87,   88,   71,   72,   73,   89,   20,   74,
+       91,   76,   77,   84,   84,   84,   92,   95,   78,   79,
+       85,   87,   85,   88,   84,   85,   85,   85,   89,   91,
+
+       93,   94,   96,   98,   99,  109,   92,   95,  100,  102,
+      102,  102,  104,  106,   84,  103,  103,  103,  107,   93,
+       94,  110,   98,   96,   99,  109,  112,  100,  113,  115,
+       12,  104,  106,  118,  122,    9,    8,  107,    7,    3,
+      110,    0,    0,    0,    0,  112,    0,  113,    0,  115,
+        0,    0,  118,  122,  127,  127,  129,  129,  129,  129,
+      130,    0,  130,  130,  126,  126,  126,  126,  126,  126,
+      126,  126,  126,  126,  126,  126,  126,  126,  126,  126,
+      126,  126,  126,  126,  126,  126,  126,  126,  126,  126,
+      126,  126,  126,  126,  126,  126,  126,  126,  126,  126,
+
+      126,  126,  126,  126,  126,  126,  126,  126,  126,  126,
+      126,  126,  126,  126,  126,  126,  126,  126,  126,  126,
+      126,  126,  126,  126,  126,  126,  126
+>>>>>>> Stashed changes
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -545,10 +706,12 @@ char *yytext;
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <malloc.h>
 #include "tn.h"
 #include "glob.h"
 void yyerror(ERRORtypes err_type);
 int SymbolTable();
+<<<<<<< Updated upstream
 #line 552 "lex.yy.c"
 #line 553 "lex.yy.c"
 
@@ -596,6 +759,9 @@ char *yyget_text ( void );
 int yyget_lineno ( void );
 
 void yyset_lineno ( int _line_number  );
+=======
+#line 489 "lex.yy.c"
+>>>>>>> Stashed changes
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -735,12 +901,25 @@ extern int yylex (void);
 /** The main scanner function which does all the work.
  */
 YY_DECL
+<<<<<<< Updated upstream
 {
 	yy_state_type yy_current_state;
 	char *yy_cp, *yy_bp;
 	int yy_act;
     
 	if ( !(yy_init) )
+=======
+	{
+	register yy_state_type yy_current_state;
+	register char *yy_cp, *yy_bp;
+	register int yy_act;
+
+#line 16 "scanner.l"
+
+#line 638 "lex.yy.c"
+
+	if ( yy_init )
+>>>>>>> Stashed changes
 		{
 		(yy_init) = 1;
 
@@ -796,13 +975,22 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
+<<<<<<< Updated upstream
 				if ( yy_current_state >= 112 )
 					yy_c = yy_meta[yy_c];
+=======
+				if ( yy_current_state >= 127 )
+					yy_c = yy_meta[(unsigned int) yy_c];
+>>>>>>> Stashed changes
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 			++yy_cp;
 			}
+<<<<<<< Updated upstream
 		while ( yy_base[yy_current_state] != 213 );
+=======
+		while ( yy_base[yy_current_state] != 265 );
+>>>>>>> Stashed changes
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -828,41 +1016,57 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 16 "scanner.l"
+#line 17 "scanner.l"
 return(TCONST);
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
+<<<<<<< Updated upstream
 #line 17 "scanner.l"
 { err_type = illid_illegal; yyerror(err_type); return(TERROR); }
+=======
+#line 18 "scanner.l"
+{ err = illid_illegal; PrintError(err); return(TERROR); }
+>>>>>>> Stashed changes
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 18 "scanner.l"
+#line 19 "scanner.l"
 return(TELSE);
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
+<<<<<<< Updated upstream
 #line 19 "scanner.l"
 { err_type = illid_illegal; yyerror(err_type); return(TERROR); }
+=======
+#line 20 "scanner.l"
+{ err = illid_illegal; PrintError(err); return(TERROR); }
+>>>>>>> Stashed changes
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 20 "scanner.l"
+#line 21 "scanner.l"
 return(TIF);
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
+<<<<<<< Updated upstream
 #line 21 "scanner.l"
 { err_type = illid_illegal; yyerror(err_type); return(TERROR); }
+=======
+#line 22 "scanner.l"
+{ err = illid_illegal; PrintError(err); return(TERROR); }
+>>>>>>> Stashed changes
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 22 "scanner.l"
+#line 23 "scanner.l"
 return(TINT);
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
+<<<<<<< Updated upstream
 #line 23 "scanner.l"
 { err_type = illid_illegal; yyerror(err_type); return(TERROR); }
 	YY_BREAK
@@ -895,15 +1099,54 @@ case 14:
 YY_RULE_SETUP
 #line 29 "scanner.l"
 { err_type = illid_illegal; yyerror(err_type); return(TERROR); }
+=======
+#line 24 "scanner.l"
+{ err = illid_illegal; PrintError(err); return(TERROR); }
+	YY_BREAK
+case 9:
+YY_RULE_SETUP
+#line 25 "scanner.l"
+return(TFLOAT);
+	YY_BREAK
+case 10:
+YY_RULE_SETUP
+#line 26 "scanner.l"
+{ err = illid_illegal; PrintError(err); return(TERROR); }
+	YY_BREAK
+case 11:
+YY_RULE_SETUP
+#line 27 "scanner.l"
+return(TRETURN);
+	YY_BREAK
+case 12:
+YY_RULE_SETUP
+#line 28 "scanner.l"
+{ err = illid_illegal; PrintError(err); return(TERROR); }
+	YY_BREAK
+case 13:
+YY_RULE_SETUP
+#line 29 "scanner.l"
+return(TVOID);
+	YY_BREAK
+case 14:
+YY_RULE_SETUP
+#line 30 "scanner.l"
+{ err = illid_illegal; PrintError(err); return(TERROR); }
+>>>>>>> Stashed changes
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
 #line 31 "scanner.l"
+<<<<<<< Updated upstream
 return(TPLUS);
+=======
+return(TWHILE);
+>>>>>>> Stashed changes
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
 #line 32 "scanner.l"
+<<<<<<< Updated upstream
 return(TMINUS);
 	YY_BREAK
 case 17:
@@ -920,15 +1163,38 @@ case 19:
 YY_RULE_SETUP
 #line 35 "scanner.l"
 return(TMOD);
+=======
+{ err = illid_illegal; PrintError(err); return(TERROR); }
+	YY_BREAK
+case 17:
+YY_RULE_SETUP
+#line 34 "scanner.l"
+return(TPLUS);
+	YY_BREAK
+case 18:
+YY_RULE_SETUP
+#line 35 "scanner.l"
+return(TMINUS);
+	YY_BREAK
+case 19:
+YY_RULE_SETUP
+#line 36 "scanner.l"
+return(TSTAR);
+>>>>>>> Stashed changes
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 37 "scanner.l"
+<<<<<<< Updated upstream
 return(TASSIGN);
+=======
+return(TSLASH);
+>>>>>>> Stashed changes
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 #line 38 "scanner.l"
+<<<<<<< Updated upstream
 return(TADDASSIGN);
 	YY_BREAK
 case 22:
@@ -950,30 +1216,71 @@ case 25:
 YY_RULE_SETUP
 #line 42 "scanner.l"
 return(TMODASSIGN);
+=======
+return(TMOD);
+	YY_BREAK
+case 22:
+YY_RULE_SETUP
+#line 40 "scanner.l"
+return(TASSIGN);
+	YY_BREAK
+case 23:
+YY_RULE_SETUP
+#line 41 "scanner.l"
+return(TADDASSIGN);
+	YY_BREAK
+case 24:
+YY_RULE_SETUP
+#line 42 "scanner.l"
+return(TSUBASSIGN);
+	YY_BREAK
+case 25:
+YY_RULE_SETUP
+#line 43 "scanner.l"
+return(TMULASSIGN);
+>>>>>>> Stashed changes
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 44 "scanner.l"
+<<<<<<< Updated upstream
 return(TNOT);
+=======
+return(TDIVASSIGN);
+>>>>>>> Stashed changes
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
 #line 45 "scanner.l"
+<<<<<<< Updated upstream
 return(TAND);
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
 #line 46 "scanner.l"
 return(TOR);
+=======
+return(TMODASSIGN);
+	YY_BREAK
+case 28:
+YY_RULE_SETUP
+#line 47 "scanner.l"
+return(TNOT);
+>>>>>>> Stashed changes
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
 #line 48 "scanner.l"
+<<<<<<< Updated upstream
 return(TEQUAL);
+=======
+return(TAND);
+>>>>>>> Stashed changes
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
 #line 49 "scanner.l"
+<<<<<<< Updated upstream
 return(TNOTEQU);
 	YY_BREAK
 case 31:
@@ -995,25 +1302,61 @@ case 34:
 YY_RULE_SETUP
 #line 53 "scanner.l"
 return(TGREATE);
+=======
+return(TOR);
+	YY_BREAK
+case 31:
+YY_RULE_SETUP
+#line 51 "scanner.l"
+return(TEQUAL);
+	YY_BREAK
+case 32:
+YY_RULE_SETUP
+#line 52 "scanner.l"
+return(TNOTEQU);
+	YY_BREAK
+case 33:
+YY_RULE_SETUP
+#line 53 "scanner.l"
+return(TLESS);
+	YY_BREAK
+case 34:
+YY_RULE_SETUP
+#line 54 "scanner.l"
+return(TGREAT);
+>>>>>>> Stashed changes
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
 #line 55 "scanner.l"
+<<<<<<< Updated upstream
 return(TINC);
+=======
+return(TLESSE);
+>>>>>>> Stashed changes
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
 #line 56 "scanner.l"
+<<<<<<< Updated upstream
 return(TDEC);
+=======
+return(TGREATE);
+>>>>>>> Stashed changes
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
 #line 58 "scanner.l"
+<<<<<<< Updated upstream
 return(TLPAREN);
+=======
+return(TINC);
+>>>>>>> Stashed changes
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
 #line 59 "scanner.l"
+<<<<<<< Updated upstream
 return(TRPAREN);
 	YY_BREAK
 case 39:
@@ -1045,15 +1388,71 @@ case 44:
 YY_RULE_SETUP
 #line 65 "scanner.l"
 return(TSEMI);
+=======
+return(TDEC);
+	YY_BREAK
+case 39:
+YY_RULE_SETUP
+#line 61 "scanner.l"
+return(TLPAREN);
+	YY_BREAK
+case 40:
+YY_RULE_SETUP
+#line 62 "scanner.l"
+return(TRPAREN);
+	YY_BREAK
+case 41:
+YY_RULE_SETUP
+#line 63 "scanner.l"
+return(TCOMMA);
+	YY_BREAK
+case 42:
+YY_RULE_SETUP
+#line 64 "scanner.l"
+return(TLBRACE);
+	YY_BREAK
+case 43:
+YY_RULE_SETUP
+#line 65 "scanner.l"
+return(TRBRACE);
+	YY_BREAK
+case 44:
+YY_RULE_SETUP
+#line 66 "scanner.l"
+return(TLBRACKET);
+>>>>>>> Stashed changes
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
 #line 67 "scanner.l"
+<<<<<<< Updated upstream
 return(TNUMBER);
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
 #line 69 "scanner.l"
+=======
+return(TRBRACKET);
+	YY_BREAK
+case 46:
+YY_RULE_SETUP
+#line 68 "scanner.l"
+return(TSEMI);
+	YY_BREAK
+case 47:
+YY_RULE_SETUP
+#line 70 "scanner.l"
+return(TNUMBER);
+	YY_BREAK
+case 48:
+YY_RULE_SETUP
+#line 71 "scanner.l"
+return(TREALNUMBER);
+	YY_BREAK
+case 49:
+YY_RULE_SETUP
+#line 73 "scanner.l"
+>>>>>>> Stashed changes
 { 
 					if(yyleng > MAX_LEN)
 						{ err_type = illid_long; yyerror(err_type); return(TERROR);}
@@ -1061,6 +1460,7 @@ YY_RULE_SETUP
 						{ SymbolTable(); return(TIDENT);}
 				}
 	YY_BREAK
+<<<<<<< Updated upstream
 case 47:
 YY_RULE_SETUP
 #line 78 "scanner.l"
@@ -1070,6 +1470,16 @@ case 48:
 /* rule 48 can match eol */
 YY_RULE_SETUP
 #line 79 "scanner.l"
+=======
+case 50:
+YY_RULE_SETUP
+#line 82 "scanner.l"
+return(TCOMMENT);
+	YY_BREAK
+case 51:
+YY_RULE_SETUP
+#line 83 "scanner.l"
+>>>>>>> Stashed changes
 {
 					for(int i=0;i<yyleng;i++)
 						if(yytext[i]=='\n') cLine++;
@@ -1077,6 +1487,7 @@ YY_RULE_SETUP
 
 				}
 	YY_BREAK
+<<<<<<< Updated upstream
 case 49:
 YY_RULE_SETUP
 #line 86 "scanner.l"
@@ -1104,6 +1515,34 @@ YY_RULE_SETUP
 ECHO;
 	YY_BREAK
 #line 1106 "lex.yy.c"
+=======
+case 52:
+YY_RULE_SETUP
+#line 90 "scanner.l"
+;
+	YY_BREAK
+case 53:
+YY_RULE_SETUP
+#line 91 "scanner.l"
+{ cLine++;}
+	YY_BREAK
+case 54:
+YY_RULE_SETUP
+#line 93 "scanner.l"
+{ err = illid_digit; PrintError(err); return(TERROR); }
+	YY_BREAK
+case 55:
+YY_RULE_SETUP
+#line 95 "scanner.l"
+{ err = illid_illch; PrintError(err); return(TERROR); }
+	YY_BREAK
+case 56:
+YY_RULE_SETUP
+#line 97 "scanner.l"
+ECHO;
+	YY_BREAK
+#line 1011 "lex.yy.c"
+>>>>>>> Stashed changes
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1400,8 +1839,13 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
+<<<<<<< Updated upstream
 			if ( yy_current_state >= 112 )
 				yy_c = yy_meta[yy_c];
+=======
+			if ( yy_current_state >= 127 )
+				yy_c = yy_meta[(unsigned int) yy_c];
+>>>>>>> Stashed changes
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 		}
@@ -1428,11 +1872,22 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
+<<<<<<< Updated upstream
 		if ( yy_current_state >= 112 )
 			yy_c = yy_meta[yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 	yy_is_jam = (yy_current_state == 111);
+=======
+		if ( yy_current_state >= 127 )
+			yy_c = yy_meta[(unsigned int) yy_c];
+		}
+	yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
+	yy_is_jam = (yy_current_state == 126);
+
+	return yy_is_jam ? 0 : yy_current_state;
+	}
+>>>>>>> Stashed changes
 
 		return yy_is_jam ? 0 : yy_current_state;
 }
@@ -2106,9 +2561,20 @@ void yyfree (void * ptr )
 			free( (char *) ptr );	/* see yyrealloc() for (char *) cast */
 }
 
+<<<<<<< Updated upstream
 #define YYTABLES_NAME "yytables"
 
 #line 92 "scanner.l"
+=======
+#if YY_MAIN
+int main()
+	{
+	yylex();
+	return 0;
+	}
+#endif
+#line 97 "scanner.l"
+>>>>>>> Stashed changes
 
 
 int yywrap()

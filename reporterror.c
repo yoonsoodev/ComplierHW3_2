@@ -60,9 +60,20 @@ void yyerror(ERRORtypes err_type)
 		num_err++;
 		printf("%6d          ERROR!!			  no function header\n", cLine);
 		break;
+<<<<<<< Updated upstream
     case declaring_err:
         num_err++;
         printf("%6d          ERROR!!              no wrong declaration\n", cLine);
         break;
+=======
+	case declaring_err:
+		num_err++;
+		printf("%6d          ERROR!!              no wrong declaration\n", cLine);
+		break;
+	case missing_condition:
+		num_err++;
+		printf("%6d          ERROR!!              missing condition\n", cLine);
+		break;
+>>>>>>> Stashed changes
 	}
 }

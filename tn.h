@@ -1,4 +1,60 @@
+<<<<<<< Updated upstream
 /* A Bison parser, made by GNU Bison 2.3.  */
+=======
+#ifndef YYSTYPE
+#define YYSTYPE int
+#endif
+#define	TEOF	258
+#define	TIDENT	259
+#define	TNUMBER	260
+#define	TREALNUMBER	261
+#define	TCONST	262
+#define	TELSE	263
+#define	TIF	264
+#define	TEIF	265
+#define	TINT	266
+#define	TRETURN	267
+#define	TVOID	268
+#define	TWHILE	269
+#define	TFLOAT	270
+#define	TASSIGN	271
+#define	TADDASSIGN	272
+#define	TSUBASSIGN	273
+#define	TMULASSIGN	274
+#define	TDIVASSIGN	275
+#define	TMODASSIGN	276
+#define	TNOT	277
+#define	TOR	278
+#define	TAND	279
+#define	TEQUAL	280
+#define	TNOTEQU	281
+#define	TGREAT	282
+#define	TGREATE	283
+#define	TLESS	284
+#define	TLESSE	285
+#define	TINC	286
+#define	TDEC	287
+#define	TERROR	288
+#define	TPLUS	289
+#define	TMINUS	290
+#define	TSTAR	291
+#define	TSLASH	292
+#define	TMOD	293
+#define	TLPAREN	294
+#define	TRPAREN	295
+#define	TCOMMA	296
+#define	TLBRACE	297
+#define	TRBRACE	298
+#define	TLBRACKET	299
+#define	TRBRACKET	300
+#define	TSEMI	301
+#define	TCOMMENT	302
+#define	THEX	303
+#define	TOCT	304
+#define	LOWER_THAN_ELSE	305
+#define	LOWER_THAN_OPT_STAT_LIST	306
+#define	OPT_STAT_LIST	307
+>>>>>>> Stashed changes
 
 /* Skeleton interface for Bison's Yacc-like parsers in C
 
