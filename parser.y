@@ -18,7 +18,7 @@ void changeHSTable();
 %}
 
 %token TEOF
-%token TIDENT TNUMBER TCONST TELSE TIF TEIF TINT TRETURN TVOID TWHILE
+%token TIDENT TNUMBER TREALNUMBER TCONST TELSE TIF TEIF TINT TRETURN TVOID TWHILE TFLOAT
 %token TASSIGN TADDASSIGN TSUBASSIGN TMULASSIGN TDIVASSIGN TMODASSIGN 
 %token TNOT TOR TAND TEQUAL TNOTEQU TGREAT TGREATE TLESS TLESSE TINC TDEC 
 %token TERROR TPLUS TMINUS TSTAR TSLASH TMOD
@@ -68,6 +68,7 @@ type_qualifier 		: TCONST												{con = 1;}
 
 type_specifier 		: TINT													{type = INT;}
 		 			| TVOID													{type = VOID;}
+					| TFLOAT												{type = FLOAT;}
 					;
 
 function_name 		: TIDENT												{func = 1; changeHSTable();}
@@ -120,9 +121,11 @@ init_dcl_list 		: init_declarator
 init_declarator 	: declarator						
 		 			| declarator TASSIGN TNUMBER
 					| declarator TEQUAL TNUMBER								{yyerrok; PrintError(declaring_err);}
+					| declarator TASSIGN TREALNUMBER
+					| declarator TEQUAL TREALNUMBER								{yyerrok; PrintError(declaring_err);}
 					;
 
-declarator 			: TIDENT												{func = 0; changeHSTable(); }
+declarator 			: TIDENT												{changeHSTable(); }
 	     			| TIDENT TLBRACKET opt_number TRBRACKET					{array=1; changeHSTable(); }
 					| TIDENT TLBRACKET opt_number error						{yyerrok; PrintError(missing_lbracket);}
 					;
@@ -157,11 +160,13 @@ opt_expression 		: expression
 if_st 				: TIF TLPAREN expression TRPAREN statement %prec LOWER_THAN_ELSE 		
 					| TIF TLPAREN expression TRPAREN statement TELSE statement
 					| TIF TLPAREN expression error							{yyerrok; PrintError(missing_sbracket);}
+					| TIF TLPAREN TRPAREN error								{yyerrok; PrintError(missing_condition);}
 					| TIF error                                             {yyerrok; PrintError(missing_sbracket);}
 					;
 
 while_st 			: TWHILE TLPAREN expression TRPAREN statement
 					| TWHILE TLPAREN expression error						{yyerrok; PrintError(missing_sbracket);}
+					| TWHILE TLPAREN TRPAREN error							{yyerrok; PrintError(missing_condition);}
 					| TWHILE error                                        {yyerrok; PrintError(missing_sbracket);}
 					;
 
@@ -237,7 +242,8 @@ actual_param_list 	: assignment_exp
 
 primary_exp 		: TIDENT		
 					{ func=0; param =0; con=0; array=0; type=NONE; changeHSTable();}			
-	     			| TNUMBER					
+	     			| TNUMBER	
+					| TREALNUMBER
 	     			| TLPAREN expression TRPAREN
 					| TLPAREN expression error								{yyerrok; PrintError(missing_sbracket);}
 					;
@@ -249,4 +255,9 @@ void changeHSTable(){
 	current_id->isParam= param;
 	current_id->isArray= array;
 	current_id->spec= type;
+
+	if(func == 1){
+		func=0; param =0; con=0; array=0; type=NONE;
+	}
+
 }

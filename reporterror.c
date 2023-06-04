@@ -68,7 +68,11 @@ void PrintError(ERRORtypes err)
 		break;
 	case declaring_err:
 		num_err++;
-		printf("%6d          ERROR!!              no wrong declaration\n", cLine);
+		printf("%6d          ERROR!!              wrong declaration\n", cLine);
+		break;
+	case missing_condition:
+		num_err++;
+		printf("%6d          ERROR!!              missing condition\n", cLine);
 		break;
 
 	}
