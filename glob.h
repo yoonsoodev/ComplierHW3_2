@@ -8,7 +8,8 @@
 enum Types { INT, VOID, FLOAT, NONE};
 typedef enum Types Types;
 
-typedef struct HTentry *HTpointer;
+typedef struct HTentry* HTpointer;
+
 typedef struct HTentry {
 	int index;
 	int isConst;
@@ -19,6 +20,7 @@ typedef struct HTentry {
 	Types spec;
 	HTpointer next;
 } HTentry;
+
 
 HTpointer HT[HTsize];
 char ST[STsize];

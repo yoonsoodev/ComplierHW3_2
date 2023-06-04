@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <malloc.h>
 #include "tn.h"
 #include "glob.h"
 void PrintError(ERRORtypes err);

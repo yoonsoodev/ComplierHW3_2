@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <malloc.h>
 #include "glob.h"
 
 void PrintError(ERRORtypes err);
@@ -77,20 +78,30 @@ void ADDHT(int hscode)
 {
 	HTpointer ptr;
 	ptr = (HTpointer)malloc(sizeof(ptr));
-	ptr->index = nextid;
-	ptr->isConst = 0;
-	ptr->isFunction = 0;
-	ptr->isParam = 0;
-	ptr->isArray = 0;
-	ptr->spec = NONE;
-	ptr->linenum = cLine;
+	
 	if (HT[hscode] == NULL) {
 		ptr->next = NULL;
+		ptr->index = nextid;
+		ptr->isConst = 0;
+		ptr->isFunction = 0;
+		ptr->isParam = 0;
+		ptr->isArray = 0;
+		ptr->spec = NONE;
+		ptr->linenum = cLine;
+		HT[hscode] = ptr;
 	}
 	else {
 		ptr->next = HT[hscode];
+		ptr->index = nextid;
+		ptr->isConst = 0;
+		ptr->isFunction = 0;
+		ptr->isParam = 0;
+		ptr->isArray = 0;
+		ptr->spec = NONE;
+		ptr->linenum = cLine;
+		HT[hscode] = ptr;
 	}	
-	HT[hscode] = ptr;
+	
 	current_id = ptr;
 }
 

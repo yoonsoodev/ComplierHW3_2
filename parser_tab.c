@@ -190,15 +190,15 @@ static const short yyrhs[] = {    50,
 #if YYDEBUG != 0
 static const short yyrline[] = { 0,
     32,    35,    36,    39,    40,    43,    46,    49,    52,    53,
-    56,    57,    60,    63,    64,    67,    70,    73,    74,    77,
-    78,    81,    84,    87,    88,    91,    92,    95,   105,   106,
-   109,   110,   113,   114,   117,   118,   121,   122,   125,   126,
-   127,   130,   131,   132,   133,   134,   137,   140,   141,   144,
-   145,   148,   150,   152,   154,   155,   156,   157,   158,   159,
-   160,   163,   164,   167,   168,   171,   172,   173,   176,   177,
-   178,   179,   180,   183,   184,   185,   188,   189,   190,   191,
-   194,   195,   196,   197,   198,   201,   202,   203,   204,   205,
-   208,   209,   212,   214,   215,   218,   220,   221
+    56,    57,    60,    63,    64,    67,    74,    77,    78,    81,
+    82,    85,    88,    91,    92,    95,    96,    99,   109,   110,
+   113,   114,   117,   118,   121,   122,   125,   126,   129,   130,
+   131,   134,   135,   136,   137,   138,   141,   144,   145,   148,
+   149,   152,   154,   156,   158,   159,   160,   161,   162,   163,
+   164,   167,   168,   171,   172,   175,   176,   177,   180,   181,
+   182,   183,   184,   187,   188,   189,   192,   193,   194,   195,
+   198,   199,   200,   201,   202,   205,   206,   207,   208,   209,
+   212,   213,   216,   218,   219,   222,   223,   224
 };
 
 static const char * const yytname[] = {   "$","error","$undefined.","TEOF","TIDENT",
@@ -848,19 +848,22 @@ case 15:
 {type = VOID;;
     break;}
 case 16:
-#line 67 "parser.y"
-{func = 1; changeHSTable();;
+#line 68 "parser.y"
+{
+					func = 1; 
+					changeHSTable();
+					;
     break;}
 case 18:
-#line 73 "parser.y"
+#line 77 "parser.y"
 {param=1;;
     break;}
 case 19:
-#line 74 "parser.y"
+#line 78 "parser.y"
 {param=0;;
     break;}
 case 28:
-#line 96 "parser.y"
+#line 100 "parser.y"
 {
 						con = 0;
 						func =0;
@@ -870,16 +873,12 @@ case 28:
 					;
     break;}
 case 33:
-#line 113 "parser.y"
+#line 117 "parser.y"
 {changeHSTable(); ;
     break;}
 case 34:
-#line 114 "parser.y"
+#line 118 "parser.y"
 {array=1; changeHSTable(); ;
-    break;}
-case 96:
-#line 219 "parser.y"
-{ func=0; param =0; con=0; array=0; type=NONE; changeHSTable();;
     break;}
 }
    /* the action file gets copied in in place of this dollarsign */
@@ -1079,7 +1078,7 @@ yyerrhandle:
   yystate = yyn;
   goto yynewstate;
 }
-#line 223 "parser.y"
+#line 226 "parser.y"
 
 
 void changeHSTable(){
@@ -1088,4 +1087,5 @@ void changeHSTable(){
 	current_id->isParam= param;
 	current_id->isArray= array;
 	current_id->spec= type;
+	func=0; param =0; con=0; array=0; type=NONE;
 }

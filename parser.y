@@ -64,7 +64,11 @@ type_specifier 		: TINT						{type=INT;}
 		 			| TVOID						{type = VOID;}
 					;
 
-function_name 		: TIDENT					{func = 1; changeHSTable();}
+function_name 		: TIDENT					
+					{
+					func = 1; 
+					changeHSTable();
+					}
 					;
 
 formal_param 		: TLPAREN opt_formal_param TRPAREN
@@ -215,8 +219,7 @@ actual_param_list 	: assignment_exp
 		   			| actual_param_list TCOMMA assignment_exp 	
 					;
 
-primary_exp 		: TIDENT		
-					{ func=0; param =0; con=0; array=0; type=NONE; changeHSTable();}			
+primary_exp 		: TIDENT			
 	     			| TNUMBER					
 	     			| TLPAREN expression TRPAREN				
 					;
@@ -228,4 +231,5 @@ void changeHSTable(){
 	current_id->isParam= param;
 	current_id->isArray= array;
 	current_id->spec= type;
+	func=0; param =0; con=0; array=0; type=NONE;
 }

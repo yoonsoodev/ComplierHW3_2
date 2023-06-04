@@ -3,6 +3,7 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <malloc.h>
 #include "tn.h" 
 #include "glob.h" 
 
@@ -16,7 +17,6 @@ void main()
 	printf("=========================[[Parsing Start]]========================\n");
 	yyparse();
 	printf("==========================[[Parsing Ends]]========================\n");
-	
 	printf("==========================[[Hash Table]]==========================\n");
 
 	printHSTable();
@@ -30,39 +30,38 @@ void printHSTable(){
 	for (i = 0; i < HTsize; i++) {
 		if (HT[i] != NULL) {
 			here = HT[i];
-			j = here->index;
-			printf("HashCode %d:	", i);
-			while (ST[j] != '\0') {
-				printf("%c", ST[j++]);
-			}
-			printf(" / ");
+			printf("HashCode %d:	/ ", i);
 			while (here != NULL) {
+				j = here->index;
+				while (ST[j] != '\0') {
+					printf("%c", ST[j++]);
+				}
 				if (here->isFunction) { // 함수인 경우
 					switch (here->spec)
 					{
 						case  INT:
-							printf("Return Type: Integer ");
+							printf(" / Return Type: Integer ");
 							break;
 						case  VOID:
-							printf("Return Type: Void ");
+							printf(" / Return Type: Void ");
 							break;
 						case  FLOAT:
-							printf("Return Type: Float ");
+							printf(" / Return Type: Float ");
 							break;
 					}
 					printf("Function ");
 				}
 				else { // 변수인 경우
 					if (here->isConst) {
-						printf("Const ");
+						printf(" / Const ");
 					}
 					switch (here->spec)
 					{
 					case  INT:
-						printf("Integer ");
+						printf(" / Integer ");
 						break;
 					case  FLOAT:
-						printf("Float ");
+						printf(" / Float ");
 						break;
 					}
 
