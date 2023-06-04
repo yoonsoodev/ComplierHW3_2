@@ -182,7 +182,7 @@
 #include "lex.yy.c"
 
 void initGlobalVariable();
-void yyerror(ERRORtypes err);
+void yyerror(ERRORtypes err_type);
 
 /*yacc source for Mini C*/
 void semantic(int);
@@ -1939,7 +1939,7 @@ yyreturn:
 }
 
 
-#line 182 "parser.y"
+#line 181 "parser.y"
 
 
 void semantic(int n){

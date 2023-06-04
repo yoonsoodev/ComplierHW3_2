@@ -7,7 +7,7 @@
 #include "lex.yy.c"
 
 void initGlobalVariable();
-void yyerror(ERRORtypes err);
+void yyerror(ERRORtypes err_type);
 
 /*yacc source for Mini C*/
 void semantic(int);
@@ -177,7 +177,6 @@ primary_exp 		: TIDENT						{semantic(6);}
 	     		| TNUMBER					
 	    		| TLPAREN expression TRPAREN
 			| TLPAREN expression error				{yyerrok; yyerror(missing_sbracket);};
-error_rule		: TERROR						;
 
 %%
 

@@ -8,9 +8,9 @@
 
 extern char *yytext;
 
-void yyerror(ERRORtypes err)
+void yyerror(ERRORtypes err_type)
 {
-	switch(err)
+	switch(err_type)
 	{
 	case noerror: 
 		break;
@@ -60,5 +60,9 @@ void yyerror(ERRORtypes err)
 		num_err++;
 		printf("%6d          ERROR!!			  no function header\n", cLine);
 		break;
+    case declaring_err:
+        num_err++;
+        printf("%6d          ERROR!!              no wrong declaration\n", cLine);
+        break;
 	}
 }

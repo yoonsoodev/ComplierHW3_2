@@ -6,7 +6,7 @@
 #include "tn.h" 
 #include "glob.h" 
 
-extern yylex();
+extern int yylex();
 extern int yyparse();
 extern char *yytext;
 
@@ -22,7 +22,7 @@ void printSymtable() { 	// HashTable print
 
 				// print identifier
 				for (int j = here->index; ST[j] != '\0'; j++) {
-						printf("%s", ST[j]);
+						printf("%c", ST[j]);
 				}
 
 				if(here->HT_typeFlag = 0){ //function name
@@ -85,7 +85,7 @@ int main()
 	//parsing
 	printf("=========================[[PARSING RESULTS]]===============================\n");
 	printf("***************************Parsing Begins**********************************\n");
-	yylex();
+	//yylex();
 	yyparse();
 	printf("****************************Parsing Ends***********************************\n");
 	printf("\n\nNumber of errors: %d\n\n", num_err);

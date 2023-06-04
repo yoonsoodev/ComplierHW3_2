@@ -2,7 +2,8 @@
  * glob.h - global variable for the project
  */
 
-#pragma once
+#ifndef GLOBALVARIABLE
+#define GLOBALVARIABLE
 
 #define STsize 1000
 #define HTsize 100
@@ -38,9 +39,11 @@ int found;
 
 enum errorTypes { noerror, illid_digit, illid_long, illid_illch, illid_illegal, overst, missing_semi, missing_sbracket, missing_mbracket, missing_lbracket, missing_comma, missing_funcheader, declaring_err };
 typedef enum errorTypes ERRORtypes;
-ERRORtypes err;
+ERRORtypes err_type;
 
 #define isLetter(x) ( ((x) >= 'a' && (x) <='z') || ((x) >= 'A' && (x) <= 'Z' || (x) == '_') )
 #define isDigit(x) ( (x) >= '0' && (x) <= '9' )
 
 #define MAX_LEN		12
+
+#endif

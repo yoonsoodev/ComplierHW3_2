@@ -7,7 +7,7 @@
 #include <string.h>
 #include "glob.h"
 
-extern void yyerror(ERRORtypes err);
+extern void yyerror(ERRORtypes err_type);
 extern char *yytext;
 extern int yyleng;
 
@@ -103,10 +103,10 @@ void ADDHT(int hscode)
  */
 int SymbolTable()
 {
-	err = noerror;
+    err_type = noerror;
 	if((nextfree == STsize) || ((nextfree+yyleng) > STsize)) {
-		err = overst;
-		yyerror(err);
+        err_type = overst;
+		yyerror(err_type);
 	}
 
 	//READ identifier

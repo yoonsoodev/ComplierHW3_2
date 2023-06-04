@@ -547,7 +547,7 @@ char *yytext;
 #include <string.h>
 #include "tn.h"
 #include "glob.h"
-void yyerror(ERRORtypes err);
+void yyerror(ERRORtypes err_type);
 int SymbolTable();
 #line 552 "lex.yy.c"
 #line 553 "lex.yy.c"
@@ -834,7 +834,7 @@ return(TCONST);
 case 2:
 YY_RULE_SETUP
 #line 17 "scanner.l"
-{ err = illid_illegal; yyerror(err); return(TERROR); }
+{ err_type = illid_illegal; yyerror(err_type); return(TERROR); }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
@@ -844,7 +844,7 @@ return(TELSE);
 case 4:
 YY_RULE_SETUP
 #line 19 "scanner.l"
-{ err = illid_illegal; yyerror(err); return(TERROR); }
+{ err_type = illid_illegal; yyerror(err_type); return(TERROR); }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
@@ -854,7 +854,7 @@ return(TIF);
 case 6:
 YY_RULE_SETUP
 #line 21 "scanner.l"
-{ err = illid_illegal; yyerror(err); return(TERROR); }
+{ err_type = illid_illegal; yyerror(err_type); return(TERROR); }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
@@ -864,7 +864,7 @@ return(TINT);
 case 8:
 YY_RULE_SETUP
 #line 23 "scanner.l"
-{ err = illid_illegal; yyerror(err); return(TERROR); }
+{ err_type = illid_illegal; yyerror(err_type); return(TERROR); }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
@@ -874,7 +874,7 @@ return(TRETURN);
 case 10:
 YY_RULE_SETUP
 #line 25 "scanner.l"
-{ err = illid_illegal; yyerror(err); return(TERROR); }
+{ err_type = illid_illegal; yyerror(err_type); return(TERROR); }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
@@ -884,7 +884,7 @@ return(TVOID);
 case 12:
 YY_RULE_SETUP
 #line 27 "scanner.l"
-{ err = illid_illegal; yyerror(err); return(TERROR); }
+{ err_type = illid_illegal; yyerror(err_type); return(TERROR); }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
@@ -894,7 +894,7 @@ return(TWHILE);
 case 14:
 YY_RULE_SETUP
 #line 29 "scanner.l"
-{ err = illid_illegal; yyerror(err); return(TERROR); }
+{ err_type = illid_illegal; yyerror(err_type); return(TERROR); }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
@@ -1056,7 +1056,7 @@ YY_RULE_SETUP
 #line 69 "scanner.l"
 { 
 					if(yyleng > MAX_LEN)
-						{ err = illid_long; yyerror(err); return(TERROR);}
+						{ err_type = illid_long; yyerror(err_type); return(TERROR);}
 					else
 						{ SymbolTable(); return(TIDENT);}
 				}
@@ -1091,12 +1091,12 @@ YY_RULE_SETUP
 case 51:
 YY_RULE_SETUP
 #line 89 "scanner.l"
-{ err = illid_digit; yyerror(err); return(TERROR); }
+{ err_type = illid_digit; yyerror(err_type); return(TERROR); }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
 #line 91 "scanner.l"
-{ err = illid_illch; yyerror(err); return(TERROR); }
+{ err_type = illid_illch; yyerror(err_type); return(TERROR); }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP

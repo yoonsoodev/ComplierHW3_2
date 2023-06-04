@@ -8,25 +8,25 @@
 #include <string.h>
 #include "tn.h"
 #include "glob.h"
-void yyerror(ERRORtypes err);
+void yyerror(ERRORtypes err_type);
 int SymbolTable();
 %}
 
 %%
 "const"				return(TCONST);
-[cC][oO][nN][sS][tT]		{ err = illid_illegal; yyerror(err); return(TERROR); }
+[cC][oO][nN][sS][tT]		{ err_type = illid_illegal; yyerror(err_type); return(TERROR); }
 "else" 				return(TELSE);
-[eE][lL][sS][eE]		{ err = illid_illegal; yyerror(err); return(TERROR); }
+[eE][lL][sS][eE]		{ err_type = illid_illegal; yyerror(err_type); return(TERROR); }
 "if" 				return(TIF);
-[iI][fF]			{ err = illid_illegal; yyerror(err); return(TERROR); }
+[iI][fF]			{ err_type = illid_illegal; yyerror(err_type); return(TERROR); }
 "int"				return(TINT);
-[iI][nN][tT]			{ err = illid_illegal; yyerror(err); return(TERROR); }
+[iI][nN][tT]			{ err_type = illid_illegal; yyerror(err_type); return(TERROR); }
 "return"			return(TRETURN);
-[rR][eE][tT][uU][rR][nN]	{ err = illid_illegal; yyerror(err); return(TERROR); }
+[rR][eE][tT][uU][rR][nN]	{ err_type = illid_illegal; yyerror(err_type); return(TERROR); }
 "void" 				return(TVOID);
-[vV][oO][iI][dD]		{ err = illid_illegal; yyerror(err); return(TERROR); }
+[vV][oO][iI][dD]		{ err_type = illid_illegal; yyerror(err_type); return(TERROR); }
 "while" 			return(TWHILE);
-[wW][hH][iI][lL][eE]		{ err = illid_illegal; yyerror(err); return(TERROR); }
+[wW][hH][iI][lL][eE]		{ err_type = illid_illegal; yyerror(err_type); return(TERROR); }
 
 "+" 				return(TPLUS);
 "-" 				return(TMINUS);
@@ -68,7 +68,7 @@ int SymbolTable();
 
 [A-Za-z_][A-Za-z0-9_]* 		{ 
 					if(yyleng > MAX_LEN)
-						{ err = illid_long; yyerror(err); return(TERROR);}
+						{ err_type = illid_long; yyerror(err_type); return(TERROR);}
 					else
 						{ SymbolTable(); return(TIDENT);}
 				}
@@ -86,9 +86,9 @@ int SymbolTable();
 [ \t]			 	;
 "\n" 				{ cLine++; return(TCARR);}
 
-[0-9]+[A-Za-z0-9_]+ 		{ err = illid_digit; yyerror(err); return(TERROR); }
+[0-9]+[A-Za-z0-9_]+ 		{ err_type = illid_digit; yyerror(err_type); return(TERROR); }
 
-. 				{ err = illid_illch; yyerror(err); return(TERROR); }
+. 				{ err_type = illid_illch; yyerror(err_type); return(TERROR); }
 %%
 
 int yywrap()
