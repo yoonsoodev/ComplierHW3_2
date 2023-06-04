@@ -374,6 +374,7 @@ yynewstate:
 
   if (yychar == YYEMPTY)
     {
+
 #if YYDEBUG != 0
       if (yydebug)
 	fprintf(stderr, "Reading a token: ");

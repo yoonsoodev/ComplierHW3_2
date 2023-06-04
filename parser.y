@@ -1,17 +1,19 @@
 %{
 #include <stdio.h>
 #include <ctype.h>
+#include <stdlib.h>
 #include <malloc.h>
 #include "glob.h"
 
 /*yacc source for Mini C*/
 int con = 0;
-int function =0;
+int func =0;
 int param = 0;
 int array = 0;
 Types type = NONE;
 
-extern yyerror(char* );
+extern int yylex();
+extern yyerror(char* s);
 void changeHSTable();
 %}
 
@@ -38,7 +40,7 @@ external_dcl 		: function_def
 		  			| declaration					
 					;
 
-function_def 		: function_header compound_st		
+function_def 		: function_header compound_st			
 					;
 
 function_header 	: dcl_spec function_name formal_param	
@@ -48,11 +50,11 @@ dcl_spec 			: dcl_specifiers
 					;
 
 dcl_specifiers 		: dcl_specifier					
-		 			| dcl_specifiers dcl_specifier			
+		 			| dcl_specifiers dcl_specifier	
 					;
 
-dcl_specifier 		: type_qualifier					
-					| type_specifier				
+dcl_specifier 		: type_qualifier			
+					| type_specifier			
 					;
 
 type_qualifier 		: TCONST		{con = 1;}			
@@ -62,7 +64,7 @@ type_specifier 		: TINT						{type=INT;}
 		 			| TVOID						{type = VOID;}
 					;
 
-function_name 		: TIDENT					{function = 1; changeHSTable();}
+function_name 		: TIDENT					{func = 1; changeHSTable(); current_tmp = current_id;}
 					;
 
 formal_param 		: TLPAREN opt_formal_param TRPAREN
@@ -101,8 +103,8 @@ init_declarator 	: declarator
 		 			| declarator TASSIGN TNUMBER			
 					;
 
-declarator 			: TIDENT						{changeHSTable();}
-	     			| TIDENT TLBRACKET opt_number TRBRACKET			{array=1; changeHSTable();}
+declarator 			: TIDENT						{changeHSTable(); current_tmp=current_id;}
+	     			| TIDENT TLBRACKET opt_number TRBRACKET			{array=1; changeHSTable(); current_tmp=current_id;}
 					;
 
 opt_number 			: TNUMBER					
@@ -196,7 +198,7 @@ postfix_exp 		: primary_exp
 	      			| postfix_exp TDEC				
 					;
 
-opt_actual_param 	: actual_param				
+opt_actual_param 	: actual_param			
 		  			|						
 					;
 
@@ -206,14 +208,16 @@ actual_param_list 	: assignment_exp
 		   			| actual_param_list TCOMMA assignment_exp 	
 					;
 
-primary_exp 		: TIDENT					
+primary_exp 		: TIDENT		
+					{ func=0; param =0; con=0; array=0; type=NONE; changeHSTable();}			
 	     			| TNUMBER					
 	     			| TLPAREN expression TRPAREN				
 					;
 %%
+
 void changeHSTable(){
 	current_id->isConst= con;
-	current_id->isFunction= function;
+	current_id->isFunction= func;
 	current_id->isParam= param;
 	current_id->isArray= array;
 	current_id->spec= type;

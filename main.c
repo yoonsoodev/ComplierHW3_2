@@ -13,11 +13,13 @@ void printHSTable();
 void main()
 {
     cLine = 1;
-	current_id = (HTpointer)malloc(sizeof(HTpointer));
+	current_id = (HTpointer)malloc(sizeof(current_id));
+	current_tmp = (HTpointer)malloc(sizeof(current_tmp));
 	printf("=========================[[Parsing Start]]========================\n");
 	yyparse();
 	printf("==========================[[Parsing Ends]]========================\n");
 	
+	printf("==========================[[Hash Table]]==========================\n");
 
 	printHSTable();
 }
@@ -35,7 +37,7 @@ void printHSTable(){
 			while (ST[j] != '\0') {
 				printf("%c", ST[j++]);
 			}
-			printf("/ ");
+			printf(" / ");
 			while (here != NULL) {
 				if (here->isFunction) { // 함수인 경우
 					switch (here->spec)

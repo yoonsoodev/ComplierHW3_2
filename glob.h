@@ -22,6 +22,7 @@ typedef struct HTentry {
 HTpointer HT[HTsize];
 char ST[STsize];
 HTpointer current_id;
+HTpointer current_tmp;
 
 int nextid; 
 int nextfree;

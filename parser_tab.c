@@ -56,17 +56,19 @@
 
 #include <stdio.h>
 #include <ctype.h>
+#include <stdlib.h>
 #include <malloc.h>
 #include "glob.h"
 
 /*yacc source for Mini C*/
 int con = 0;
-int function =0;
+int func =0;
 int param = 0;
 int array = 0;
 Types type = NONE;
 
-extern yyerror(char* );
+extern int yylex();
+extern yyerror(char* s);
 void changeHSTable();
 
 #ifndef YYLTYPE
@@ -188,16 +190,16 @@ static const short yyrhs[] = {    51,
 
 #if YYDEBUG != 0
 static const short yyrline[] = { 0,
-    30,    33,    34,    37,    38,    41,    44,    47,    50,    51,
-    54,    55,    58,    61,    62,    65,    68,    71,    72,    75,
-    76,    79,    82,    85,    86,    89,    90,    93,    96,    97,
-   100,   101,   104,   105,   108,   109,   112,   113,   116,   117,
-   118,   121,   122,   123,   124,   125,   128,   131,   132,   135,
-   136,   139,   141,   143,   145,   146,   147,   148,   149,   150,
-   151,   154,   155,   158,   159,   162,   163,   164,   167,   168,
-   169,   170,   171,   174,   175,   176,   179,   180,   181,   182,
-   185,   186,   187,   188,   189,   192,   193,   194,   195,   196,
-   199,   200,   203,   205,   206,   209,   210,   211
+    32,    35,    36,    39,    40,    43,    46,    49,    52,    53,
+    56,    57,    60,    63,    64,    67,    70,    73,    74,    77,
+    78,    81,    84,    87,    88,    91,    92,    95,    98,    99,
+   102,   103,   106,   107,   110,   111,   114,   115,   118,   119,
+   120,   123,   124,   125,   126,   127,   130,   133,   134,   137,
+   138,   141,   143,   145,   147,   148,   149,   150,   151,   152,
+   153,   156,   157,   160,   161,   164,   165,   166,   169,   170,
+   171,   172,   173,   176,   177,   178,   181,   182,   183,   184,
+   187,   188,   189,   190,   191,   194,   195,   196,   197,   198,
+   201,   202,   205,   207,   208,   211,   213,   214
 };
 
 static const char * const yytname[] = {   "$","error","$undefined.","TEOF","TIDENT",
@@ -717,6 +719,7 @@ yynewstate:
 
   if (yychar == YYEMPTY)
     {
+
 #if YYDEBUG != 0
       if (yydebug)
 	fprintf(stderr, "Reading a token: ");
@@ -834,36 +837,40 @@ yyreduce:
   switch (yyn) {
 
 case 13:
-#line 58 "parser.y"
+#line 60 "parser.y"
 {con = 1;;
     break;}
 case 14:
-#line 61 "parser.y"
+#line 63 "parser.y"
 {type=INT;;
     break;}
 case 15:
-#line 62 "parser.y"
+#line 64 "parser.y"
 {type = VOID;;
     break;}
 case 16:
-#line 65 "parser.y"
-{function = 1; changeHSTable();;
+#line 67 "parser.y"
+{func = 1; changeHSTable(); current_tmp = current_id;;
     break;}
 case 18:
-#line 71 "parser.y"
+#line 73 "parser.y"
 {param=1;;
     break;}
 case 19:
-#line 72 "parser.y"
+#line 74 "parser.y"
 {param=0;;
     break;}
 case 33:
-#line 104 "parser.y"
-{changeHSTable();;
+#line 106 "parser.y"
+{changeHSTable(); current_tmp=current_id;;
     break;}
 case 34:
-#line 105 "parser.y"
-{array=1; changeHSTable();;
+#line 107 "parser.y"
+{array=1; changeHSTable(); current_tmp=current_id;;
+    break;}
+case 96:
+#line 212 "parser.y"
+{ func=0; param =0; con=0; array=0; type=NONE; changeHSTable();;
     break;}
 }
    /* the action file gets copied in in place of this dollarsign */
@@ -1063,11 +1070,12 @@ yyerrhandle:
   yystate = yyn;
   goto yynewstate;
 }
-#line 213 "parser.y"
+#line 216 "parser.y"
+
 
 void changeHSTable(){
 	current_id->isConst= con;
-	current_id->isFunction= function;
+	current_id->isFunction= func;
 	current_id->isParam= param;
 	current_id->isArray= array;
 	current_id->spec= type;
