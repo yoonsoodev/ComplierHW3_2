@@ -47,6 +47,8 @@
 #define	THEX	301
 #define	TOCT	302
 #define	LOWER_THAN_ELSE	303
+#define	LOWER_THAN_OPT_STAT_LIST	304
+#define	OPT_STAT_LIST	305
 
 
 extern YYSTYPE yylval;

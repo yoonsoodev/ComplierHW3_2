@@ -42,5 +42,34 @@ void PrintError(ERRORtypes err)
 		printf("==================================================\n");
 		exit(0);
 		break;
+	case missing_semi:
+		num_err++;
+		printf("%6d          ERROR!!			  missing semicolon\n", cLine);
+		break;
+	case missing_sbracket:
+		num_err++;
+		printf("%6d          ERROR!!			  not closed small bracket\n", cLine);
+		break;
+	case missing_mbracket:
+		num_err++;
+		printf("%6d          ERROR!!			  not closed medium bracket\n", cLine);
+		break;
+	case missing_lbracket:
+		num_err++;
+		printf("%6d          ERROR!!			  not closed large bracket\n", cLine);
+		break;
+	case missing_comma:
+		num_err++;
+		printf("%6d          ERROR!!			  missing comma\n", cLine);
+		break;
+	case missing_funcheader:
+		num_err++;
+		printf("%6d          ERROR!!			  no function header\n", cLine);
+		break;
+	case declaring_err:
+		num_err++;
+		printf("%6d          ERROR!!              no wrong declaration\n", cLine);
+		break;
+
 	}
 }
