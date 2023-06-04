@@ -17,6 +17,7 @@ void main()
 	printf("=========================[[Parsing Start]]========================\n");
 	yyparse();
 	printf("==========================[[Parsing Ends]]========================\n");
+	printf("\n\nNumber of errors: %d\n\n", num_err);
 	printf("==========================[[Hash Table]]==========================\n");
 
 	printHSTable();
@@ -30,7 +31,7 @@ void printHSTable(){
 	for (i = 0; i < HTsize; i++) {
 		if (HT[i] != NULL) {
 			here = HT[i];
-			printf("HashCode %d:	/ ", i);
+			printf("HashCode %d:	 ", i);
 			while (here != NULL) {
 				j = here->index;
 				while (ST[j] != '\0') {
@@ -49,7 +50,7 @@ void printHSTable(){
 							printf(" / Return Type: Float ");
 							break;
 					}
-					printf("Function ");
+					printf("Function Name ");
 				}
 				else { // 변수인 경우
 					if (here->isConst) {
@@ -65,13 +66,13 @@ void printHSTable(){
 						break;
 					}
 
+					if (here->isArray) { // Array
+						printf("Array ");
+					}
 					if (here->isParam) {
 						printf("Parameter ");
 					}
 
-					if (here->isArray) { // Array
-						printf("Array ");
-					}
 					printf("Variable ");
 				}
 				printf("/ Linenum: %d \n", here->linenum);

@@ -22,7 +22,7 @@ int SymbolTable();
 [iI][fF]				{ err = illid_illegal; PrintError(err); return(TERROR); }
 "int"				return(TINT);
 [iI][nN][tT]			{ err = illid_illegal; PrintError(err); return(TERROR); }
-"float"
+"float"					return(TFLOAT);
 [fF][lL][oO][aA][tT]			{ err = illid_illegal; PrintError(err); return(TERROR); }
 "return"				return(TRETURN);
 [rR][eE][tT][uU][rR][nN]		{ err = illid_illegal; PrintError(err); return(TERROR); }
@@ -68,7 +68,7 @@ int SymbolTable();
 ";" 				return(TSEMI);
 
 [1-9][0-9]*|0([0-7]+|(x|X)[0-9A-Fa-f]*)?	return(TNUMBER);
-
+[0-9]+"."[0-9]+?([Ee][-+]?[0-9]+)?			return(TREALNUMBER);
 [A-Za-z_][A-Za-z0-9_]* 		{ 
 					if(yyleng > MAX_LEN)
 						{ err = illid_long; PrintError(err); return(TERROR);}
