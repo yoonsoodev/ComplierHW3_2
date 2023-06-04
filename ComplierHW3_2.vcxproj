@@ -155,6 +155,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="parser.y" />
+    <None Include="prime.mc" />
     <None Include="scanner.l" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

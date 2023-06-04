@@ -62,11 +62,11 @@
 #include "glob.h"
 
 /*yacc source for Mini C*/
-int con = 0;
-int func =0;
-int param = 0;
-int array = 0;
-Types type = NONE;
+con = 0;
+func =0;
+param = 0;
+array = 0;
+type = NONE;
 
 extern int yylex();
 extern yyerror(char* s);
@@ -935,7 +935,7 @@ case 43:
     break;}
 case 44:
 #line 125 "parser.y"
-{changeHSTable(); ;
+{func = 0; changeHSTable(); ;
     break;}
 case 45:
 #line 126 "parser.y"
@@ -1184,5 +1184,4 @@ void changeHSTable(){
 	current_id->isParam= param;
 	current_id->isArray= array;
 	current_id->spec= type;
-	func=0; param =0; con=0; array=0; type=NONE;
 }

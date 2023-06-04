@@ -30,7 +30,7 @@ void printHSTable(){
 	for (i = 0; i < HTsize; i++) {
 		if (HT[i] != NULL) {
 			here = HT[i];
-			printf("HashCode %d:	/ ", i);
+			printf("HashCode %d:	 ", i);
 			while (here != NULL) {
 				j = here->index;
 				while (ST[j] != '\0') {

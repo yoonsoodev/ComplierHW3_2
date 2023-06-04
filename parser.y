@@ -6,11 +6,11 @@
 #include "glob.h"
 
 /*yacc source for Mini C*/
-int con = 0;
-int func =0;
-int param = 0;
-int array = 0;
-Types type = NONE;
+con = 0;
+func =0;
+param = 0;
+array = 0;
+type = NONE;
 
 extern int yylex();
 extern yyerror(char* s);
@@ -122,7 +122,7 @@ init_declarator 	: declarator
 					| declarator TEQUAL TNUMBER								{yyerrok; PrintError(declaring_err);}
 					;
 
-declarator 			: TIDENT												{changeHSTable(); }
+declarator 			: TIDENT												{func = 0; changeHSTable(); }
 	     			| TIDENT TLBRACKET opt_number TRBRACKET					{array=1; changeHSTable(); }
 					| TIDENT TLBRACKET opt_number error						{yyerrok; PrintError(missing_lbracket);}
 					;
@@ -249,5 +249,4 @@ void changeHSTable(){
 	current_id->isParam= param;
 	current_id->isArray= array;
 	current_id->spec= type;
-	func=0; param =0; con=0; array=0; type=NONE;
 }
