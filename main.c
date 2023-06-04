@@ -17,6 +17,7 @@ void main()
 	printf("=========================[[Parsing Start]]========================\n");
 	yyparse();
 	printf("==========================[[Parsing Ends]]========================\n");
+	printf("\n\nNumber of errors: %d\n\n", num_err);
 	printf("==========================[[Hash Table]]==========================\n");
 
 	printHSTable();
