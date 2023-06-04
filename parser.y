@@ -79,7 +79,7 @@ formal_param 		: TLPAREN opt_formal_param TRPAREN
 					;
 
 opt_formal_param 	: formal_param_list										{param=1;}
-		   			|														{param=0;}
+					|														{param=0;}
 					;
 
 formal_param_list 	: param_dcl					

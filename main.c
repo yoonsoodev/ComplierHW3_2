@@ -66,13 +66,13 @@ void printHSTable(){
 						break;
 					}
 
+					if (here->isArray) { // Array
+						printf("Array ");
+					}
 					if (here->isParam) {
 						printf("Parameter ");
 					}
 
-					if (here->isArray) { // Array
-						printf("Array ");
-					}
 					printf("Variable ");
 				}
 				printf("/ Linenum: %d \n", here->linenum);
