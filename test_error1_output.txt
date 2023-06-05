@@ -1,0 +1,15 @@
+=========================[[Parsing Start]]========================
+     2          ERROR!!                   missing semicolon
+     5          ERROR!!                   not closed large bracket
+     4          ERROR!!                   missing semicolon
+     6          ERROR!!                   not closed small bracket
+==========================[[Parsing Ends]]========================
+
+
+Number of errors: 4
+
+==========================[[Hash Table]]==========================
+HashCode 22:     main / Return Type: Integer Function / Linenum: 1
+HashCode 26:     arr / not defined / Linenum: 4
+HashCode 98:     a / Integer Scalar Variable / Linenum: 2
+HashCode 99:     b / Integer Scalar Variable / Linenum: 3

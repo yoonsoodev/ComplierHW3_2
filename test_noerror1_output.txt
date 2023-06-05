@@ -1,0 +1,11 @@
+=========================[[Parsing Start]]========================
+==========================[[Parsing Ends]]========================
+
+
+Number of errors: 0
+
+==========================[[Hash Table]]==========================
+HashCode 22:     main / Return Type: Integer Function / Linenum: 1
+HashCode 26:     arr / Integer Array Variable / Linenum: 4
+HashCode 98:     a / Integer Scalar Variable / Linenum: 2
+HashCode 99:     b / Integer Scalar Variable / Linenum: 3

@@ -100,7 +100,7 @@ formal_param_list 	: param_dcl									{param=1; changeHSTable();}
 
 param_dcl 			: dcl_spec declarator {param=1; changeHSTable();};
 
-compound_st 		: TLBRACE opt_dcl_list opt_stat_list TRBRACE	
+compound_st 		: TLBRACE compound TRBRACE	
 					| TLBRACE compound error    							{yyerrok; PrintError(missing_mbracket);}
 					;
 
@@ -179,6 +179,7 @@ opt_expression 		: expression
 
 if_st 				: TIF TLPAREN expression TRPAREN statement %prec LOWER_THAN_ELSE 		
 					| TIF TLPAREN expression TRPAREN statement TELSE statement
+					| TIF TLPAREN expression TRPAREN TLBRACE statement TRBRACE TELSE statement
 					| TIF TLPAREN expression error							{yyerrok; PrintError(missing_sbracket);}
 					| TIF TLPAREN TRPAREN error								{yyerrok; PrintError(missing_condition);}
 					| TIF error                                             {yyerrok; PrintError(missing_sbracket);}
