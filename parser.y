@@ -77,18 +77,17 @@ function_name 		: TIDENT
 					func=0; con=0; param=0; array=0; type=NONE;}
 					;
 
-formal_param 		: TLPAREN opt_formal_param TRPAREN						{param=1; changeHSTable();}
-					| TLPAREN opt_formal_param error						{yyerrok; PrintError(missing_sbracket);}
-					;
-
-opt_formal_param 	: formal_param_list										
-					{param=1; 
-					changeHSTable();
+formal_param 		: TLPAREN opt_formal_param TRPAREN						
+					{
 					con = 0;
 					func =0;
 					param = 0;
 					array = 0;
 					type = NONE;}
+					| TLPAREN opt_formal_param error						{yyerrok; PrintError(missing_sbracket);}
+					;
+
+opt_formal_param 	: formal_param_list				
 					|														{param=0;}
 					;
 
