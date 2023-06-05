@@ -1,0 +1,12 @@
+=========================[[Parsing Start]]========================
+==========================[[Parsing Ends]]========================
+
+
+Number of errors: 0
+
+==========================[[Hash Table]]==========================
+HashCode 21:     x / Integer Scalar Variable / Linenum: 6
+HashCode 22:     y / Integer Scalar Variable / Linenum: 6
+HashCode 22:     main / Return Type: Integer Function / Linenum: 5
+HashCode 23:     z / Integer Scalar Variable / Linenum: 6
+HashCode 90:     printHello / Return Type: Void Function / Linenum: 1

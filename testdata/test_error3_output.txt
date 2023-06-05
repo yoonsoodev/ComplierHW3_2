@@ -1,0 +1,13 @@
+=========================[[Parsing Start]]========================
+     5          ERROR!!                   missing semicolon
+     6          ERROR!!              missing condition
+==========================[[Parsing Ends]]========================
+
+
+Number of errors: 2
+
+==========================[[Hash Table]]==========================
+HashCode 21:     x / Integer Scalar Variable / Linenum: 3
+HashCode 22:     y / Integer Scalar Variable / Linenum: 4
+HashCode 22:     main / Return Type: Integer Function / Linenum: 2
+HashCode 23:     z / not defined / Linenum: 7
