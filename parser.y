@@ -81,7 +81,14 @@ formal_param 		: TLPAREN opt_formal_param TRPAREN
 					| TLPAREN opt_formal_param error						{yyerrok; PrintError(missing_sbracket);}
 					;
 
-opt_formal_param 	: formal_param_list										{param=1;}
+opt_formal_param 	: formal_param_list										
+					{param=1; 
+					changeHSTable();
+					con = 0;
+					func =0;
+					param = 0;
+					array = 0;
+					type = NONE;}
 					|														{param=0;}
 					;
 

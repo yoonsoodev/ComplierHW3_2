@@ -208,17 +208,17 @@ static const short yyrhs[] = {    54,
 static const short yyrline[] = { 0,
     34,    37,    38,    41,    42,    43,    44,    47,    48,    49,
     52,    55,    58,    59,    62,    63,    66,    69,    70,    71,
-    74,    80,    81,    84,    85,    88,    89,    90,    93,    95,
-    96,    99,   100,   101,   104,   105,   108,   116,   126,   127,
-   128,   131,   132,   133,   134,   135,   138,   139,   140,   143,
-   144,   147,   148,   151,   152,   153,   156,   157,   158,   159,
-   160,   163,   166,   167,   170,   171,   172,   173,   174,   177,
-   178,   179,   180,   181,   184,   186,   188,   189,   190,   191,
-   192,   193,   194,   197,   198,   201,   202,   205,   206,   207,
-   210,   211,   212,   213,   214,   217,   218,   219,   222,   223,
-   224,   225,   228,   229,   230,   231,   232,   235,   236,   237,
-   238,   239,   240,   241,   244,   245,   248,   250,   251,   254,
-   255,   256,   257,   258
+    74,    80,    81,    84,    92,    95,    96,    97,   100,   102,
+   103,   106,   107,   108,   111,   112,   115,   123,   133,   134,
+   135,   138,   139,   140,   141,   142,   145,   146,   147,   150,
+   151,   154,   155,   158,   159,   160,   163,   164,   165,   166,
+   167,   170,   173,   174,   177,   178,   179,   180,   181,   184,
+   185,   186,   187,   188,   191,   193,   195,   196,   197,   198,
+   199,   200,   201,   204,   205,   208,   209,   212,   213,   214,
+   217,   218,   219,   220,   221,   224,   225,   226,   229,   230,
+   231,   232,   235,   236,   237,   238,   239,   242,   243,   244,
+   245,   246,   247,   248,   251,   252,   255,   257,   258,   261,
+   262,   263,   264,   265
 };
 
 static const char * const yytname[] = {   "$","error","$undefined.","TEOF","TIDENT",
@@ -925,23 +925,29 @@ case 23:
 {yyerrok; PrintError(missing_sbracket);;
     break;}
 case 24:
-#line 84 "parser.y"
-{param=1;;
+#line 85 "parser.y"
+{param=1; 
+					changeHSTable();
+					con = 0;
+					func =0;
+					param = 0;
+					array = 0;
+					type = NONE;;
     break;}
 case 25:
-#line 85 "parser.y"
+#line 92 "parser.y"
 {param=0;;
     break;}
 case 28:
-#line 90 "parser.y"
+#line 97 "parser.y"
 {yyerrok; PrintError(missing_comma);;
     break;}
 case 31:
-#line 96 "parser.y"
+#line 103 "parser.y"
 {yyerrok; PrintError(missing_mbracket);;
     break;}
 case 37:
-#line 109 "parser.y"
+#line 116 "parser.y"
 {
 						con = 0;
 						func =0;
@@ -951,7 +957,7 @@ case 37:
 					;
     break;}
 case 38:
-#line 117 "parser.y"
+#line 124 "parser.y"
 {yyerrok;
 					con = 0;
 					func =0;
@@ -961,67 +967,67 @@ case 38:
 					PrintError(missing_semi);;
     break;}
 case 41:
-#line 128 "parser.y"
+#line 135 "parser.y"
 {yyerrok; PrintError(missing_comma);;
     break;}
 case 44:
-#line 133 "parser.y"
+#line 140 "parser.y"
 {yyerrok; PrintError(declaring_err);;
     break;}
 case 46:
-#line 135 "parser.y"
+#line 142 "parser.y"
 {yyerrok; PrintError(declaring_err);;
     break;}
 case 47:
-#line 138 "parser.y"
+#line 145 "parser.y"
 {changeHSTable(); ;
     break;}
 case 48:
-#line 139 "parser.y"
+#line 146 "parser.y"
 {array=1; changeHSTable(); ;
     break;}
 case 49:
-#line 140 "parser.y"
+#line 147 "parser.y"
 {yyerrok; PrintError(missing_lbracket);;
     break;}
 case 67:
-#line 172 "parser.y"
-{yyerrok; PrintError(missing_sbracket);;
-    break;}
-case 68:
-#line 173 "parser.y"
-{yyerrok; PrintError(missing_condition);;
-    break;}
-case 69:
-#line 174 "parser.y"
-{yyerrok; PrintError(missing_sbracket);;
-    break;}
-case 71:
-#line 178 "parser.y"
-{yyerrok; PrintError(missing_mbracket);;
-    break;}
-case 72:
 #line 179 "parser.y"
 {yyerrok; PrintError(missing_sbracket);;
     break;}
-case 73:
+case 68:
 #line 180 "parser.y"
 {yyerrok; PrintError(missing_condition);;
     break;}
-case 74:
+case 69:
 #line 181 "parser.y"
 {yyerrok; PrintError(missing_sbracket);;
     break;}
+case 71:
+#line 185 "parser.y"
+{yyerrok; PrintError(missing_mbracket);;
+    break;}
+case 72:
+#line 186 "parser.y"
+{yyerrok; PrintError(missing_sbracket);;
+    break;}
+case 73:
+#line 187 "parser.y"
+{yyerrok; PrintError(missing_condition);;
+    break;}
+case 74:
+#line 188 "parser.y"
+{yyerrok; PrintError(missing_sbracket);;
+    break;}
 case 110:
-#line 237 "parser.y"
+#line 244 "parser.y"
 {yyerrok; PrintError(missing_lbracket);;
     break;}
 case 112:
-#line 239 "parser.y"
+#line 246 "parser.y"
 {yyerrok; PrintError(missing_sbracket);;
     break;}
 case 124:
-#line 258 "parser.y"
+#line 265 "parser.y"
 {yyerrok; PrintError(missing_sbracket);;
     break;}
 }
@@ -1222,7 +1228,7 @@ yyerrhandle:
   yystate = yyn;
   goto yynewstate;
 }
-#line 260 "parser.y"
+#line 267 "parser.y"
 
 
 void changeHSTable(){

@@ -37,7 +37,10 @@ void printHSTable(){
 				while (ST[j] != '\0') {
 					printf("%c", ST[j++]);
 				}
-				if (!here->error) {
+				if (here->spec == NONE) {
+					printf(" / not defined ");
+				}
+				else if (!here->error) {
 					if (here->isFunction) { // 함수인 경우
 						switch (here->spec)
 						{
