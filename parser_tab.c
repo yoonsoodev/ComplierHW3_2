@@ -219,7 +219,7 @@ static const short yyrhs[] = {    54,
 static const short yyrline[] = { 0,
     34,    37,    38,    41,    42,    43,    44,    47,    48,    49,
     52,    55,    58,    59,    62,    63,    66,    69,    70,    71,
-    74,    80,    81,    84,    92,    95,    96,    97,    98,   101,
+    74,    80,    88,    91,    92,    95,    96,    97,    98,   101,
    103,   104,   107,   108,   109,   112,   113,   116,   124,   134,
    135,   136,   139,   140,   141,   142,   143,   146,   147,   148,
    151,   152,   155,   156,   159,   160,   161,   164,   165,   166,
@@ -986,18 +986,19 @@ case 22:
 					func =0;
 					param = 0;
 					array = 0;
-					type = NONE;;
+					type = NONE;
+					;
     break;}
 case 23:
-#line 87 "parser.y"
+#line 88 "parser.y"
 {yyerrok; PrintError(missing_sbracket);;
     break;}
 case 25:
-#line 91 "parser.y"
+#line 92 "parser.y"
 {param=0;;
     break;}
 case 28:
-#line 96 "parser.y"
+#line 97 "parser.y"
 {yyerrok; PrintError(missing_comma);;
     break;}
 case 29:
@@ -1382,7 +1383,7 @@ yyerrhandle:
   yystate = yyn;
   goto yynewstate;
 }
-#line 267 "parser.y"
+#line 291 "parser.y"
 
 
 void changeHSTable(){

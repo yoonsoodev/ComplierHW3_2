@@ -1,7 +1,4 @@
-//error
-
-int print(float param) {
-    write(param);
+int print() {
 }
 
 int myFunction() {

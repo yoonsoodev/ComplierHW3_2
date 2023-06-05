@@ -63,15 +63,17 @@ void printHSTable(){
 						switch (here->spec)
 						{
 						case  INT:
-							printf(" / Integer Scalar ");
+							printf(" / Integer ");
 							break;
 						case  FLOAT:
-							printf(" / Float Scalar ");
+							printf(" / Float ");
 							break;
 						}
-
 						if (here->isArray) { // Array
 							printf("Array ");
+						}
+						else {
+							printf("Scalar ");
 						}
 						if (here->isParam) {
 							printf("Parameter ");

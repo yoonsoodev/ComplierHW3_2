@@ -83,7 +83,8 @@ formal_param 		: TLPAREN opt_formal_param TRPAREN
 					func =0;
 					param = 0;
 					array = 0;
-					type = NONE;}
+					type = NONE;
+					}
 					| TLPAREN opt_formal_param error						{yyerrok; PrintError(missing_sbracket);}
 					;
 
@@ -99,7 +100,7 @@ formal_param_list 	: param_dcl
 
 param_dcl 			: dcl_spec declarator {param=1; changeHSTable();};
 
-compound_st 		: TLBRACE opt_dcl_list opt_stat_list TRBRACE 
+compound_st 		: TLBRACE opt_dcl_list opt_stat_list TRBRACE			
 					| TLBRACE compound error    							{yyerrok; PrintError(missing_mbracket);}
 					;
 
