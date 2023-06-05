@@ -978,7 +978,7 @@ YY_RULE_SETUP
 {
 					for(int i=0;i<yyleng;i++)
 						if(yytext[i]=='\n') cLine++;
-					return(TCOMMENT);
+					;
 
 				}
 	YY_BREAK

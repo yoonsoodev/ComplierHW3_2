@@ -17,6 +17,7 @@ typedef struct HTentry {
 	int isParam;
 	int isArray;
 	int linenum;
+	int error;
 	Types spec;
 	HTpointer next;
 } HTentry;

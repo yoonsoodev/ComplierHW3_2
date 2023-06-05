@@ -88,6 +88,7 @@ void ADDHT(int hscode)
 		ptr->isArray = 0;
 		ptr->spec = NONE;
 		ptr->linenum = cLine;
+		ptr->error = 0;
 		HT[hscode] = ptr;
 	}
 	else {
@@ -99,6 +100,7 @@ void ADDHT(int hscode)
 		ptr->isArray = 0;
 		ptr->spec = NONE;
 		ptr->linenum = cLine;
+		ptr->error = 0;
 		HT[hscode] = ptr;
 	}	
 	
