@@ -1,4 +1,5 @@
-int print() {
+int print(float param) {
+    write(param);
 }
 
 int myFunction() {

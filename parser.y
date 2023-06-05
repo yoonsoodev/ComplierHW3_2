@@ -77,30 +77,30 @@ function_name 		: TIDENT
 					func=0; con=0; param=0; array=0; type=NONE;}
 					;
 
-formal_param 		: TLPAREN opt_formal_param TRPAREN						
-					{
+formal_param 		: TLPAREN opt_formal_param TRPAREN			
+					| TLPAREN opt_formal_param error						{yyerrok; PrintError(missing_sbracket);}
+					;
+
+opt_formal_param 	: formal_param_list										
+					{param=1;
+					changeHSTable();
 					con = 0;
 					func =0;
 					param = 0;
 					array = 0;
-					type = NONE;
-					}
-					| TLPAREN opt_formal_param error						{yyerrok; PrintError(missing_sbracket);}
-					;
-
-opt_formal_param 	: formal_param_list				
+					type = NONE;}
 					|														{param=0;}
 					;
 
-formal_param_list 	: param_dcl				
-		    		| formal_param_list TCOMMA param_dcl 		
+formal_param_list 	: param_dcl									{param=1; changeHSTable();}
+		    		| formal_param_list TCOMMA param_dcl 					
 					| formal_param_list TCOMMA error						{yyerrok; PrintError(missing_comma);}
 					| formal_param_list param_dcl							{yyerrok; PrintError(missing_comma);}
 					;
 
 param_dcl 			: dcl_spec declarator {param=1; changeHSTable();};
 
-compound_st 		: TLBRACE opt_dcl_list opt_stat_list TRBRACE			
+compound_st 		: TLBRACE opt_dcl_list opt_stat_list TRBRACE	
 					| TLBRACE compound error    							{yyerrok; PrintError(missing_mbracket);}
 					;
 
@@ -132,8 +132,8 @@ declaration 		: dcl_spec init_dcl_list TSEMI
 					;
 
 init_dcl_list 		: init_declarator				
-					| init_dcl_list TCOMMA init_declarator
-					| init_dcl_list init_declarator							{yyerrok; PrintError(missing_comma);}
+					| init_dcl_list TCOMMA init_declarator				
+					| init_dcl_list init_declarator							{yyerrok; PrintError(missing_comma); current_id -> error =1;}
 					;
 
 init_declarator 	: declarator						
@@ -145,7 +145,7 @@ init_declarator 	: declarator
 
 declarator 			: TIDENT												{changeHSTable(); }
 	     			| TIDENT TLBRACKET opt_number TRBRACKET					{array=1; changeHSTable(); }
-					| TIDENT TLBRACKET opt_number error						{yyerrok; PrintError(missing_lbracket);}
+					| TIDENT TLBRACKET opt_number error						{yyerrok; PrintError(missing_lbracket); }
 					;
 
 opt_number 			: TNUMBER					
@@ -279,10 +279,15 @@ opt_actual_param 	: actual_param
 actual_param 		: actual_param_list;
 
 actual_param_list 	: assignment_exp				
-		   			| actual_param_list TCOMMA assignment_exp 	{param=1;}
+		   			| actual_param_list TCOMMA assignment_exp 
 					;
 
 primary_exp 		: TIDENT		
+					{con = 0;
+					func =0;
+					param = 0;
+					array = 0;
+					type = NONE;}
 	     			| TNUMBER	
 					| TREALNUMBER
 	     			| TLPAREN expression TRPAREN

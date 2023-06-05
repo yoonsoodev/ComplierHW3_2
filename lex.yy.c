@@ -725,7 +725,7 @@ return(TCONST);
 case 2:
 YY_RULE_SETUP
 #line 18 "scanner.l"
-{ err = illid_illegal; PrintError(err); return(TERROR); }
+{ err = illid_illegal; PrintError(err); }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
@@ -735,7 +735,7 @@ return(TELSE);
 case 4:
 YY_RULE_SETUP
 #line 20 "scanner.l"
-{ err = illid_illegal; PrintError(err); return(TERROR); }
+{ err = illid_illegal; PrintError(err); }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
@@ -745,7 +745,7 @@ return(TIF);
 case 6:
 YY_RULE_SETUP
 #line 22 "scanner.l"
-{ err = illid_illegal; PrintError(err); return(TERROR); }
+{ err = illid_illegal; PrintError(err); }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
@@ -755,7 +755,7 @@ return(TINT);
 case 8:
 YY_RULE_SETUP
 #line 24 "scanner.l"
-{ err = illid_illegal; PrintError(err); return(TERROR); }
+{ err = illid_illegal; PrintError(err); }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
@@ -765,7 +765,7 @@ return(TFLOAT);
 case 10:
 YY_RULE_SETUP
 #line 26 "scanner.l"
-{ err = illid_illegal; PrintError(err); return(TERROR); }
+{ err = illid_illegal; PrintError(err); }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
@@ -775,7 +775,7 @@ return(TRETURN);
 case 12:
 YY_RULE_SETUP
 #line 28 "scanner.l"
-{ err = illid_illegal; PrintError(err); return(TERROR); }
+{ err = illid_illegal; PrintError(err); }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
@@ -785,7 +785,7 @@ return(TVOID);
 case 14:
 YY_RULE_SETUP
 #line 30 "scanner.l"
-{ err = illid_illegal; PrintError(err); return(TERROR); }
+{ err = illid_illegal; PrintError(err); }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
@@ -795,7 +795,7 @@ return(TWHILE);
 case 16:
 YY_RULE_SETUP
 #line 32 "scanner.l"
-{ err = illid_illegal; PrintError(err); return(TERROR); }
+{ err = illid_illegal; PrintError(err); }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
@@ -995,12 +995,12 @@ YY_RULE_SETUP
 case 54:
 YY_RULE_SETUP
 #line 92 "scanner.l"
-{ err = illid_digit; PrintError(err); return(TERROR); }
+{ err = illid_digit; PrintError(err); }
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
 #line 94 "scanner.l"
-{ err = illid_illch; PrintError(err); return(TERROR); }
+{ err = illid_illch; PrintError(err); }
 	YY_BREAK
 case 56:
 YY_RULE_SETUP

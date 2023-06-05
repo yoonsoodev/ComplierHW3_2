@@ -82,9 +82,10 @@ void printHSTable(){
 						printf("Variable ");
 
 				}
-				else {
-					printf(" not defined ");
+				
 				}
+				else if(here->error) {
+					printf(" / not defined ");
 				}
 				printf("/ Linenum: %d \n", here->linenum);
 				here = here->next;

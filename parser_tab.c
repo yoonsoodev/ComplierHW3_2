@@ -219,7 +219,7 @@ static const short yyrhs[] = {    54,
 static const short yyrline[] = { 0,
     34,    37,    38,    41,    42,    43,    44,    47,    48,    49,
     52,    55,    58,    59,    62,    63,    66,    69,    70,    71,
-    74,    80,    88,    91,    92,    95,    96,    97,    98,   101,
+    74,    80,    81,    84,    92,    95,    96,    97,    98,   101,
    103,   104,   107,   108,   109,   112,   113,   116,   124,   134,
    135,   136,   139,   140,   141,   142,   143,   146,   147,   148,
    151,   152,   155,   156,   159,   160,   161,   164,   165,   166,
@@ -231,7 +231,7 @@ static const short yyrline[] = { 0,
    239,   240,   243,   244,   245,   246,   247,   250,   251,   252,
    253,   254,   255,   256,   259,   260,   261,   262,   263,   266,
    267,   268,   269,   270,   271,   272,   275,   276,   279,   281,
-   282,   285,   286,   287,   288,   289
+   282,   285,   291,   292,   293,   294
 };
 
 static const char * const yytname[] = {   "$","error","$undefined.","TEOF","TIDENT",
@@ -979,23 +979,27 @@ case 21:
 					changeHSTable(); 
 					func=0; con=0; param=0; array=0; type=NONE;;
     break;}
-case 22:
+case 23:
 #line 81 "parser.y"
-{
+{yyerrok; PrintError(missing_sbracket);;
+    break;}
+case 24:
+#line 85 "parser.y"
+{param=1;
+					changeHSTable();
 					con = 0;
 					func =0;
 					param = 0;
 					array = 0;
-					type = NONE;
-					;
-    break;}
-case 23:
-#line 88 "parser.y"
-{yyerrok; PrintError(missing_sbracket);;
+					type = NONE;;
     break;}
 case 25:
 #line 92 "parser.y"
 {param=0;;
+    break;}
+case 26:
+#line 95 "parser.y"
+{param=1; changeHSTable();;
     break;}
 case 28:
 #line 97 "parser.y"
@@ -1035,7 +1039,7 @@ case 39:
     break;}
 case 42:
 #line 136 "parser.y"
-{yyerrok; PrintError(missing_comma);;
+{yyerrok; PrintError(missing_comma); current_id -> error =1;;
     break;}
 case 45:
 #line 141 "parser.y"
@@ -1055,7 +1059,7 @@ case 49:
     break;}
 case 50:
 #line 148 "parser.y"
-{yyerrok; PrintError(missing_lbracket);;
+{yyerrok; PrintError(missing_lbracket); ;
     break;}
 case 64:
 #line 172 "parser.y"
@@ -1177,12 +1181,16 @@ case 134:
 #line 270 "parser.y"
 {yyerrok; PrintError(missing_sbracket);;
     break;}
-case 141:
-#line 282 "parser.y"
-{param=1;;
+case 142:
+#line 286 "parser.y"
+{con = 0;
+					func =0;
+					param = 0;
+					array = 0;
+					type = NONE;;
     break;}
 case 146:
-#line 289 "parser.y"
+#line 294 "parser.y"
 {yyerrok; PrintError(missing_sbracket);;
     break;}
 }
@@ -1383,7 +1391,7 @@ yyerrhandle:
   yystate = yyn;
   goto yynewstate;
 }
-#line 291 "parser.y"
+#line 296 "parser.y"
 
 
 void changeHSTable(){

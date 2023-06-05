@@ -1,4 +1,3 @@
-/* error source */
 void main() {
 	const int a = 5;
     int a c;
