@@ -214,15 +214,19 @@ assignment_exp 		: logical_or_exp
 
 logical_or_exp 		: logical_and_exp				
 					| logical_or_exp TOR logical_and_exp 	
+					| logical_or_exp TOR error								{yyerrok; PrintError(missing_operand);}
 					;
 
 logical_and_exp		: equality_exp					
-		 			| logical_and_exp TAND equality_exp 	
+		 			| logical_and_exp TAND equality_exp 
+					| logical_and_exp TAND error							{yyerrok; PrintError(missing_operand);}
 					;
 
 equality_exp 		: relational_exp				
 					| equality_exp TEQUAL relational_exp 	
 					| equality_exp TNOTEQU relational_exp 	
+					| equality_exp TEQUAL error								{yyerrok; PrintError(missing_operand);}
+					| equality_exp TNOTEQU error							{yyerrok; PrintError(missing_operand);}
 					;
 
 relational_exp 		: additive_exp 				
@@ -230,17 +234,26 @@ relational_exp 		: additive_exp
 					| relational_exp TLESS additive_exp 		
 					| relational_exp TGREATE additive_exp 	
 					| relational_exp TLESSE additive_exp 	
+					| relational_exp TGREAT error							{yyerrok; PrintError(missing_operand);}
+					| relational_exp TLESS  error							{yyerrok; PrintError(missing_operand);} 		
+					| relational_exp TGREATE error							{yyerrok; PrintError(missing_operand);}
+					| relational_exp TLESSE error							{yyerrok; PrintError(missing_operand);}
 					;
 
 additive_exp 		: multiplicative_exp				
-					| additive_exp TPLUS multiplicative_exp 	
+					| additive_exp TPLUS multiplicative_exp 
 					| additive_exp TMINUS multiplicative_exp 	
+					| additive_exp TPLUS error								{yyerrok; PrintError(missing_operand);}
+					| additive_exp TMINUS error								{yyerrok; PrintError(missing_operand);}
 					;
 
 multiplicative_exp 	: unary_exp					
 		    		| multiplicative_exp TSTAR unary_exp 		
 		    		| multiplicative_exp TSLASH unary_exp 		
 		    		| multiplicative_exp TMOD unary_exp 		
+					| multiplicative_exp TSTAR error						{yyerrok; PrintError(missing_operand);}
+		    		| multiplicative_exp TSLASH error						{yyerrok; PrintError(missing_operand);}
+		    		| multiplicative_exp TMOD error							{yyerrok; PrintError(missing_operand);}
 					;
 
 unary_exp 			: postfix_exp					

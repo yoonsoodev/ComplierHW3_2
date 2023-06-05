@@ -78,5 +78,10 @@ void PrintError(ERRORtypes err)
 		num_err++;
 		printf("%6d          ERROR!!              wrong assignment\n", cLine);
 		break;
+	case missing_operand:
+		num_err++;
+		printf("%6d          ERROR!!              missing operand\n", cLine);
+		break;
+		
 	}
 }
