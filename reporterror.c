@@ -44,7 +44,7 @@ void PrintError(ERRORtypes err)
 		break;
 	case missing_semi:
 		num_err++;
-		printf("%6d          ERROR!!			  missing semicolon\n", cLine);
+		printf("%6d          ERROR!!			  missing semicolon\n", cLine-1);
 		break;
 	case missing_sbracket:
 		num_err++;
