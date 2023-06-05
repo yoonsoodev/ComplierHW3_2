@@ -677,7 +677,7 @@ yy_match:
 		do
 			{
 			register YY_CHAR yy_c = yy_ec[YY_SC_TO_UI(*yy_cp)];
-W			if ( yy_accept[yy_current_state] )
+			if ( yy_accept[yy_current_state] )
 				{
 				yy_last_accepting_state = yy_current_state;
 				yy_last_accepting_cpos = yy_cp;
