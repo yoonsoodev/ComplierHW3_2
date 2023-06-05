@@ -77,7 +77,7 @@ function_name 		: TIDENT
 					func=0; con=0; param=0; array=0; type=NONE;}
 					;
 
-formal_param 		: TLPAREN opt_formal_param TRPAREN
+formal_param 		: TLPAREN opt_formal_param TRPAREN						{param=1; changeHSTable();}
 					| TLPAREN opt_formal_param error						{yyerrok; PrintError(missing_sbracket);}
 					;
 
@@ -92,12 +92,12 @@ opt_formal_param 	: formal_param_list
 					|														{param=0;}
 					;
 
-formal_param_list 	: param_dcl					
+formal_param_list 	: param_dcl				
 		    		| formal_param_list TCOMMA param_dcl 		
 					| formal_param_list param_dcl							{yyerrok; PrintError(missing_comma);}
 					;
 
-param_dcl 			: dcl_spec declarator ;
+param_dcl 			: dcl_spec declarator {param=1; changeHSTable();};
 
 compound_st 		: TLBRACE opt_dcl_list opt_stat_list TRBRACE 
 					| TLBRACE compound error    							{yyerrok; PrintError(missing_mbracket);}
@@ -255,7 +255,7 @@ opt_actual_param 	: actual_param
 actual_param 		: actual_param_list;
 
 actual_param_list 	: assignment_exp				
-		   			| actual_param_list TCOMMA assignment_exp 	
+		   			| actual_param_list TCOMMA assignment_exp 	{param=1;}
 					;
 
 primary_exp 		: TIDENT		

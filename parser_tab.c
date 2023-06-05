@@ -920,6 +920,10 @@ case 21:
 					changeHSTable(); 
 					func=0; con=0; param=0; array=0; type=NONE;;
     break;}
+case 22:
+#line 80 "parser.y"
+{param=1; changeHSTable();;
+    break;}
 case 23:
 #line 81 "parser.y"
 {yyerrok; PrintError(missing_sbracket);;
@@ -941,6 +945,10 @@ case 25:
 case 28:
 #line 97 "parser.y"
 {yyerrok; PrintError(missing_comma);;
+    break;}
+case 29:
+#line 100 "parser.y"
+{param=1; changeHSTable();;
     break;}
 case 31:
 #line 103 "parser.y"
@@ -1025,6 +1033,10 @@ case 110:
 case 112:
 #line 246 "parser.y"
 {yyerrok; PrintError(missing_sbracket);;
+    break;}
+case 119:
+#line 258 "parser.y"
+{param=1;;
     break;}
 case 124:
 #line 265 "parser.y"
