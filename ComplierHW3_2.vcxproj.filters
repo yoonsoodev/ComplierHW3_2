@@ -49,5 +49,29 @@
     <None Include="prime.mc">
       <Filter>리소스 파일</Filter>
     </None>
+    <None Include="error1.mc">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="error2.mc">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="error3.mc">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="error4.mc">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="noerr1.mc">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="noerr2.mc">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="noerr3.mc">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="noerr4.mc">
+      <Filter>리소스 파일</Filter>
+    </None>
   </ItemGroup>
 </Project>

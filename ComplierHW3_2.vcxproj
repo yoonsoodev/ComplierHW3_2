@@ -154,6 +154,14 @@
     <ClCompile Include="symtable.c" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="error1.mc" />
+    <None Include="error2.mc" />
+    <None Include="error3.mc" />
+    <None Include="error4.mc" />
+    <None Include="noerr1.mc" />
+    <None Include="noerr2.mc" />
+    <None Include="noerr3.mc" />
+    <None Include="noerr4.mc" />
     <None Include="parser.y" />
     <None Include="prime.mc" />
     <None Include="scanner.l" />

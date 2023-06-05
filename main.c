@@ -52,17 +52,17 @@ void printHSTable(){
 					}
 					printf("Function ");
 				}
-				else { // 변수인 경우
+				else if(!here->isFunction){ // 변수인 경우
 					if (here->isConst) {
 						printf(" / Const ");
 					}
 					switch (here->spec)
 					{
 					case  INT:
-						printf(" / Integer ");
+						printf(" / Integer Scalar ");
 						break;
 					case  FLOAT:
-						printf(" / Float ");
+						printf(" / Float Scalar ");
 						break;
 					}
 
@@ -74,6 +74,9 @@ void printHSTable(){
 					}
 
 					printf("Variable ");
+				}
+				else if (here->spec == NONE) {
+					printf(" not defined ");
 				}
 				printf("/ Linenum: %d \n", here->linenum);
 				here = here->next;

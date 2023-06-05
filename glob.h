@@ -34,10 +34,6 @@ int num_err;//number of errors
 int cLine;
 //int i, j, cErrors; //?
 
-int con;
-int func;
-int param;
-int array;
 Types type;
 
 int found;

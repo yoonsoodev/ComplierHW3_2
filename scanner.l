@@ -82,7 +82,7 @@ int SymbolTable();
 "/*"([^*]|\*+[^*/])*\**"*/"		{
 					for(int i=0;i<yyleng;i++)
 						if(yytext[i]=='\n') cLine++;
-					return(TCOMMENT);
+					;
 
 				}
 

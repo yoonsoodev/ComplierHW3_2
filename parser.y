@@ -6,11 +6,11 @@
 #include "glob.h"
 
 /*yacc source for Mini C*/
-con = 0;
-func =0;
-param = 0;
-array = 0;
-type = NONE;
+int con = 0;
+int func =0;
+int param = 0;
+int array = 0;
+int type = NONE;
 
 extern int yylex();
 extern yyerror(char* s);
@@ -71,7 +71,10 @@ type_specifier 		: TINT													{type = INT;}
 					| TFLOAT												{type = FLOAT;}
 					;
 
-function_name 		: TIDENT												{func = 1; changeHSTable(); func=0; con=0; param=0; array=0; type=NONE;}
+function_name 		: TIDENT												
+					{func = 1; 
+					changeHSTable(); 
+					func=0; con=0; param=0; array=0; type=NONE;}
 					;
 
 formal_param 		: TLPAREN opt_formal_param TRPAREN
@@ -249,7 +252,6 @@ actual_param_list 	: assignment_exp
 					;
 
 primary_exp 		: TIDENT		
-					{ func=0; param =0; con=0; array=0; type=NONE; changeHSTable();}			
 	     			| TNUMBER	
 					| TREALNUMBER
 	     			| TLPAREN expression TRPAREN
@@ -263,9 +265,4 @@ void changeHSTable(){
 	current_id->isParam= param;
 	current_id->isArray= array;
 	current_id->spec= type;
-
-	if(func == 1){
-		func=0; param =0; con=0; array=0; type=NONE;
-	}
-
 }
