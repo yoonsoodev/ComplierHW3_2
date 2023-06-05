@@ -1,0 +1,17 @@
+=========================[[Parsing Start]]========================
+     5          ERROR!!                   not closed small bracket
+     4          ERROR!!                   missing semicolon
+     4          ERROR!!                   missing semicolon
+     8          ERROR!!                   missing semicolon
+==========================[[Parsing Ends]]========================
+
+
+Number of errors: 4
+
+==========================[[Hash Table]]==========================
+HashCode 1:      myFunction / not defined / Linenum: 5
+HashCode 30:     param / Integer Scalar Parameter Variable / Linenum: 1
+HashCode 56:     write / not defined / Linenum: 2
+HashCode 58:     print / Return Type: Void Function / Linenum: 1
+HashCode 98:     a / not defined / Linenum: 5
+HashCode 99:     b / Integer Scalar Variable / Linenum: 6

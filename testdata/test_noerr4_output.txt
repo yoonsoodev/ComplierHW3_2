@@ -1,0 +1,13 @@
+=========================[[Parsing Start]]========================
+==========================[[Parsing Ends]]========================
+
+
+Number of errors: 0
+
+==========================[[Hash Table]]==========================
+HashCode 0:      c / Integer Scalar Parameter Variable / Linenum: 1
+HashCode 30:     calc_int / Return Type: Integer Function / Linenum: 1
+HashCode 39:     temp / Integer Scalar Variable / Linenum: 5
+HashCode 72:     result / Integer Scalar Variable / Linenum: 3
+HashCode 98:     a / Integer Scalar Parameter Variable / Linenum: 1
+HashCode 99:     b / Integer Scalar Parameter Variable / Linenum: 1
