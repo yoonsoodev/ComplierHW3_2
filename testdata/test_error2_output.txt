@@ -1,0 +1,14 @@
+=========================[[Parsing Start]]========================
+     6          ERROR!!              missing condition
+     7          ERROR!!              wrong assignment
+     8          ERROR!!              wrong assignment
+==========================[[Parsing Ends]]========================
+
+
+Number of errors: 3
+
+==========================[[Hash Table]]==========================
+HashCode 22:     main / Return Type: Integer Function / Linenum: 2
+HashCode 29:     zelda / Integer Scalar Variable / Linenum: 5
+HashCode 31:     link / Integer Scalar Variable / Linenum: 4
+HashCode 98:     a / Integer Scalar Parameter Variable / Linenum: 2
