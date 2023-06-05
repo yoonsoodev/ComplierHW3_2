@@ -37,9 +37,10 @@ void printHSTable(){
 				while (ST[j] != '\0') {
 					printf("%c", ST[j++]);
 				}
-				if (here->isFunction) { // 함수인 경우
-					switch (here->spec)
-					{
+				if (!here->error) {
+					if (here->isFunction) { // 함수인 경우
+						switch (here->spec)
+						{
 						case  INT:
 							printf(" / Return Type: Integer ");
 							break;
@@ -49,34 +50,36 @@ void printHSTable(){
 						case  FLOAT:
 							printf(" / Return Type: Float ");
 							break;
+						}
+						printf("Function ");
 					}
-					printf("Function ");
-				}
-				else if(!here->isFunction){ // 변수인 경우
-					if (here->isConst) {
-						printf(" / Const ");
-					}
-					switch (here->spec)
-					{
-					case  INT:
-						printf(" / Integer Scalar ");
-						break;
-					case  FLOAT:
-						printf(" / Float Scalar ");
-						break;
-					}
+					else if (!here->isFunction) { // 변수인 경우
+						if (here->isConst) {
+							printf(" / Const ");
+						}
+						switch (here->spec)
+						{
+						case  INT:
+							printf(" / Integer Scalar ");
+							break;
+						case  FLOAT:
+							printf(" / Float Scalar ");
+							break;
+						}
 
-					if (here->isArray) { // Array
-						printf("Array ");
-					}
-					if (here->isParam) {
-						printf("Parameter ");
-					}
+						if (here->isArray) { // Array
+							printf("Array ");
+						}
+						if (here->isParam) {
+							printf("Parameter ");
+						}
 
-					printf("Variable ");
+						printf("Variable ");
+
 				}
-				else if (here->spec == NONE) {
+				else {
 					printf(" not defined ");
+				}
 				}
 				printf("/ Linenum: %d \n", here->linenum);
 				here = here->next;
