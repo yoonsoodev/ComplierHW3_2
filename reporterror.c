@@ -74,6 +74,9 @@ void PrintError(ERRORtypes err)
 		num_err++;
 		printf("%6d          ERROR!!              missing condition\n", cLine);
 		break;
-
+	case wrong_assign:
+		num_err++;
+		printf("%6d          ERROR!!              wrong assignment\n", cLine);
+		break;
 	}
 }
