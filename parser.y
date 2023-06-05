@@ -75,8 +75,6 @@ function_name 		: TIDENT												{func = 1; changeHSTable();}
 					;
 
 formal_param 		: TLPAREN opt_formal_param TRPAREN
-					| TLPAREN if_st TRPAREN
-					| TLPAREN if_st error								{yyerrok; printf("no if_st");}
 					| TLPAREN opt_formal_param error						{yyerrok; PrintError(missing_sbracket);}
 					;
 
