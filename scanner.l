@@ -15,7 +15,7 @@ int SymbolTable();
 
 %%
 "const"				return(TCONST);
-[cC][oO][nN][sS][tT]		{ err = illid_illegal; PrintError(err); return(TERROR); }
+[cC][oO][nN][sS][tT]		{ err = illid_illegal; PrintError(err); }
 "else" 				return(TELSE);
 [eE][lL][sS][eE]			{ err = illid_illegal; PrintError(err); return(TERROR); }
 "if" 				return(TIF);
