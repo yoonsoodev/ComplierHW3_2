@@ -77,7 +77,7 @@ void LookupHS(int nid,int hscode)
 void ADDHT(int hscode)
 {
 	HTpointer ptr;
-	ptr = (HTpointer)malloc(sizeof(ptr));
+	ptr = (HTpointer)malloc(sizeof(HTentry));
 	
 	if (HT[hscode] == NULL) {
 		ptr->next = NULL;

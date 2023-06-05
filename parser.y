@@ -40,7 +40,7 @@ translation_unit 	: external_dcl
 
 external_dcl 		: function_def					
 		  			| declaration
-					| TIDENT TSEMI
+					| TIDENT TSEMI											
 					| TIDENT error											{yyerrok; PrintError(missing_semi);}
 					;
 
@@ -71,7 +71,7 @@ type_specifier 		: TINT													{type = INT;}
 					| TFLOAT												{type = FLOAT;}
 					;
 
-function_name 		: TIDENT												{func = 1; changeHSTable();}
+function_name 		: TIDENT												{func = 1; changeHSTable(); func=0; con=0; param=0; array=0; type=NONE;}
 					;
 
 formal_param 		: TLPAREN opt_formal_param TRPAREN
@@ -112,7 +112,14 @@ declaration 		: dcl_spec init_dcl_list TSEMI
 						array = 0;
 						type = NONE;
 					}
-					| dcl_spec init_dcl_list error							{yyerrok; PrintError(missing_semi);}
+					| dcl_spec init_dcl_list error							
+					{yyerrok;
+					con = 0;
+					func =0;
+					param = 0;
+					array = 0;
+					type = NONE;
+					PrintError(missing_semi);}
 					;
 
 init_dcl_list 		: init_declarator				

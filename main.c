@@ -50,7 +50,7 @@ void printHSTable(){
 							printf(" / Return Type: Float ");
 							break;
 					}
-					printf("Function Name ");
+					printf("Function ");
 				}
 				else { // 변수인 경우
 					if (here->isConst) {
